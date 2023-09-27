@@ -12,6 +12,9 @@
 		3FB8DB412AC46D4700BFCD46 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB402AC46D4700BFCD46 /* ViewController.swift */; };
 		3FB8DB462AC46D4800BFCD46 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3FB8DB452AC46D4800BFCD46 /* Assets.xcassets */; };
 		3FB8DB492AC46D4800BFCD46 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3FB8DB472AC46D4800BFCD46 /* LaunchScreen.storyboard */; };
+		3FB8DB522AC4712900BFCD46 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3FB8DB542AC4712900BFCD46 /* Localizable.strings */; };
+		3FB8DB572AC471F700BFCD46 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB562AC471F700BFCD46 /* Extension.swift */; };
+		3FB8DB5A2AC472E500BFCD46 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB8DB592AC472E500BFCD46 /* SnapKit */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +25,9 @@
 		3FB8DB452AC46D4800BFCD46 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3FB8DB482AC46D4800BFCD46 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3FB8DB4A2AC46D4800BFCD46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3FB8DB532AC4712900BFCD46 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3FB8DB552AC4715E00BFCD46 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/Localizable.strings; sourceTree = "<group>"; };
+		3FB8DB562AC471F700BFCD46 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +35,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FB8DB5A2AC472E500BFCD46 /* SnapKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -57,9 +64,11 @@
 				3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */,
 				3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */,
 				3FB8DB402AC46D4700BFCD46 /* ViewController.swift */,
+				3FB8DB562AC471F700BFCD46 /* Extension.swift */,
 				3FB8DB452AC46D4800BFCD46 /* Assets.xcassets */,
 				3FB8DB472AC46D4800BFCD46 /* LaunchScreen.storyboard */,
 				3FB8DB4A2AC46D4800BFCD46 /* Info.plist */,
+				3FB8DB542AC4712900BFCD46 /* Localizable.strings */,
 			);
 			path = TutoringSchedule;
 			sourceTree = "<group>";
@@ -80,6 +89,9 @@
 			dependencies = (
 			);
 			name = TutoringSchedule;
+			packageProductDependencies = (
+				3FB8DB592AC472E500BFCD46 /* SnapKit */,
+			);
 			productName = TutoringSchedule;
 			productReference = 3FB8DB392AC46D4700BFCD46 /* TutoringSchedule.app */;
 			productType = "com.apple.product-type.application";
@@ -106,8 +118,12 @@
 			knownRegions = (
 				en,
 				Base,
+				ko,
 			);
 			mainGroup = 3FB8DB302AC46D4700BFCD46;
+			packageReferences = (
+				3FB8DB582AC472E500BFCD46 /* XCRemoteSwiftPackageReference "SnapKit" */,
+			);
 			productRefGroup = 3FB8DB3A2AC46D4700BFCD46 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -123,6 +139,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FB8DB492AC46D4800BFCD46 /* LaunchScreen.storyboard in Resources */,
+				3FB8DB522AC4712900BFCD46 /* Localizable.strings in Resources */,
 				3FB8DB462AC46D4800BFCD46 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -137,6 +154,7 @@
 				3FB8DB412AC46D4700BFCD46 /* ViewController.swift in Sources */,
 				3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */,
 				3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */,
+				3FB8DB572AC471F700BFCD46 /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,6 +169,15 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
+		3FB8DB542AC4712900BFCD46 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				3FB8DB532AC4712900BFCD46 /* en */,
+				3FB8DB552AC4715E00BFCD46 /* ko */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -158,6 +185,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -218,6 +246,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -352,6 +381,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3FB8DB582AC472E500BFCD46 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SnapKit/SnapKit";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3FB8DB592AC472E500BFCD46 /* SnapKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3FB8DB582AC472E500BFCD46 /* XCRemoteSwiftPackageReference "SnapKit" */;
+			productName = SnapKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 3FB8DB312AC46D4700BFCD46 /* Project object */;
 }

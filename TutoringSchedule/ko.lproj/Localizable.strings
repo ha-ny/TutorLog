@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  TutoringSchedule
+
+  Created by 김하은 on 2023/09/27.
+  
+*/
+
+"test_name" = "이름";
+"test_age" = "나이";
