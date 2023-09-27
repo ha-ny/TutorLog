@@ -6,5 +6,6 @@
   
 */
 
+// label.text = "test_name".localized
 "test_name" = "name";
 "test_age" = "age";
