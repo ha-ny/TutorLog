@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import TextFieldEffects
 
 //다국어 지원
 extension String {
@@ -18,6 +19,22 @@ extension String {
 extension UIColor {
     static let backgroundColor = UIColor.white
 }
+
+//HoshiTextField
+extension UITextField {
+    func hoshi(title: String) -> UITextField {
+        let view = HoshiTextField()
+        view.placeholder = title
+        view.font = .boldSystemFont(ofSize: 14)
+        view.textColor = .black
+        view.placeholderColor = .gray
+        view.placeholderFontScale = 0.7
+        view.borderInactiveColor = .lightGray
+        view.borderActiveColor = .darkGray
+        return view
+    }
+}
+
 
 
 //view.backgroundColor = UIColor(rgb: 0x123456)

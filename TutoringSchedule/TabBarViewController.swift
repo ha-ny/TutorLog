@@ -10,15 +10,35 @@ import SnapKit
 
 class TabBarViewController: UIViewController {
 
-    let tabBar = UITabBarController()
+    let tabBar = {
+        let view = UITabBarController()
+        view.tabBar.tintColor = .black
+        view.viewControllers = {
+            
+            let log = UINavigationController(rootViewController: UIViewController())
+            log.tabBarItem = UITabBarItem(title: "LogCalendarTabName".localized, image: UIImage(systemName: "book.closed"), tag: 0)
+            
+            let calendar = CalendarViewController()
+            calendar.tabBarItem = UITabBarItem(title: "CalendarTabName".localized, image: UIImage(systemName: "calendar"), tag: 0)
+            
+            let student = UINavigationController(rootViewController: StudentManagementViewController())
+            student.tabBarItem = UITabBarItem(title: "StudentTabName".localized, image: UIImage(systemName: "graduationcap"), tag: 0)
+            
+            let setting = UINavigationController(rootViewController: UIViewController())
+            setting.tabBarItem = UITabBarItem(title: "SettingTabName".localized, image: UIImage(systemName: "gearshape"), tag: 0)
+            
+             return [log, calendar, student, setting]
+        }()
+        
+        return view
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
-        
+
         setConfigure()
         setConstraint()
-        setController()
     }
     
     func setConfigure() {
@@ -29,21 +49,5 @@ class TabBarViewController: UIViewController {
         tabBar.view.snp.makeConstraints { make in
             make.edges.equalTo(view.safeAreaLayoutGuide)
         }
-    }
-    
-    func setController() {
-        let aa = UIViewController()
-        aa.tabBarItem = UITabBarItem(title: "일지", image: UIImage(systemName: "book.closed"), tag: 0)
-        
-        let bb = UIViewController()
-        bb.tabBarItem = UITabBarItem(title: "캘린더", image: UIImage(systemName: "calendar"), tag: 0)
-        
-        let cc = UIViewController()
-        cc.tabBarItem = UITabBarItem(title: "학생", image: UIImage(systemName: "graduationcap"), tag: 0)
-        
-        let dd = UIViewController()
-        dd.tabBarItem = UITabBarItem(title: "설정", image: UIImage(systemName: "gearshape"), tag: 0)
-        
-        tabBar.viewControllers = [aa, bb, cc, dd]
     }
 }
