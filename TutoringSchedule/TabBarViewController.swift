@@ -27,7 +27,10 @@ class TabBarViewController: UIViewController {
             let setting = UINavigationController(rootViewController: UIViewController())
             setting.tabBarItem = UITabBarItem(title: "SettingTabName".localized, image: UIImage(systemName: "gearshape"), tag: 0)
             
-             return [log, calendar, student, setting]
+            let schedule = UINavigationController(rootViewController: AddScheduleViewController())
+            schedule.tabBarItem = UITabBarItem(title: "일정관리".localized, image: UIImage(systemName: "star"), tag: 0)
+            
+             return [log, calendar, student, setting, schedule]
         }()
         
         return view

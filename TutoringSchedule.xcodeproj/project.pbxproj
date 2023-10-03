@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3F1343302ACBF778001FE7EA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F13432F2ACBF778001FE7EA /* Model.swift */; };
+		3F1343322ACC2B4F001FE7EA /* picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343312ACC2B4F001FE7EA /* picker.swift */; };
 		3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */; };
 		3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */; };
 		3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB402AC46D4700BFCD46 /* TabBarViewController.swift */; };
@@ -32,6 +34,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3F13432F2ACBF778001FE7EA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		3F1343312ACC2B4F001FE7EA /* picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = picker.swift; sourceTree = "<group>"; };
 		3FB8DB392AC46D4700BFCD46 /* TutoringSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutoringSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -92,6 +96,7 @@
 				3FB8DB562AC471F700BFCD46 /* Extension.swift */,
 				3FB8DB5D2AC475B400BFCD46 /* BaseView.swift */,
 				3FB8DB402AC46D4700BFCD46 /* TabBarViewController.swift */,
+				3F1343312ACC2B4F001FE7EA /* picker.swift */,
 				3FB8DB642AC47A8F00BFCD46 /* Calendar */,
 				3FB8DB6C2AC5F72500BFCD46 /* CalendarSearch */,
 				3FB8DB712AC764C700BFCD46 /* StudentManagement */,
@@ -102,6 +107,7 @@
 				3FB8DB5F2AC4793C00BFCD46 /* Delegate */,
 				3FB8DB7F2ACA40EF00BFCD46 /* Table.swift */,
 				3FB8DB812ACA452000BFCD46 /* RealmFile.swift */,
+				3F13432F2ACBF778001FE7EA /* Model.swift */,
 			);
 			path = TutoringSchedule;
 			sourceTree = "<group>";
@@ -243,6 +249,7 @@
 				3FB8DB6E2AC764B700BFCD46 /* StudentManagementViewController.swift in Sources */,
 				3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */,
 				3FB8DB692AC5F70D00BFCD46 /* CalendarSearchViewController.swift in Sources */,
+				3F1343302ACBF778001FE7EA /* Model.swift in Sources */,
 				3FB8DB5E2AC475B400BFCD46 /* BaseView.swift in Sources */,
 				3FB8DB802ACA40EF00BFCD46 /* Table.swift in Sources */,
 				3FB8DB702AC764C100BFCD46 /* StudentManagementView.swift in Sources */,
@@ -250,6 +257,7 @@
 				3FB8DB822ACA452000BFCD46 /* RealmFile.swift in Sources */,
 				3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */,
 				3FB8DB6B2AC5F71E00BFCD46 /* CalendarSearchView.swift in Sources */,
+				3F1343322ACC2B4F001FE7EA /* picker.swift in Sources */,
 				3FB8DB572AC471F700BFCD46 /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -407,7 +415,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -438,7 +446,7 @@
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
