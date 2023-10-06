@@ -6,32 +6,44 @@
 //
 
 import Foundation
+import UIKit
 
-//AddScheduleViewController
-//(시, 분)
-
-struct Time {
-    var start: (Int, Int)
-    var end: (Int, Int)
+enum Days: Int {
+    case sun
+    case mon
+    case tue
+    case wed
+    case thu
+    case fri
+    case sat
 }
 
-class TimebyDay {
 
-    var sun: Time?
-    var mon: Time?
-    var tue: Time?
-    var wed: Time?
-    var thu: Time?
-    var fri: Time?
-    var sat: Time?
-    
-    init(sun: Time?, mon: Time?, tue: Time?, wed: Time?, thu: Time?, fri: Time?, sat: Time?) {
-        self.sun = sun
-        self.mon = mon
-        self.tue = tue
-        self.wed = wed
-        self.thu = thu
-        self.fri = fri
-        self.sat = sat
+//[시작 시간, 끝시간, 요일] 배열로
+
+enum TimeType: Int {
+    case startHour
+    case startMinute
+    case endHour
+    case endMinute
+}
+
+struct weekTime {
+
+    var week: Int
+    var startTime: Date //2:54
+    var endTime: Date
+
+    init(week: Int, startTime: Date, endTime: Date) {
+        self.week = week
+        self.startTime = startTime
+        self.endTime = endTime
     }
+}
+
+func okAlert(message: String) -> UIAlertController {
+    let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
+    let ok = UIAlertAction(title: "확인", style: .default)
+    alert.addAction(ok)
+    return alert
 }

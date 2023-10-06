@@ -8,7 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		3F1343302ACBF778001FE7EA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F13432F2ACBF778001FE7EA /* Model.swift */; };
-		3F1343322ACC2B4F001FE7EA /* picker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343312ACC2B4F001FE7EA /* picker.swift */; };
+		3F1343322ACC2B4F001FE7EA /* DatePickHalfView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343312ACC2B4F001FE7EA /* DatePickHalfView.swift */; };
+		3F1343542ACCF7EF001FE7EA /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3F1343532ACCF7EF001FE7EA /* GoogleService-Info.plist */; };
+		3F1343572ACCF967001FE7EA /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = 3F1343562ACCF967001FE7EA /* FirebaseAnalyticsWithoutAdIdSupport */; };
+		3F1343592ACCF967001FE7EA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3F1343582ACCF967001FE7EA /* FirebaseCrashlytics */; };
+		3F13435F2ACFA87D001FE7EA /* ScheduleManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F13435E2ACFA87D001FE7EA /* ScheduleManagementViewController.swift */; };
+		3F1343612ACFA889001FE7EA /* ScheduleManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343602ACFA889001FE7EA /* ScheduleManagementView.swift */; };
 		3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */; };
 		3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */; };
 		3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB402AC46D4700BFCD46 /* TabBarViewController.swift */; };
@@ -29,13 +34,16 @@
 		3FB8DB782AC76CD100BFCD46 /* AddScheduleViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB772AC76CD100BFCD46 /* AddScheduleViewController.swift */; };
 		3FB8DB7B2AC76D6900BFCD46 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB8DB7A2AC76D6900BFCD46 /* TextFieldEffects */; };
 		3FB8DB7E2ACA406800BFCD46 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB8DB7D2ACA406800BFCD46 /* RealmSwift */; };
-		3FB8DB802ACA40EF00BFCD46 /* Table.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB7F2ACA40EF00BFCD46 /* Table.swift */; };
-		3FB8DB822ACA452000BFCD46 /* RealmFile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB812ACA452000BFCD46 /* RealmFile.swift */; };
+		3FB8DB802ACA40EF00BFCD46 /* RealmTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB7F2ACA40EF00BFCD46 /* RealmTable.swift */; };
+		3FB8DB822ACA452000BFCD46 /* RealmModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB812ACA452000BFCD46 /* RealmModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		3F13432F2ACBF778001FE7EA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
-		3F1343312ACC2B4F001FE7EA /* picker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = picker.swift; sourceTree = "<group>"; };
+		3F1343312ACC2B4F001FE7EA /* DatePickHalfView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatePickHalfView.swift; sourceTree = "<group>"; };
+		3F1343532ACCF7EF001FE7EA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		3F13435E2ACFA87D001FE7EA /* ScheduleManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManagementViewController.swift; sourceTree = "<group>"; };
+		3F1343602ACFA889001FE7EA /* ScheduleManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManagementView.swift; sourceTree = "<group>"; };
 		3FB8DB392AC46D4700BFCD46 /* TutoringSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutoringSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -55,8 +63,8 @@
 		3FB8DB6F2AC764C100BFCD46 /* StudentManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentManagementView.swift; sourceTree = "<group>"; };
 		3FB8DB722AC76C0600BFCD46 /* AddStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudentViewController.swift; sourceTree = "<group>"; };
 		3FB8DB772AC76CD100BFCD46 /* AddScheduleViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleViewController.swift; sourceTree = "<group>"; };
-		3FB8DB7F2ACA40EF00BFCD46 /* Table.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Table.swift; sourceTree = "<group>"; };
-		3FB8DB812ACA452000BFCD46 /* RealmFile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmFile.swift; sourceTree = "<group>"; };
+		3FB8DB7F2ACA40EF00BFCD46 /* RealmTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTable.swift; sourceTree = "<group>"; };
+		3FB8DB812ACA452000BFCD46 /* RealmModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -65,7 +73,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FB8DB7E2ACA406800BFCD46 /* RealmSwift in Frameworks */,
+				3F1343572ACCF967001FE7EA /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */,
 				3FB8DB7B2AC76D6900BFCD46 /* TextFieldEffects in Frameworks */,
+				3F1343592ACCF967001FE7EA /* FirebaseCrashlytics in Frameworks */,
 				3FB8DB5A2AC472E500BFCD46 /* SnapKit in Frameworks */,
 				3FB8DB672AC47B0400BFCD46 /* FSCalendar in Frameworks */,
 			);
@@ -74,6 +84,25 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3F13435D2ACFA86C001FE7EA /* ScheduleManagement */ = {
+			isa = PBXGroup;
+			children = (
+				3F13435E2ACFA87D001FE7EA /* ScheduleManagementViewController.swift */,
+				3F1343602ACFA889001FE7EA /* ScheduleManagementView.swift */,
+				3FB8DB772AC76CD100BFCD46 /* AddScheduleViewController.swift */,
+			);
+			path = ScheduleManagement;
+			sourceTree = "<group>";
+		};
+		3F1343622ACFD0AB001FE7EA /* Realm */ = {
+			isa = PBXGroup;
+			children = (
+				3FB8DB7F2ACA40EF00BFCD46 /* RealmTable.swift */,
+				3FB8DB812ACA452000BFCD46 /* RealmModel.swift */,
+			);
+			path = Realm;
+			sourceTree = "<group>";
+		};
 		3FB8DB302AC46D4700BFCD46 = {
 			isa = PBXGroup;
 			children = (
@@ -93,21 +122,22 @@
 		3FB8DB3B2AC46D4700BFCD46 /* TutoringSchedule */ = {
 			isa = PBXGroup;
 			children = (
+				3F1343622ACFD0AB001FE7EA /* Realm */,
+				3F1343532ACCF7EF001FE7EA /* GoogleService-Info.plist */,
 				3FB8DB562AC471F700BFCD46 /* Extension.swift */,
 				3FB8DB5D2AC475B400BFCD46 /* BaseView.swift */,
+				3F13432F2ACBF778001FE7EA /* Model.swift */,
 				3FB8DB402AC46D4700BFCD46 /* TabBarViewController.swift */,
-				3F1343312ACC2B4F001FE7EA /* picker.swift */,
+				3F1343312ACC2B4F001FE7EA /* DatePickHalfView.swift */,
 				3FB8DB642AC47A8F00BFCD46 /* Calendar */,
 				3FB8DB6C2AC5F72500BFCD46 /* CalendarSearch */,
 				3FB8DB712AC764C700BFCD46 /* StudentManagement */,
+				3F13435D2ACFA86C001FE7EA /* ScheduleManagement */,
 				3FB8DB452AC46D4800BFCD46 /* Assets.xcassets */,
 				3FB8DB472AC46D4800BFCD46 /* LaunchScreen.storyboard */,
 				3FB8DB4A2AC46D4800BFCD46 /* Info.plist */,
 				3FB8DB542AC4712900BFCD46 /* Localizable.strings */,
 				3FB8DB5F2AC4793C00BFCD46 /* Delegate */,
-				3FB8DB7F2ACA40EF00BFCD46 /* Table.swift */,
-				3FB8DB812ACA452000BFCD46 /* RealmFile.swift */,
-				3F13432F2ACBF778001FE7EA /* Model.swift */,
 			);
 			path = TutoringSchedule;
 			sourceTree = "<group>";
@@ -144,18 +174,9 @@
 			children = (
 				3FB8DB6D2AC764B700BFCD46 /* StudentManagementViewController.swift */,
 				3FB8DB6F2AC764C100BFCD46 /* StudentManagementView.swift */,
-				3FB8DB762AC76C3800BFCD46 /* Add */,
+				3FB8DB722AC76C0600BFCD46 /* AddStudentViewController.swift */,
 			);
 			path = StudentManagement;
-			sourceTree = "<group>";
-		};
-		3FB8DB762AC76C3800BFCD46 /* Add */ = {
-			isa = PBXGroup;
-			children = (
-				3FB8DB722AC76C0600BFCD46 /* AddStudentViewController.swift */,
-				3FB8DB772AC76CD100BFCD46 /* AddScheduleViewController.swift */,
-			);
-			path = Add;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -168,6 +189,7 @@
 				3FB8DB352AC46D4700BFCD46 /* Sources */,
 				3FB8DB362AC46D4700BFCD46 /* Frameworks */,
 				3FB8DB372AC46D4700BFCD46 /* Resources */,
+				3F13435A2ACCFFFE001FE7EA /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -179,6 +201,8 @@
 				3FB8DB662AC47B0400BFCD46 /* FSCalendar */,
 				3FB8DB7A2AC76D6900BFCD46 /* TextFieldEffects */,
 				3FB8DB7D2ACA406800BFCD46 /* RealmSwift */,
+				3F1343562ACCF967001FE7EA /* FirebaseAnalyticsWithoutAdIdSupport */,
+				3F1343582ACCF967001FE7EA /* FirebaseCrashlytics */,
 			);
 			productName = TutoringSchedule;
 			productReference = 3FB8DB392AC46D4700BFCD46 /* TutoringSchedule.app */;
@@ -214,6 +238,7 @@
 				3FB8DB652AC47B0400BFCD46 /* XCRemoteSwiftPackageReference "FSCalendar" */,
 				3FB8DB792AC76D6900BFCD46 /* XCRemoteSwiftPackageReference "TextFieldEffects" */,
 				3FB8DB7C2ACA406800BFCD46 /* XCRemoteSwiftPackageReference "realm-swift" */,
+				3F1343552ACCF967001FE7EA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 			);
 			productRefGroup = 3FB8DB3A2AC46D4700BFCD46 /* Products */;
 			projectDirPath = "";
@@ -230,12 +255,38 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FB8DB492AC46D4800BFCD46 /* LaunchScreen.storyboard in Resources */,
+				3F1343542ACCF7EF001FE7EA /* GoogleService-Info.plist in Resources */,
 				3FB8DB522AC4712900BFCD46 /* Localizable.strings in Resources */,
 				3FB8DB462AC46D4800BFCD46 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		3F13435A2ACCFFFE001FE7EA /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Resources/DWARF/${PRODUCT_NAME}",
+				"${DWARF_DSYM_FOLDER_PATH}/${DWARF_DSYM_FILE_NAME}/Contents/Info.plist",
+				"$(BUILT_PRODUCTS_DIR)/$(UNLOCALIZED_RESOURCES_FOLDER_PATH)/GoogleService-Info.plist",
+				"$(BUILT_PRODUCTS_DIR)/$(EXECUTABLE_PATH)",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to insert its path.\n\"${BUILD_DIR%/Build/*}/SourcePackages/checkouts/firebase-ios-sdk/Crashlytics/run\"\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3FB8DB352AC46D4700BFCD46 /* Sources */ = {
@@ -244,20 +295,22 @@
 			files = (
 				3FB8DB612AC47A6500BFCD46 /* CalendarViewController.swift in Sources */,
 				3FB8DB632AC47A8500BFCD46 /* CalendarView.swift in Sources */,
+				3F1343612ACFA889001FE7EA /* ScheduleManagementView.swift in Sources */,
 				3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */,
 				3FB8DB782AC76CD100BFCD46 /* AddScheduleViewController.swift in Sources */,
+				3F13435F2ACFA87D001FE7EA /* ScheduleManagementViewController.swift in Sources */,
 				3FB8DB6E2AC764B700BFCD46 /* StudentManagementViewController.swift in Sources */,
 				3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */,
 				3FB8DB692AC5F70D00BFCD46 /* CalendarSearchViewController.swift in Sources */,
 				3F1343302ACBF778001FE7EA /* Model.swift in Sources */,
 				3FB8DB5E2AC475B400BFCD46 /* BaseView.swift in Sources */,
-				3FB8DB802ACA40EF00BFCD46 /* Table.swift in Sources */,
+				3FB8DB802ACA40EF00BFCD46 /* RealmTable.swift in Sources */,
 				3FB8DB702AC764C100BFCD46 /* StudentManagementView.swift in Sources */,
 				3FB8DB732AC76C0600BFCD46 /* AddStudentViewController.swift in Sources */,
-				3FB8DB822ACA452000BFCD46 /* RealmFile.swift in Sources */,
+				3FB8DB822ACA452000BFCD46 /* RealmModel.swift in Sources */,
 				3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */,
 				3FB8DB6B2AC5F71E00BFCD46 /* CalendarSearchView.swift in Sources */,
-				3F1343322ACC2B4F001FE7EA /* picker.swift in Sources */,
+				3F1343322ACC2B4F001FE7EA /* DatePickHalfView.swift in Sources */,
 				3FB8DB572AC471F700BFCD46 /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -408,6 +461,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = NFCS5T44FS;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = TutoringSchedule/Info.plist;
@@ -487,6 +541,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		3F1343552ACCF967001FE7EA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 10.0.0;
+			};
+		};
 		3FB8DB582AC472E500BFCD46 /* XCRemoteSwiftPackageReference "SnapKit" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SnapKit/SnapKit";
@@ -522,6 +584,16 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		3F1343562ACCF967001FE7EA /* FirebaseAnalyticsWithoutAdIdSupport */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F1343552ACCF967001FE7EA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalyticsWithoutAdIdSupport;
+		};
+		3F1343582ACCF967001FE7EA /* FirebaseCrashlytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3F1343552ACCF967001FE7EA /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCrashlytics;
+		};
 		3FB8DB592AC472E500BFCD46 /* SnapKit */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 3FB8DB582AC472E500BFCD46 /* XCRemoteSwiftPackageReference "SnapKit" */;

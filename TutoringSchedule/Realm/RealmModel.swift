@@ -1,5 +1,5 @@
 //
-//  RealmFile.swift
+//  RealmModel.swift
 //  TutoringSchedule
 //
 //  Created by 김하은 on 2023/10/02.
@@ -8,7 +8,7 @@
 import Foundation
 import RealmSwift
 
-class RealmFile {
+class RealmModel {
 
     func readData(filterName: String = "") -> Results<StudentTable>? {
         do {

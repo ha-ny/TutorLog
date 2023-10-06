@@ -23,14 +23,14 @@ class TabBarViewController: UIViewController {
             
             let student = UINavigationController(rootViewController: StudentManagementViewController())
             student.tabBarItem = UITabBarItem(title: "StudentTabName".localized, image: UIImage(systemName: "graduationcap"), tag: 0)
+                        
+            let schedule = UINavigationController(rootViewController: ScheduleManagementViewController())
+            schedule.tabBarItem = UITabBarItem(title: "일정관리".localized, image: UIImage(systemName: "star"), tag: 0)
             
             let setting = UINavigationController(rootViewController: UIViewController())
             setting.tabBarItem = UITabBarItem(title: "SettingTabName".localized, image: UIImage(systemName: "gearshape"), tag: 0)
             
-            let schedule = UINavigationController(rootViewController: AddScheduleViewController())
-            schedule.tabBarItem = UITabBarItem(title: "일정관리".localized, image: UIImage(systemName: "star"), tag: 0)
-            
-             return [log, calendar, student, setting, schedule]
+             return [log, calendar, student, schedule, setting]
         }()
         
         return view

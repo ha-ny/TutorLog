@@ -1,22 +1,22 @@
 //
-//  StudentManagementViewController.swift
+//  ScheduleManagementViewController.swift
 //  TutoringSchedule
 //
-//  Created by 김하은 on 2023/09/30.
+//  Created by 김하은 on 2023/10/06.
 //
 
 import UIKit
 import SnapKit
 import RealmSwift
 
-class StudentManagementViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class ScheduleManagementViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
     
     let realmFile = RealmFile()
     var data: Results<StudentTable>?
     
     lazy var searchBar = {
         let view = UISearchBar()
-        view.placeholder = "이름"
+        view.placeholder = "과외명"
         view.searchBarStyle = .minimal
         view.delegate = self
         return view
@@ -32,9 +32,9 @@ class StudentManagementViewController: UIViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .backgroundColor
-        navigationItem.title = "학생 관리"
-        //text.badge.plus
-        let addItem = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle.badge.plus"), style: .plain, target: self, action: #selector(addButtonTapped))
+        navigationItem.title = "일정 관리"
+
+        let addItem = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), style: .plain, target: self, action: #selector(addButtonTapped))
         addItem.width = 100
         addItem.tintColor = .black
         
@@ -52,7 +52,7 @@ class StudentManagementViewController: UIViewController, UITableViewDelegate, UI
     
     
     @objc func addButtonTapped() {
-        let vc = AddStudentViewController()
+        let vc = AddScheduleViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
     

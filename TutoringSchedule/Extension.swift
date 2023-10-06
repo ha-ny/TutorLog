@@ -35,15 +35,16 @@ extension UITextField {
     }
 }
 
-
-
-//view.backgroundColor = UIColor(rgb: 0x123456)
-//Extension UIColor {
-//   convenience init(rgb: Int) {
-//       self.init(
-//           red: (rgb >> 16) & 0xFF,
-//           green: (rgb >> 8) & 0xFF,
-//           blue: rgb & 0xFF
-//       )
-//   }
-//}
+//HoshiTextField
+extension UIButton {
+    func days(title: String) -> UIButton {
+        let view = UIButton()
+        view.setTitle(title, for: .normal)
+        view.setTitleColor(.black, for: .normal)
+        view.layer.borderWidth = 0.7
+        view.layer.borderColor = UIColor.gray.cgColor
+        view.layer.cornerRadius = 4
+        view.titleLabel?.font = .boldSystemFont(ofSize: 13)
+        return view
+    }
+}
