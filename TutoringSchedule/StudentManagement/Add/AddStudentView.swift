@@ -29,7 +29,7 @@ class AddStudentView: BaseView {
         return view
     }()
     
-    let memoTextView = {
+    let memoTextField = {
         let view = UITextField().hoshi(title: "메모")
         return view
     }()
@@ -49,11 +49,12 @@ class AddStudentView: BaseView {
         addSubview(studentPhoneNumTextField)
         addSubview(parentPhoneNumTextField)
         addSubview(addressTextField)
-        addSubview(memoTextView)
+        addSubview(memoTextField)
         addSubview(addScheduleButton)
     }
     
     override func setConstraint() {
+        
         nameTextField.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide).offset(22)
             make.horizontalEdges.equalToSuperview().inset(45)
@@ -78,14 +79,14 @@ class AddStudentView: BaseView {
             make.height.equalTo(60)
         }
         
-        memoTextView.snp.makeConstraints { make in
+        memoTextField.snp.makeConstraints { make in
             make.top.equalTo(addressTextField.snp.bottom).offset(6)
             make.horizontalEdges.equalToSuperview().inset(45)
             make.height.equalTo(60)
         }
         
         addScheduleButton.snp.makeConstraints { make in
-            make.top.equalTo(memoTextView.snp.bottom).offset(8)
+            make.top.equalTo(memoTextField.snp.bottom).offset(8)
             make.right.equalToSuperview().inset(45)
             make.size.equalTo(CGSize(width: 80, height: 28))
         }

@@ -6,13 +6,11 @@
 //
 
 import UIKit
-import SnapKit
-import RealmSwift
 
 class StudentManagementViewController: UIViewController, SaveSucsessDelegate {
 
     let mainView = StudentManagementView()
-    let realmModel = RealmModel.shared
+    private let realmModel = RealmModel.shared
     
     override func loadView() {
         self.view = mainView
@@ -31,14 +29,15 @@ class StudentManagementViewController: UIViewController, SaveSucsessDelegate {
         
         mainView.data = realmModel.read(StudentTable.self)
     }
-    
-    func saveSucsess() {
-        mainView.tableView.reloadData()
-    }
-    
-    @objc func addButtonTapped() {
+        
+    @objc private func addButtonTapped() {
         let vc = AddStudentViewController()
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    //SaveSucsessDelegate
+    func saveSucsess() {
+        mainView.tableView.reloadData()
     }
 }

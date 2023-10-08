@@ -15,6 +15,7 @@
 		3F13435F2ACFA87D001FE7EA /* ScheduleManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F13435E2ACFA87D001FE7EA /* ScheduleManagementViewController.swift */; };
 		3F1343612ACFA889001FE7EA /* ScheduleManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343602ACFA889001FE7EA /* ScheduleManagementView.swift */; };
 		3F1343672AD29A51001FE7EA /* AddStudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343662AD29A51001FE7EA /* AddStudentView.swift */; };
+		3F13436A2AD29C2B001FE7EA /* AddScheduleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343692AD29C2B001FE7EA /* AddScheduleView.swift */; };
 		3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */; };
 		3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */; };
 		3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB402AC46D4700BFCD46 /* TabBarViewController.swift */; };
@@ -46,6 +47,7 @@
 		3F13435E2ACFA87D001FE7EA /* ScheduleManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManagementViewController.swift; sourceTree = "<group>"; };
 		3F1343602ACFA889001FE7EA /* ScheduleManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManagementView.swift; sourceTree = "<group>"; };
 		3F1343662AD29A51001FE7EA /* AddStudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudentView.swift; sourceTree = "<group>"; };
+		3F1343692AD29C2B001FE7EA /* AddScheduleView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddScheduleView.swift; sourceTree = "<group>"; };
 		3FB8DB392AC46D4700BFCD46 /* TutoringSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutoringSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,9 +91,9 @@
 		3F13435D2ACFA86C001FE7EA /* ScheduleManagement */ = {
 			isa = PBXGroup;
 			children = (
-				3F13435E2ACFA87D001FE7EA /* ScheduleManagementViewController.swift */,
 				3F1343602ACFA889001FE7EA /* ScheduleManagementView.swift */,
-				3FB8DB772AC76CD100BFCD46 /* AddScheduleViewController.swift */,
+				3F13435E2ACFA87D001FE7EA /* ScheduleManagementViewController.swift */,
+				3F1343682AD29C1B001FE7EA /* Add */,
 			);
 			path = ScheduleManagement;
 			sourceTree = "<group>";
@@ -110,6 +112,15 @@
 			children = (
 				3F1343662AD29A51001FE7EA /* AddStudentView.swift */,
 				3FB8DB722AC76C0600BFCD46 /* AddStudentViewController.swift */,
+			);
+			path = Add;
+			sourceTree = "<group>";
+		};
+		3F1343682AD29C1B001FE7EA /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				3F1343692AD29C2B001FE7EA /* AddScheduleView.swift */,
+				3FB8DB772AC76CD100BFCD46 /* AddScheduleViewController.swift */,
 			);
 			path = Add;
 			sourceTree = "<group>";
@@ -133,8 +144,8 @@
 		3FB8DB3B2AC46D4700BFCD46 /* TutoringSchedule */ = {
 			isa = PBXGroup;
 			children = (
-				3F1343622ACFD0AB001FE7EA /* Realm */,
 				3F1343532ACCF7EF001FE7EA /* GoogleService-Info.plist */,
+				3F1343622ACFD0AB001FE7EA /* Realm */,
 				3FB8DB562AC471F700BFCD46 /* Extension.swift */,
 				3FB8DB5D2AC475B400BFCD46 /* BaseView.swift */,
 				3F13432F2ACBF778001FE7EA /* Model.swift */,
@@ -312,6 +323,7 @@
 				3FB8DB782AC76CD100BFCD46 /* AddScheduleViewController.swift in Sources */,
 				3F13435F2ACFA87D001FE7EA /* ScheduleManagementViewController.swift in Sources */,
 				3FB8DB6E2AC764B700BFCD46 /* StudentManagementViewController.swift in Sources */,
+				3F13436A2AD29C2B001FE7EA /* AddScheduleView.swift in Sources */,
 				3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */,
 				3FB8DB692AC5F70D00BFCD46 /* CalendarSearchViewController.swift in Sources */,
 				3F1343302ACBF778001FE7EA /* Model.swift in Sources */,

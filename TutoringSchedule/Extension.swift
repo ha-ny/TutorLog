@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 import TextFieldEffects
 
 //다국어 지원
@@ -42,5 +41,15 @@ extension UIButton {
         view.layer.cornerRadius = 4
         view.titleLabel?.font = .boldSystemFont(ofSize: 13)
         return view
+    }
+}
+
+extension Date {
+    func convertToString(format: String, date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.locale = Locale(identifier: "ko_kr") // 한국의 시간을 지정해준다.
+        dateFormatter.timeZone = TimeZone(abbreviation: "KST") // 한국의 시간대로 지정한다.
+        return dateFormatter.string(from: date) // Date to String
     }
 }

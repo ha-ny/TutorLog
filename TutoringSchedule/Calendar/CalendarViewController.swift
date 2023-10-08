@@ -29,7 +29,7 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
     
     lazy var yearMonthLabel = {
         let view = UITextField()
-        view.text = dateToString(format: "yyyy년 MM월", date: Date())
+        view.text = Date().convertToString(format: "yyyy년 MM월 dd일", date: Date())
         view.inputView = pickerView
         view.tintColor = .clear
         view.delegate = self
@@ -126,8 +126,8 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
         label.textAlignment = .center
         label.textColor = .white
         label.layer.cornerRadius = 3
-
-        switch dateToString(format: "YYYY-MM-dd", date: date) {
+        
+        switch Date().convertToString(format: "YYYY-MM-dd", date: date) {
         case "2023-09-05":
             label.text = "탕후루"
 
@@ -149,21 +149,12 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
     
     //캘린더 스크롤 감지
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        yearMonthLabel.text = dateToString(format: "yyyy년 MM월", date: calendar.currentPage)
-    }
-    
-    func dateToString(format: String, date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        dateFormatter.locale = Locale(identifier: "ko_kr") // 한국의 시간을 지정해준다.
-        dateFormatter.timeZone = TimeZone(abbreviation: "KST") // 한국의 시간대로 지정한다.
-        
-        return dateFormatter.string(from: date) // Date to String
+        yearMonthLabel.text =  Date().convertToString(format: "yyyy년 MM월", date: calendar.currentPage)
     }
     
     // 날짜를 선택했을 때 할일을 지정 /  myDateFormatter.dateFormat = "yyyy.MM.dd(EEEE) a hh시 mm분" // 2020.08.13(수) 오후 04시 30분
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        print(dateToString(format: "yyyy.MM.dd(EEEE) a hh시 mm분", date: date))
+
     }
     
     //오늘 날짜로 돌아오기
