@@ -18,9 +18,7 @@ enum Days: Int {
     case sat
 }
 
-
 //[시작 시간, 끝시간, 요일] 배열로
-
 enum TimeType: Int {
     case startHour
     case startMinute

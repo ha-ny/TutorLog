@@ -50,20 +50,13 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
         view.tintColor = .darkGray
         return view
     }()
-//
-//    let tableTitle = {
-//        let view = UILabel()
-//        view.text = "일정"
-//        view.font = .boldSystemFont(ofSize: 16)
-//        return view
-//    }()
-//
+
     let calendar = FSCalendar()
     var selectedDate: Date = Date()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = .white
         
         setConfigure()
         setConstraint()

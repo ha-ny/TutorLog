@@ -10,29 +10,47 @@ import RealmSwift
 
 class RealmModel {
 
-    func readData(filterName: String = "") -> Results<StudentTable>? {
-        do {
-            let realm = try Realm()
-            var task = realm.objects(StudentTable.self).sorted(by: \.name)
-            
-            if !filterName.isEmpty {
-                task = task.where {
-                    $0.name.contains(filterName)
-                }
-            }
+    static let shared = RealmModel()
+    private init() { }
+    
+    let realm = try? Realm()
 
-            return task
-            
+    func read<T: Object>(_ object: T.Type) -> Results<T>? {
+        guard let realm else { return nil }
+        
+        return realm.objects(object)
+    }
+    
+    func create<T: Object>(data: T) {
+        guard let realm else { return }
+        
+        do {
+            try realm.write {
+                realm.add(data)
+            }
         } catch {
-            return nil
+            
         }
     }
     
-    func createData(data: StudentTable) {
+//    func update<T: Object>(data: T) {
+//        guard let realm else { return }
+//
+//        do {
+//            try realm.write {
+//                realm.add(data, update: true)
+//            }
+//        } catch {
+//
+//        }
+//    }
+    
+    func delete<T: Object>(data: T) {
+        guard let realm else { return }
+        
         do {
-            let realm = try Realm()
             try realm.write {
-                realm.add(data)
+                realm.delete(data)
             }
         } catch {
             

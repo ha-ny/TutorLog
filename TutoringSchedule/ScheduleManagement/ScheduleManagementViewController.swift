@@ -9,10 +9,18 @@ import UIKit
 import SnapKit
 import RealmSwift
 
-class ScheduleManagementViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate {
+class ScheduleManagementViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, UISearchBarDelegate, SaveSucsessDelegate {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return 10
+    }
     
-    let realmFile = RealmFile()
-    var data: Results<StudentTable>?
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        return UITableViewCell()
+    }
+    
+
+    let realmModel = RealmModel.shared
+    var data: Results<ScheduleTable>?
     
     lazy var searchBar = {
         let view = UISearchBar()
@@ -31,7 +39,7 @@ class ScheduleManagementViewController: UIViewController, UITableViewDelegate, U
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = .white
         navigationItem.title = "일정 관리"
 
         let addItem = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), style: .plain, target: self, action: #selector(addButtonTapped))
@@ -42,17 +50,18 @@ class ScheduleManagementViewController: UIViewController, UITableViewDelegate, U
 
         setConfigure()
         setConstraint()
+        
+        guard let realmData = realmModel.read(ScheduleTable.self) else { return }
+        data = realmData
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        data = realmFile.readData()
+
+    func saveSucsess() {
         tableView.reloadData()
     }
     
-    
     @objc func addButtonTapped() {
         let vc = AddScheduleViewController()
+        vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
     
@@ -74,23 +83,9 @@ class ScheduleManagementViewController: UIViewController, UITableViewDelegate, U
             make.bottom.equalTo(view.safeAreaLayoutGuide)
         }
     }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell()
-        
-        if let data {
-            cell.textLabel?.text = data[indexPath.row].name
-        }
 
-        return cell
-    }
-    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        data = realmFile.readData(filterName: searchBar.text!)
-        tableView.reloadData()
+//        data = realmFile.readData(filterName: searchBar.text!)
+//        tableView.reloadData()
     }
 }

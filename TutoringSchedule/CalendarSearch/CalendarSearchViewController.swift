@@ -43,7 +43,7 @@ class CalendarSearchViewController: UIViewController, UITableViewDelegate, UITab
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = .white
         setConfigure()
         setConstraint()
     }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 import TextFieldEffects
 
 //다국어 지원
@@ -13,11 +14,6 @@ extension String {
     var localized: String {
         return NSLocalizedString(self, comment: "")
     }
-}
-
-//배경색
-extension UIColor {
-    static let backgroundColor = UIColor.white
 }
 
 //HoshiTextField
@@ -35,7 +31,7 @@ extension UITextField {
     }
 }
 
-//HoshiTextField
+//일정등록: 요일 버튼
 extension UIButton {
     func days(title: String) -> UIButton {
         let view = UIButton()

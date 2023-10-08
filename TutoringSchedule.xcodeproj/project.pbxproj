@@ -14,6 +14,7 @@
 		3F1343592ACCF967001FE7EA /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = 3F1343582ACCF967001FE7EA /* FirebaseCrashlytics */; };
 		3F13435F2ACFA87D001FE7EA /* ScheduleManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F13435E2ACFA87D001FE7EA /* ScheduleManagementViewController.swift */; };
 		3F1343612ACFA889001FE7EA /* ScheduleManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343602ACFA889001FE7EA /* ScheduleManagementView.swift */; };
+		3F1343672AD29A51001FE7EA /* AddStudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343662AD29A51001FE7EA /* AddStudentView.swift */; };
 		3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */; };
 		3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */; };
 		3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB402AC46D4700BFCD46 /* TabBarViewController.swift */; };
@@ -44,6 +45,7 @@
 		3F1343532ACCF7EF001FE7EA /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		3F13435E2ACFA87D001FE7EA /* ScheduleManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManagementViewController.swift; sourceTree = "<group>"; };
 		3F1343602ACFA889001FE7EA /* ScheduleManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleManagementView.swift; sourceTree = "<group>"; };
+		3F1343662AD29A51001FE7EA /* AddStudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddStudentView.swift; sourceTree = "<group>"; };
 		3FB8DB392AC46D4700BFCD46 /* TutoringSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutoringSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -101,6 +103,15 @@
 				3FB8DB812ACA452000BFCD46 /* RealmModel.swift */,
 			);
 			path = Realm;
+			sourceTree = "<group>";
+		};
+		3F1343652AD29A43001FE7EA /* Add */ = {
+			isa = PBXGroup;
+			children = (
+				3F1343662AD29A51001FE7EA /* AddStudentView.swift */,
+				3FB8DB722AC76C0600BFCD46 /* AddStudentViewController.swift */,
+			);
+			path = Add;
 			sourceTree = "<group>";
 		};
 		3FB8DB302AC46D4700BFCD46 = {
@@ -172,9 +183,9 @@
 		3FB8DB712AC764C700BFCD46 /* StudentManagement */ = {
 			isa = PBXGroup;
 			children = (
-				3FB8DB6D2AC764B700BFCD46 /* StudentManagementViewController.swift */,
 				3FB8DB6F2AC764C100BFCD46 /* StudentManagementView.swift */,
-				3FB8DB722AC76C0600BFCD46 /* AddStudentViewController.swift */,
+				3FB8DB6D2AC764B700BFCD46 /* StudentManagementViewController.swift */,
+				3F1343652AD29A43001FE7EA /* Add */,
 			);
 			path = StudentManagement;
 			sourceTree = "<group>";
@@ -295,6 +306,7 @@
 			files = (
 				3FB8DB612AC47A6500BFCD46 /* CalendarViewController.swift in Sources */,
 				3FB8DB632AC47A8500BFCD46 /* CalendarView.swift in Sources */,
+				3F1343672AD29A51001FE7EA /* AddStudentView.swift in Sources */,
 				3F1343612ACFA889001FE7EA /* ScheduleManagementView.swift in Sources */,
 				3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */,
 				3FB8DB782AC76CD100BFCD46 /* AddScheduleViewController.swift in Sources */,

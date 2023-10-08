@@ -15,7 +15,7 @@ protocol SendStateDelegate {
 
 class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    let maxCount = 100
+    let maxCount = 10000
     var day = 0
     var delegate: SendStateDelegate?
     
@@ -44,20 +44,20 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         return view
     }()
     
-    lazy var pickerVIew = {
+    lazy var pickerView = {
         let view = UIPickerView()
         view.delegate = self
         view.dataSource = self
         return view
     }()
 
-    var startHour = 1
+    var startHour = 9
     var startMinute = 0
-    var endHour = 1
+    var endHour = 9
     var endMinute = 0
     
     override func viewDidLoad() {
-        view.backgroundColor = .backgroundColor
+        view.backgroundColor = .white
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(okButtonTapped))
         
@@ -81,7 +81,7 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         view.addSubview(dayLabel)
         view.addSubview(startLabel)
         view.addSubview(endLabel)
-        view.addSubview(pickerVIew)
+        view.addSubview(pickerView)
 
         
         dayLabel.snp.makeConstraints { make in
@@ -101,11 +101,16 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
             make.width.equalTo(view.snp.width).multipliedBy(0.5)
         }
         
-        pickerVIew.snp.makeConstraints { make in
+        pickerView.snp.makeConstraints { make in
             make.top.equalTo(startLabel.snp.bottom)
             make.horizontalEdges.equalToSuperview().inset(6)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(24)
-        }        
+        }
+        let newRow = maxCount / 2
+        pickerView.selectRow(newRow, inComponent: 0, animated: true)
+        pickerView.selectRow(newRow + 4, inComponent: 1, animated: true)
+        pickerView.selectRow(newRow + 1, inComponent: 2, animated: true)
+        pickerView.selectRow(newRow + 4, inComponent: 3, animated: true)
     }
 
     @objc func okButtonTapped() {
@@ -164,7 +169,7 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        
+                
         switch TimeType(rawValue: component) {
         case .startHour: startHour = (row % 24) + 1
         case .startMinute: startMinute = (row % 12) * 5
@@ -173,11 +178,5 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         case .none:
             return
         }
-    }
-    
-    func pickerViewLoaded(row:Int,component:Int)
-    {
-        let base = (maxCount/2)-(maxCount/2)%24;
-        self.pickerVIew.selectRow(row%24+base, inComponent: component, animated: false)
     }
 }

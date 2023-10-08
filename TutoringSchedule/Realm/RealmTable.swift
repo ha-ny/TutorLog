@@ -12,12 +12,12 @@ class StudentTable: Object {
 
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var name: String
-    @Persisted var studentPhoneNum: Int
-    @Persisted var parentPhoneNum: Int
+    @Persisted var studentPhoneNum: String //Int
+    @Persisted var parentPhoneNum: String //Int
     @Persisted var address: String
     @Persisted var memo: String
 
-    convenience init(name: String, studentPhoneNum: Int, parentPhoneNum: Int, address: String, memo: String) {
+    convenience init(name: String, studentPhoneNum: String, parentPhoneNum: String, address: String, memo: String) {
         self.init()
         self.name = name
         self.studentPhoneNum = studentPhoneNum
