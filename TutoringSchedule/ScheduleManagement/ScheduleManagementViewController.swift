@@ -7,10 +7,10 @@
 
 import UIKit
 
-class ScheduleManagementViewController: UIViewController, SaveSucsessDelegate {
+class ScheduleManagementViewController: UIViewController {
 
     private let mainView = ScheduleManagementView()
-    private let realmModel = RealmModel.shared
+    private let realmRepository = RealmRepository()
 
     override func loadView() {
         self.view = mainView
@@ -26,7 +26,7 @@ class ScheduleManagementViewController: UIViewController, SaveSucsessDelegate {
         addItem.tintColor = .black
         navigationItem.rightBarButtonItem = addItem
         
-        guard let realmData = realmModel.read(ScheduleTable.self) else { return }
+        guard let realmData = realmRepository.read(ScheduleTable.self) else { return }
         mainView.data = realmData
     }
     
@@ -35,8 +35,9 @@ class ScheduleManagementViewController: UIViewController, SaveSucsessDelegate {
         vc.delegate = self
         navigationController?.pushViewController(vc, animated: true)
     }
-    
-    //SaveSucsessDelegate
+}
+
+extension ScheduleManagementViewController: saveSucsessDelegate {
     func saveSucsess() {
         mainView.tableView.reloadData()
     }

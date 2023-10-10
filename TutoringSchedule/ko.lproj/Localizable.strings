@@ -6,5 +6,7 @@
   
 */
 
-"test_name" = "이름";
-"test_age" = "나이";
+//TabBarName
+"CalendarTabName" = "캘린더";
+"StudentTabName" = "학생";
+"ScheduleTabName" = "수업";

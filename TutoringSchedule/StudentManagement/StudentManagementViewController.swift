@@ -7,13 +7,14 @@
 
 import UIKit
 
-class StudentManagementViewController: UIViewController, SaveSucsessDelegate {
+class StudentManagementViewController: UIViewController {
 
     let mainView = StudentManagementView()
-    private let realmModel = RealmModel.shared
+    private let realmRepository = RealmRepository()
     
     override func loadView() {
         self.view = mainView
+        mainView.delegate = self
     }
     
     override func viewDidLoad() {
@@ -27,7 +28,7 @@ class StudentManagementViewController: UIViewController, SaveSucsessDelegate {
         
         navigationItem.rightBarButtonItem = addItem
         
-        mainView.data = realmModel.read(StudentTable.self)
+        mainView.data = realmRepository.read(StudentTable.self)?.sorted(by: \.name)
     }
         
     @objc private func addButtonTapped() {
@@ -36,8 +37,20 @@ class StudentManagementViewController: UIViewController, SaveSucsessDelegate {
         navigationController?.pushViewController(vc, animated: true)
     }
     
-    //SaveSucsessDelegate
+    
+}
+
+extension StudentManagementViewController: saveSucsessDelegate {
     func saveSucsess() {
         mainView.tableView.reloadData()
+    }
+}
+
+extension StudentManagementViewController: sendSelectRowDelegate {
+    func selectRow(data: StudentTable) {
+        let vc = UpdateStudentViewController()
+        vc.delegate = self
+        vc.data = data
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

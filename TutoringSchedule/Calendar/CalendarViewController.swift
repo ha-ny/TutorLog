@@ -57,7 +57,7 @@ class CalendarViewController: UIViewController, FSCalendarDelegate, FSCalendarDa
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        
+
         setConfigure()
         setConstraint()
         setCalendar()

@@ -17,6 +17,7 @@ class StudentTable: Object {
     @Persisted var address: String
     @Persisted var memo: String
 
+    //init -> id: String
     convenience init(name: String, studentPhoneNum: String, parentPhoneNum: String, address: String, memo: String) {
         self.init()
         self.name = name

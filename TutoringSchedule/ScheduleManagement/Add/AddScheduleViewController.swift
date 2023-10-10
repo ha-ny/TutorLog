@@ -7,16 +7,16 @@
 
 import UIKit
 
-class AddScheduleViewController: UIViewController, SendStateDelegate{
+class AddScheduleViewController: UIViewController{
     
     private let mainView = AddScheduleView()
-    private let realmModel = RealmModel.shared
+    private let realmRepository = RealmRepository()
     
     private var days: [weekTime] = []
     private var studentArray: [String] = []
     private var tapButton: UIButton?
     
-    var delegate: SaveSucsessDelegate?
+    var delegate: saveSucsessDelegate?
     
     override func loadView() {
         self.view = mainView
@@ -39,9 +39,9 @@ class AddScheduleViewController: UIViewController, SendStateDelegate{
         mainView.startDatePicker.addTarget(self, action: #selector(startDateChange), for: .valueChanged)
         mainView.endDatePicker.addTarget(self, action: #selector(endDateChange), for: .valueChanged)
 
-        [mainView.sunButton, mainView.monButton, mainView.tueButton, mainView.wedButton, mainView.thuButton, mainView.friButton, mainView.satButton] .forEach({ button in
-            button.addTarget(self, action: #selector(dayButtonTapped), for: .touchUpInside)
-        })
+        [mainView.sunButton, mainView.monButton, mainView.tueButton, mainView.wedButton, mainView.thuButton, mainView.friButton, mainView.satButton] .forEach {
+            $0.addTarget(self, action: #selector(dayButtonTapped), for: .touchUpInside)
+        }
     }
 
     @objc private func startDateChange(_ sender: UIDatePicker) {
@@ -173,8 +173,9 @@ class AddScheduleViewController: UIViewController, SendStateDelegate{
         tapButton = sender
         present(nav, animated: true)
     }
-    
-    //SendStateDelegate
+}
+
+extension AddScheduleViewController: sendStateDelegate{
     func saveData(startTime: Date, endTime: Date) {
         guard let tapButton else { return }
         
@@ -188,7 +189,6 @@ class AddScheduleViewController: UIViewController, SendStateDelegate{
         tapButton.setTitleColor(.white, for: .normal)
     }
     
-    //SendStateDelegate
     func deleteData() {
         guard let tapButton else { return }
         

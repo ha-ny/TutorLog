@@ -15,6 +15,17 @@ extension String {
     }
 }
 
+// Date -> String
+extension Date {
+    func convertToString(format: String, date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = format
+        dateFormatter.locale = Locale(identifier: "ko_kr") // 한국의 시간을 지정해준다.
+        dateFormatter.timeZone = TimeZone(abbreviation: "KST") // 한국의 시간대로 지정한다.
+        return dateFormatter.string(from: date) // Date to String
+    }
+}
+
 //HoshiTextField
 extension UITextField {
     func hoshi(title: String) -> UITextField {
@@ -44,12 +55,12 @@ extension UIButton {
     }
 }
 
-extension Date {
-    func convertToString(format: String, date: Date) -> String {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        dateFormatter.locale = Locale(identifier: "ko_kr") // 한국의 시간을 지정해준다.
-        dateFormatter.timeZone = TimeZone(abbreviation: "KST") // 한국의 시간대로 지정한다.
-        return dateFormatter.string(from: date) // Date to String
+extension UIAlertController {
+    func customMessageAlert(message: String) -> UIAlertController {
+        let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
+        let ok = UIAlertAction(title: "확인", style: .default)
+        alert.addAction(ok)
+        return alert
     }
 }
+

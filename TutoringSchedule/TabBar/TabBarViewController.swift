@@ -15,22 +15,17 @@ class TabBarViewController: UIViewController {
         view.tabBar.tintColor = .black
         view.viewControllers = {
             
-            let log = UINavigationController(rootViewController: UIViewController())
-            log.tabBarItem = UITabBarItem(title: "LogCalendarTabName".localized, image: UIImage(systemName: "book.closed"), tag: 0)
-            
             let calendar = CalendarViewController()
             calendar.tabBarItem = UITabBarItem(title: "CalendarTabName".localized, image: UIImage(systemName: "calendar"), tag: 0)
             
             let student = UINavigationController(rootViewController: StudentManagementViewController())
-            student.tabBarItem = UITabBarItem(title: "StudentTabName".localized, image: UIImage(systemName: "graduationcap"), tag: 0)
+            student.tabBarItem = UITabBarItem(title: "StudentTabName".localized, image: UIImage(systemName: "person.fill"), tag: 0)
                         
             let schedule = UINavigationController(rootViewController: ScheduleManagementViewController())
-            schedule.tabBarItem = UITabBarItem(title: "일정관리".localized, image: UIImage(systemName: "star"), tag: 0)
+            schedule.tabBarItem = UITabBarItem(title: "ScheduleTabName".localized, image: UIImage(systemName: "note.text"), tag: 0)
+
             
-            let setting = UINavigationController(rootViewController: UIViewController())
-            setting.tabBarItem = UITabBarItem(title: "SettingTabName".localized, image: UIImage(systemName: "gearshape"), tag: 0)
-            
-             return [log, calendar, student, schedule, setting]
+             return [calendar, student, schedule]
         }()
         
         return view

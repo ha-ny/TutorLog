@@ -1,17 +1,18 @@
 //
-//  AddStudentViewController.swift
+//  UpdateStudentViewController.swift
 //  TutoringSchedule
 //
-//  Created by 김하은 on 2023/09/30.
+//  Created by 김하은 on 2023/10/09.
 //
 
 import UIKit
 
-class AddStudentViewController: UIViewController {
+class UpdateStudentViewController: UIViewController {
     
     private let mainView = EditStudentView()
     private let realmRepository = RealmRepository()
     var delegate: saveSucsessDelegate?
+    var data: StudentTable?
     
     override func loadView() {
         self.view = mainView
@@ -20,7 +21,7 @@ class AddStudentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "학생 등록"
+        navigationItem.title = "학생 편집"
         
         let backItem = UIBarButtonItem(image: UIImage(systemName: "lessthan.circle.fill"), style: .plain, target: self, action: #selector(backButtonTapped))
         backItem.width = 70
@@ -33,11 +34,23 @@ class AddStudentViewController: UIViewController {
         navigationItem.rightBarButtonItem = saveItem
 
         mainView.memoTextField.addTarget(self, action: #selector(endEdit), for: .editingDidEndOnExit)
+        
+        dataSetting()
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         mainView.nameTextField.becomeFirstResponder()
+    }
+
+    private func dataSetting() {
+        guard let data else { return }
+        
+        mainView.nameTextField.text = data.name
+        mainView.studentPhoneNumTextField.text = data.studentPhoneNum
+        mainView.parentPhoneNumTextField.text = data.parentPhoneNum
+        mainView.addressTextField.text = data.address
+        mainView.memoTextField.text = data.memo
     }
     
     @objc private func addScheduleButtonTapped() {
@@ -54,13 +67,14 @@ class AddStudentViewController: UIViewController {
     }
     
     @objc private func saveButtonTapped() {
+        guard var data else { return }
+        
         guard let name = mainView.nameTextField.text, !name.isEmpty else {
-            mainView.nameTextField.becomeFirstResponder()
             let alert = UIAlertController().customMessageAlert(message: "이름 입력은 필수입니다")
             present(alert, animated: true)
             return //필수체크
         }
-        
+               
         var studentPhoneNum: String
         
         if let studentPhoneNumText = mainView.studentPhoneNumTextField.text, !studentPhoneNumText.isEmpty{
@@ -90,12 +104,18 @@ class AddStudentViewController: UIViewController {
         }else {
             parentPhoneNum = ""
         }
-
+        
         let address = mainView.addressTextField.text ?? ""
         let memo = mainView.memoTextField.text ?? ""
         
-        let data = StudentTable(name: name, studentPhoneNum: studentPhoneNum, parentPhoneNum: parentPhoneNum, address: address, memo: memo)
-        realmRepository.create(data: data)
+        let id = data._id
+        
+        //data.name = name
+        
+        data = StudentTable(name: name, studentPhoneNum: studentPhoneNum, parentPhoneNum: parentPhoneNum, address: address, memo: memo)
+        data._id = id
+
+        realmRepository.update(data: data)
         delegate?.saveSucsess()
         navigationController?.popViewController(animated: true)
     }

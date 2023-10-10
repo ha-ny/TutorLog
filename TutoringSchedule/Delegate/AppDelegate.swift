@@ -7,13 +7,22 @@
 
 import UIKit
 import FirebaseCore
+import RealmSwift
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
         FirebaseApp.configure()
+        
+        //new schema version
+        let config = Realm.Configuration(schemaVersion: 1) { Migration, oldSchemaVersion in
+            if oldSchemaVersion < 2 {
+                
+            }
+        }
+        
+        Realm.Configuration.defaultConfiguration = config
         return true
     }
 

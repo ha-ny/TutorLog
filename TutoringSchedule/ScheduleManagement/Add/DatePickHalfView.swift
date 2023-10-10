@@ -8,16 +8,16 @@
 import UIKit
 import SnapKit
 
-protocol SendStateDelegate {
+protocol sendStateDelegate {
     func saveData(startTime: Date, endTime: Date)
     func deleteData()
 }
 
 class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
 
-    let maxCount = 10000
+    private let maxCount = 10000
     var day = 0
-    var delegate: SendStateDelegate?
+    var delegate: sendStateDelegate?
     
     let dayLabel = {
         let view = UILabel()
@@ -122,7 +122,7 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         let endTime = stringToDate(format: "HH:mm", date: time)
 
         guard Int(endTime.timeIntervalSince(startTime)) >= 0 else {
-            let alert = okAlert(message: "시작시간은 종료시간보다 클 수 없습니다")
+            let alert = UIAlertController().customMessageAlert(message: "시작시간은 종료시간보다 클 수 없습니다")
             present(alert, animated: true)
             return
         }

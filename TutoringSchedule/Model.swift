@@ -38,10 +38,3 @@ struct weekTime {
         self.endTime = endTime
     }
 }
-
-func okAlert(message: String) -> UIAlertController {
-    let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
-    let ok = UIAlertAction(title: "확인", style: .default)
-    alert.addAction(ok)
-    return alert
-}

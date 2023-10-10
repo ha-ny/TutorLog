@@ -1,5 +1,5 @@
 //
-//  AddStudentView.swift
+//  EditStudentView.swift
 //  TutoringSchedule
 //
 //  Created by 김하은 on 2023/10/08.
@@ -7,40 +7,50 @@
 
 import UIKit
 
-class AddStudentView: BaseView {
+protocol saveSucsessDelegate {
+    func saveSucsess()
+}
 
-    let nameTextField = {
+class EditStudentView: BaseView {
+
+    lazy var nameTextField = {
         let view = UITextField().hoshi(title: "* 이름")
+        view.tag = 0
+        view.returnKeyType = .continue
+        view.delegate = self
         return view
     }()
     
-    let studentPhoneNumTextField = {
+    lazy var studentPhoneNumTextField = {
         let view = UITextField().hoshi(title: "학생 연락처")
+        view.tag = 1
+        view.returnKeyType = .continue
+        view.keyboardType = .numberPad
+        view.delegate = self
         return view
     }()
-    
-    let parentPhoneNumTextField = {
+ 
+    lazy var parentPhoneNumTextField = {
         let view = UITextField().hoshi(title: "학부모 연락처")
+        view.tag = 2
+        view.returnKeyType = .continue
+        view.keyboardType = .numberPad
+        view.delegate = self
         return view
     }()
     
-    let addressTextField = {
+    lazy var addressTextField = {
         let view = UITextField().hoshi(title: "주소")
+        view.tag = 3
+        view.returnKeyType = .continue
+        view.delegate = self
         return view
     }()
     
-    let memoTextField = {
+    lazy var memoTextField = {
         let view = UITextField().hoshi(title: "메모")
-        return view
-    }()
-    
-    let addScheduleButton = {
-        let view = UIButton()
-        view.setTitle("일정 등록", for: .normal)
-        view.titleLabel?.font = .boldSystemFont(ofSize: 14)
-        view.layer.cornerRadius = 8
-        view.layer.backgroundColor = UIColor.systemGray6.cgColor
-        view.setTitleColor(UIColor.darkGray, for: .normal)
+        view.returnKeyType = .done
+        view.tag = 4
         return view
     }()
 
@@ -50,7 +60,6 @@ class AddStudentView: BaseView {
         addSubview(parentPhoneNumTextField)
         addSubview(addressTextField)
         addSubview(memoTextField)
-        addSubview(addScheduleButton)
     }
     
     override func setConstraint() {
@@ -66,7 +75,7 @@ class AddStudentView: BaseView {
             make.horizontalEdges.equalToSuperview().inset(45)
             make.height.equalTo(60)
         }
-        
+
         parentPhoneNumTextField.snp.makeConstraints { make in
             make.top.equalTo(studentPhoneNumTextField.snp.bottom).offset(6)
             make.horizontalEdges.equalToSuperview().inset(45)
@@ -84,11 +93,15 @@ class AddStudentView: BaseView {
             make.horizontalEdges.equalToSuperview().inset(45)
             make.height.equalTo(60)
         }
-        
-        addScheduleButton.snp.makeConstraints { make in
-            make.top.equalTo(memoTextField.snp.bottom).offset(8)
-            make.right.equalToSuperview().inset(45)
-            make.size.equalTo(CGSize(width: 80, height: 28))
+    }
+}
+
+extension EditStudentView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let textField = textField.superview?.viewWithTag(textField.tag + 1) {
+            textField.becomeFirstResponder()
         }
+        
+        return true
     }
 }
