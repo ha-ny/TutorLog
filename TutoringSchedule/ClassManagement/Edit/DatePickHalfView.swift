@@ -8,7 +8,7 @@
 import UIKit
 import SnapKit
 
-protocol sendStateDelegate {
+protocol sendWeekStateDelegate {
     func saveData(startTime: Date, endTime: Date)
     func deleteData()
 }
@@ -17,7 +17,7 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
 
     private let maxCount = 10000
     var day = 0
-    var delegate: sendStateDelegate?
+    var delegate: sendWeekStateDelegate?
     
     let dayLabel = {
         let view = UILabel()
@@ -116,10 +116,18 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
     @objc func okButtonTapped() {
 
         var time = "\(startHour):\(startMinute)"
-        let startTime = stringToDate(format: "HH:mm", date: time)
+        guard let startTime = stringToDate(format: "HH:mm", date: time) else {
+            let alert = UIAlertController().customMessageAlert(message: "시작시간 저장에 실패했습니다./n다시 실행해주세요.")
+            present(alert, animated: true)
+            return
+        }
 
         time = "\(endHour):\(endMinute)"
-        let endTime = stringToDate(format: "HH:mm", date: time)
+        guard let endTime = stringToDate(format: "HH:mm", date: time) else {
+            let alert = UIAlertController().customMessageAlert(message: "종료시간 저장에 실패했습니다./n다시 실행해주세요.")
+            present(alert, animated: true)
+            return
+        }
 
         guard Int(endTime.timeIntervalSince(startTime)) >= 0 else {
             let alert = UIAlertController().customMessageAlert(message: "시작시간은 종료시간보다 클 수 없습니다")
@@ -136,12 +144,16 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         dismiss(animated: true)
     }
     
-    func stringToDate(format: String, date: String) -> Date {
+    func stringToDate(format: String, date: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
         dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
         
-        return dateFormatter.date(from: date) ?? Date()
+        guard let data = dateFormatter.date(from: date) else {
+            return nil
+        }
+        
+        return data
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {

@@ -8,31 +8,12 @@
 import Foundation
 import RealmSwift
 
-// Users/hany/Library/Developer/CoreSimulator/Devices/502D4491-E960-4248-8FEE-E1BAE9CC425A/data/Containers/Data/Application/2AB8B4E9-20E1-43F4-A549-C3F2FD8D2A6C/Documents/
-
-protocol realmRepositoryType {
-    func read<T: Object>(_ object: T.Type) -> Results<T>?
-    func create<T: Object>(data: T)
-    func update<T: Object>(data: T)
-    func delete<T: Object>(data: T)
-}
-
-class RealmRepository: realmRepositoryType {
+class RealmRepository {
 
     private let realm = try? Realm()
-
-//    func checkSchemaVersion() {
-//        guard let realm, let url = realm.configuration.fileURL else { return }
-//        
-//        do {
-//            let version = try schemaVersionAtURL(url)
-//            print("schemaVersion", version)
-//        }catch {
-//            
-//        }
-//    }
     
     func read<T: Object>(_ object: T.Type) -> Results<T>? {
+        print(realm?.configuration.fileURL)
         guard let realm else { return nil }
         return realm.objects(object)
     }
@@ -42,7 +23,6 @@ class RealmRepository: realmRepositoryType {
         
         do {
             try realm.write {
-                print(data)
                 realm.add(data)
             }
         } catch {

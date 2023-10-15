@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 
+enum EditType {
+    case create
+    case update
+}
+
 enum Days: Int {
     case sun
     case mon

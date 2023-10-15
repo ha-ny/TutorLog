@@ -1,5 +1,5 @@
 //
-//  AddScheduleView.swift
+//  EditClassView.swift
 //  TutoringSchedule
 //
 //  Created by 김하은 on 2023/10/08.
@@ -7,23 +7,27 @@
 
 import UIKit
 
-class AddScheduleView: BaseView {
+class EditClassView: BaseView {
 
-    let titleLabel = {
-        let view = UILabel()
-        view.text = "일정 등록"
-        view.textColor = .black
-        view.font = .boldSystemFont(ofSize: 30)
+    let lineView = {
+       let view = UILabel()
+        view.backgroundColor = .systemGray5
+        return view
+    }()
+
+    lazy var classNameTextField = {
+        let view = UITextField().hoshi(title: "* 수업명")
+        view.tag = 0
+        view.returnKeyType = .continue
+        view.delegate = self
         return view
     }()
     
-    let classNameTextField = {
-        let view = UITextField().hoshi(title: "*과외명")
-        return view
-    }()
-    
-    let tutoringPlaceTextField = {
-        let view = UITextField().hoshi(title: "과외 장소")
+    lazy var tutoringPlaceTextField = {
+        let view = UITextField().hoshi(title: "수업 장소")
+        view.tag = 1
+        view.returnKeyType = .done
+        view.delegate = self
         return view
     }()
     
@@ -48,6 +52,7 @@ class AddScheduleView: BaseView {
     lazy var startDateTextField = {
         let view = UITextField().hoshi(title: "시작일")
         view.text = Date().convertToString(format: "yyyy년 MM월 dd일", date: Date())
+        view.tag = 1001
         view.delegate = self
         view.tintColor = .clear
         view.inputView = startDatePicker
@@ -57,6 +62,7 @@ class AddScheduleView: BaseView {
     lazy var endDateTextField = {
         let view = UITextField().hoshi(title: "종료일")
         view.text = Date().convertToString(format: "yyyy년 MM월 dd일", date: Date())
+        view.tag = 1002
         view.delegate = self
         view.tintColor = .clear
         view.inputView = endDatePicker
@@ -65,7 +71,7 @@ class AddScheduleView: BaseView {
     
     let dayTitleLabel = {
         let view = UILabel()
-        view.text = "*요일 선택"
+        view.text = "* 요일 선택"
         view.textColor = .darkGray
         view.font = .boldSystemFont(ofSize: 20)
         return view
@@ -138,31 +144,26 @@ class AddScheduleView: BaseView {
     let scrollView = UIScrollView()
 
     override func setConfigure() {
-        addSubview(titleLabel)
-        addSubview(classNameTextField)
-        addSubview(tutoringPlaceTextField)
-        addSubview(startDateTextField)
-        addSubview(endDateTextField)
-        addSubview(stackView)
-        addSubview(dayTitleLabel)
-        addSubview(studentTitleLabel)
-        addSubview(studentButton)
-        addSubview(scrollView)
         
-        [sunButton, monButton, tueButton, wedButton, thuButton, friButton, satButton] .forEach({ button in
-            self.stackView.addArrangedSubview(button)
-        })
+        [lineView, classNameTextField, tutoringPlaceTextField, startDateTextField, endDateTextField, stackView, dayTitleLabel, studentTitleLabel, studentButton, scrollView].forEach {
+            addSubview($0)
+        }
+        
+        [sunButton, monButton, tueButton, wedButton, thuButton, friButton, satButton] .forEach {
+            stackView.addArrangedSubview($0)
+        }
     }
     
     override func setConstraint() {
         
-        titleLabel.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide).inset(24)
-            make.horizontalEdges.equalTo(self).inset(24)
+        lineView.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview().inset(4)
+            make.height.equalTo(0.7)
         }
-        
+
         classNameTextField.snp.makeConstraints { make in
-            make.top.equalTo(titleLabel.snp.bottom).offset(16)
+            make.top.equalTo(lineView.snp.bottom).offset(16)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(60)
         }
@@ -213,12 +214,22 @@ class AddScheduleView: BaseView {
             make.height.equalTo(90)
         }
     }
-    
-
 }
 
-extension AddScheduleView: UITextFieldDelegate {
+extension EditClassView: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let textField = textField.superview?.viewWithTag(textField.tag + 1) {
+            textField.becomeFirstResponder()
+        }
+        
+        return true
+    }
+    
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-      return false // 입력 불가
+        if textField.tag > 1000{
+            return false // 입력 불가
+        }
+        
+        return true
     }
 }

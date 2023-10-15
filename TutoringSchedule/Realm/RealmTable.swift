@@ -28,17 +28,21 @@ class StudentTable: Object {
     }
 }
 
-class classTable: Object {
+class ClassTable: Object {
 
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var className: String
     @Persisted var tutoringPlace: String
-    @Persisted var studentPK: List<String>
+    @Persisted var startDate: Date
+    @Persisted var endDate: Date
+    @Persisted var studentPK: List<ObjectId>
 
-    convenience init(className: String, tutoringPlace: String, studentPK: List<String>) {
+    convenience init(className: String, tutoringPlace: String, startDate: Date, endDate: Date, studentPK: List<ObjectId>) {
         self.init()
         self.className = className
         self.tutoringPlace = tutoringPlace
+        self.startDate = startDate
+        self.endDate = endDate
         self.studentPK = studentPK
     }
 }
@@ -46,12 +50,12 @@ class classTable: Object {
 class ScheduleTable: Object {
 
     @Persisted(primaryKey: true) var _id: ObjectId
-    @Persisted var classPK: String
+    @Persisted var classPK: ObjectId
     @Persisted var day: Int
     @Persisted var startTime: Date
     @Persisted var endTime: Date
 
-    convenience init(classPK: String, day: Int, startTime: Date, endTime: Date) {
+    convenience init(classPK: ObjectId, day: Int, startTime: Date, endTime: Date) {
         self.init()
         self.classPK = classPK
         self.day = day
@@ -64,30 +68,15 @@ class CalendarTable: Object {
 
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var date: Date
-    @Persisted var SchedulePK: String
-    @Persisted var startTime: Date?
-    @Persisted var endTime: Date?
+    @Persisted var schedulePK: ObjectId
+    @Persisted var startTime: Date?  //일정 수정시 time 넣기
+    @Persisted var endTime: Date?   //일정 수정시 time 넣기
 
-    convenience init(date: Date, SchedulePK: String, startTime: Date?, endTime: Date?) {
+    convenience init(date: Date, schedulePK: ObjectId, startTime: Date? = nil, endTime: Date? = nil) {
         self.init()
         self.date = date
-        self.SchedulePK = SchedulePK
+        self.schedulePK = schedulePK
         self.startTime = startTime
         self.endTime = endTime
-    }
-}
-
-class TutoringLogTable: Object {
-
-    @Persisted(primaryKey: true) var _id: ObjectId
-    @Persisted var calendarPK: String
-    @Persisted var contents: String
-    @Persisted var homework: String
-
-    convenience init(calendarPK: String, contents: String, homework: String) {
-        self.init()
-        self.calendarPK = calendarPK
-        self.contents = contents
-        self.homework = homework
     }
 }

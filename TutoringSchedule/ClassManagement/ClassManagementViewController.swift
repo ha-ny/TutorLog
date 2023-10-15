@@ -1,15 +1,15 @@
 //
-//  StudentManagementViewController.swift
+//  ClassManagementViewController.swift
 //  TutoringSchedule
 //
-//  Created by 김하은 on 2023/09/30.
+//  Created by 김하은 on 2023/10/06.
 //
 
 import UIKit
 
-class StudentManagementViewController: UIViewController {
-
-    private let mainView = StudentManagementView()
+class ClassManagementViewController: UIViewController {
+    
+    private let mainView = ClassManagementView()
     private let realmRepository = RealmRepository()
     
     override func loadView() {
@@ -20,9 +20,9 @@ class StudentManagementViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "학생관리"
-
-        let addItem = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle.badge.plus"), style: .plain, target: self, action: #selector(addButtonTapped))
+        navigationItem.title = "수업관리"
+        
+        let addItem = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), style: .plain, target: self, action: #selector(addButtonTapped))
         addItem.width = 100
         addItem.tintColor = .black
         
@@ -32,34 +32,33 @@ class StudentManagementViewController: UIViewController {
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
         
-        if let data = realmRepository.read(StudentTable.self) {
-            mainView.data = data.sorted(by: \.name)
+        if let data = realmRepository.read(ClassTable.self) {
+            mainView.data = data.sorted(by: \.className)
         }
     }
-        
+    
     @objc private func didTapView() {
         view.endEditing(true)
     }
     
     @objc private func addButtonTapped() {
-        let vc = EditStudentViewController(editType: .create, delegate: self)
+        let vc = EditClassViewController(editType: .create, delegate: self)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
 
-extension StudentManagementViewController: saveSucsessDelegate {
+extension ClassManagementViewController: saveSucsessDelegate {
     func saveSucsess() {
         mainView.tableView.reloadData()
     }
 }
 
-extension StudentManagementViewController: sendSelectRowDelegate {
+extension ClassManagementViewController: sendSelectRowDelegate {
     func selectRow<T>(data: T) {
-        guard let studentData = data as? StudentTable else { return }
-
-        let vc = EditStudentViewController(editType: .update, delegate: self)
-        vc.data = studentData
+        guard let classData = data as? ClassTable else { return }
+        
+        let vc = EditClassViewController(editType: .update, delegate: self)
+        vc.data = classData
         navigationController?.pushViewController(vc, animated: true)
     }
 }
- 

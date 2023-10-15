@@ -17,11 +17,11 @@ class TabBarViewController: UIViewController {
             
             let calendar = CalendarViewController()
             calendar.tabBarItem = UITabBarItem(title: "CalendarTabName".localized, image: UIImage(systemName: "calendar"), tag: 0)
-            
+    
             let student = UINavigationController(rootViewController: StudentManagementViewController())
             student.tabBarItem = UITabBarItem(title: "StudentTabName".localized, image: UIImage(systemName: "person.fill"), tag: 0)
                         
-            let schedule = UINavigationController(rootViewController: ScheduleManagementViewController())
+            let schedule = UINavigationController(rootViewController: ClassManagementViewController())
             schedule.tabBarItem = UITabBarItem(title: "ScheduleTabName".localized, image: UIImage(systemName: "note.text"), tag: 0)
 
             

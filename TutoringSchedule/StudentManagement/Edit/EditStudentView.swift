@@ -13,6 +13,12 @@ protocol saveSucsessDelegate {
 
 class EditStudentView: BaseView {
 
+    let lineView = {
+       let view = UILabel()
+        view.backgroundColor = .systemGray5
+        return view
+    }()
+    
     lazy var nameTextField = {
         let view = UITextField().hoshi(title: "* 이름")
         view.tag = 0
@@ -24,7 +30,6 @@ class EditStudentView: BaseView {
     lazy var studentPhoneNumTextField = {
         let view = UITextField().hoshi(title: "학생 연락처")
         view.tag = 1
-        view.returnKeyType = .continue
         view.keyboardType = .numberPad
         view.delegate = self
         return view
@@ -33,7 +38,6 @@ class EditStudentView: BaseView {
     lazy var parentPhoneNumTextField = {
         let view = UITextField().hoshi(title: "학부모 연락처")
         view.tag = 2
-        view.returnKeyType = .continue
         view.keyboardType = .numberPad
         view.delegate = self
         return view
@@ -55,6 +59,7 @@ class EditStudentView: BaseView {
     }()
 
     override func setConfigure() {
+        addSubview(lineView)
         addSubview(nameTextField)
         addSubview(studentPhoneNumTextField)
         addSubview(parentPhoneNumTextField)
@@ -63,6 +68,12 @@ class EditStudentView: BaseView {
     }
     
     override func setConstraint() {
+        
+        lineView.snp.makeConstraints { make in
+            make.top.equalTo(self.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview().inset(4)
+            make.height.equalTo(0.7)
+        }
         
         nameTextField.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide).offset(22)

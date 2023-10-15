@@ -1,26 +1,22 @@
 //
-//  StudentManagementView.swift
+//  ClassManagementView.swift
 //  TutoringSchedule
 //
-//  Created by 김하은 on 2023/09/30.
+//  Created by 김하은 on 2023/10/06.
 //
 
 import UIKit
 import RealmSwift
 
-protocol sendSelectRowDelegate {
-    func selectRow<T>(data: T)
-}
-
-class StudentManagementView: BaseView {
+class ClassManagementView: BaseView {
 
     private let realmRepository = RealmRepository()
-    var data: Results<StudentTable>?
     var delegate: sendSelectRowDelegate?
+    var data: Results<ClassTable>?
     
     lazy var searchBar = {
         let view = UISearchBar()
-        view.placeholder = "이름"
+        view.placeholder = "수업명"
         view.searchBarStyle = .minimal
         view.delegate = self
         return view
@@ -39,7 +35,7 @@ class StudentManagementView: BaseView {
         view.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         return view
     }()
-    
+
     override func setConfigure() {
         addSubview(searchBar)
         addSubview(lineView)
@@ -47,7 +43,6 @@ class StudentManagementView: BaseView {
     }
     
     override func setConstraint() {
-                
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide)
             make.horizontalEdges.equalToSuperview().inset(16)
@@ -65,10 +60,10 @@ class StudentManagementView: BaseView {
             make.bottom.equalTo(self.safeAreaLayoutGuide).inset(24)
         }
     }
+    
 }
 
-extension StudentManagementView: UITableViewDelegate, UITableViewDataSource {
-    
+extension ClassManagementView: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data?.count ?? 0
     }
@@ -77,15 +72,41 @@ extension StudentManagementView: UITableViewDelegate, UITableViewDataSource {
         guard let data else { return UITableViewCell() }
         
         let cell = UITableViewCell()
-        cell.textLabel?.text = data[indexPath.row].name
+        cell.textLabel?.text = data[indexPath.row].className
         cell.selectionStyle = .none
         cell.accessoryType = .disclosureIndicator
         return cell
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let data else { return }
-        realmRepository.delete(data: data[indexPath.row])
+        guard let classData = data else { return }
+        guard var scheduleData = realmRepository.read(ScheduleTable.self) else { return }
+        guard let calendarData = realmRepository.read(CalendarTable .self) else { return }
+                
+        scheduleData = scheduleData.where {
+            $0.classPK == classData[indexPath.row]._id
+        }
+        
+        for schedule in scheduleData {
+
+            let calendarFilterData = calendarData.where {
+                $0.schedulePK == schedule._id
+                
+            }.filter {
+                Int($0.date.timeIntervalSince(Date())) >= 0
+            }
+
+            for data in calendarFilterData {
+                realmRepository.delete(data: data)
+            }
+        }
+
+        for data in scheduleData {
+            realmRepository.delete(data: data)
+        }
+        
+        realmRepository.delete(data: classData[indexPath.row])
+
         tableView.reloadData()
     }
     
@@ -95,15 +116,15 @@ extension StudentManagementView: UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension StudentManagementView: UISearchBarDelegate {
+extension ClassManagementView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard let realmData = realmRepository.read(StudentTable.self) else { return }
+        guard let realmData = realmRepository.read(ClassTable.self) else { return }
         
-        var tempData = realmData.sorted(by: \.name)
+        var tempData = realmData.sorted(by: \.className)
         
         if !searchText.isEmpty {
             tempData = tempData.where {
-                $0.name.contains(searchText)
+                $0.className.contains(searchText)
             }
         }
         

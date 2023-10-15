@@ -34,7 +34,7 @@ extension UITextField {
         view.font = .boldSystemFont(ofSize: 14)
         view.textColor = .black
         view.placeholderColor = .gray
-        view.placeholderFontScale = 0.7
+        view.placeholderFontScale = 0.9
         view.borderInactiveColor = .lightGray
         view.borderActiveColor = .darkGray
         return view

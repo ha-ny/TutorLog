@@ -1,22 +1,20 @@
 //
-//  StudentManagementView.swift
+//  StudentListView.swift
 //  TutoringSchedule
 //
-//  Created by 김하은 on 2023/09/30.
+//  Created by 김하은 on 2023/10/13.
 //
 
 import UIKit
 import RealmSwift
 
-protocol sendSelectRowDelegate {
-    func selectRow<T>(data: T)
-}
-
-class StudentManagementView: BaseView {
-
+class StudentListView: BaseView {
+    
     private let realmRepository = RealmRepository()
     var data: Results<StudentTable>?
     var delegate: sendSelectRowDelegate?
+    
+    var selectArray = List<ObjectId>()
     
     lazy var searchBar = {
         let view = UISearchBar()
@@ -27,7 +25,7 @@ class StudentManagementView: BaseView {
     }()
     
     let lineView = {
-       let view = UILabel()
+        let view = UILabel()
         view.backgroundColor = .systemGray5
         return view
     }()
@@ -37,6 +35,17 @@ class StudentManagementView: BaseView {
         view.delegate = self
         view.dataSource = self
         view.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        view.tintColor = .darkGray
+        return view
+    }()
+    
+    let nextButton = {
+        let view = UIButton()
+        view.layer.cornerRadius = 16
+        view.tintColor = .black
+        let configuration = UIImage.SymbolConfiguration(pointSize: 40)
+        let image = UIImage(systemName: "arrow.right.circle", withConfiguration: configuration)
+        view.setImage(image, for: .normal)
         return view
     }()
     
@@ -44,10 +53,11 @@ class StudentManagementView: BaseView {
         addSubview(searchBar)
         addSubview(lineView)
         addSubview(tableView)
+        addSubview(nextButton)
     }
     
     override func setConstraint() {
-                
+        
         searchBar.snp.makeConstraints { make in
             make.top.equalTo(self.safeAreaLayoutGuide)
             make.horizontalEdges.equalToSuperview().inset(16)
@@ -64,10 +74,16 @@ class StudentManagementView: BaseView {
             make.leading.trailing.equalTo(searchBar)
             make.bottom.equalTo(self.safeAreaLayoutGuide).inset(24)
         }
+        
+        nextButton.snp.makeConstraints { make in
+            make.right.equalToSuperview().inset(16)
+            make.bottom.equalTo(self.safeAreaLayoutGuide).inset(32)
+            make.size.equalTo(45)
+        }
     }
 }
 
-extension StudentManagementView: UITableViewDelegate, UITableViewDataSource {
+extension StudentListView: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data?.count ?? 0
@@ -78,24 +94,36 @@ extension StudentManagementView: UITableViewDelegate, UITableViewDataSource {
         
         let cell = UITableViewCell()
         cell.textLabel?.text = data[indexPath.row].name
-        cell.selectionStyle = .none
-        cell.accessoryType = .disclosureIndicator
+        
+        if let _ = selectArray.firstIndex(where: { $0 == data[indexPath.row]._id}) {
+            cell.imageView?.image = UIImage(systemName: "checkmark")
+            cell.isSelected = true
+        }
+        
         return cell
-    }
-
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let data else { return }
-        realmRepository.delete(data: data[indexPath.row])
-        tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let data else { return }
-        delegate?.selectRow(data: data[indexPath.row])
+        guard let cell = tableView.cellForRow(at: indexPath), let data else { return }
+
+        guard let index = selectArray.firstIndex(where: {$0 == data[indexPath.row]._id}) else {
+            cell.imageView?.image = UIImage(systemName: "checkmark")
+            selectArray.append(data[indexPath.row]._id)
+            return
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath), let data else { return }
+        cell.imageView?.image = nil
+        
+        if let index = selectArray.firstIndex(where: {$0 == data[indexPath.row]._id}) {
+            selectArray.remove(at: index)
+        }
     }
 }
 
-extension StudentManagementView: UISearchBarDelegate {
+extension StudentListView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let realmData = realmRepository.read(StudentTable.self) else { return }
         
@@ -111,3 +139,4 @@ extension StudentManagementView: UISearchBarDelegate {
         tableView.reloadData()
     }
 }
+
