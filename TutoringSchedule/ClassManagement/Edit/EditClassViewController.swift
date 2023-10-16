@@ -97,13 +97,13 @@ class EditClassViewController: UIViewController {
         studentArray = data.studentPK
         setStudent()
         
-        guard var scheduleData = realmRepository.read(ScheduleTable.self) else { return }
+        guard let scheduleData = realmRepository.read(ScheduleTable.self) else { return }
                 
-        scheduleData = scheduleData.where {
+        let schedules = scheduleData.where {
             $0.classPK == data._id
         }
         
-        for data in scheduleData {
+        for data in schedules {
             switch Days(rawValue: data.day) {
             case .sun: tapButton = mainView.sunButton
             case .mon: tapButton = mainView.monButton

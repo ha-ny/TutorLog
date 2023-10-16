@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import RealmSwift
 
 class CalendarViewController: UIViewController {
         
@@ -21,8 +22,19 @@ class CalendarViewController: UIViewController {
         
         mainView.todayButton.addTarget(self, action: #selector(todayButtonTapped), for: .touchUpInside)
         mainView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+        
+        var betweenDate = Date().betweenDate(date: Date())
 
-        mainView.calendar.select(Date())
+        if var data = realmRepository.read(CalendarTable.self) {
+            data = data.filter("date >= %@ AND date <= %@" , betweenDate.start, betweenDate.end)
+            mainView.data = data
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        //mainView.calendar.select(Date())
     }
     
     @objc func searchButtonTapped() {

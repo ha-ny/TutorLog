@@ -80,14 +80,14 @@ extension ClassManagementView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let classData = data else { return }
-        guard var scheduleData = realmRepository.read(ScheduleTable.self) else { return }
+        guard let scheduleData = realmRepository.read(ScheduleTable.self) else { return }
         guard let calendarData = realmRepository.read(CalendarTable .self) else { return }
                 
-        scheduleData = scheduleData.where {
+        let schedules = scheduleData.where {
             $0.classPK == classData[indexPath.row]._id
         }
         
-        for schedule in scheduleData {
+        for schedule in schedules {
 
             let calendarFilterData = calendarData.where {
                 $0.schedulePK == schedule._id
@@ -96,6 +96,8 @@ extension ClassManagementView: UITableViewDelegate, UITableViewDataSource {
                 Int($0.date.timeIntervalSince(Date())) >= 0
             }
 
+            let aa = Array(calendarFilterData)
+            
             for data in calendarFilterData {
                 realmRepository.delete(data: data)
             }
