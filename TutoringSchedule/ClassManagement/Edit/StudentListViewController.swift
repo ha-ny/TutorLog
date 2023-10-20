@@ -38,9 +38,13 @@ class StudentListViewController: UIViewController {
         if let studentData {
             mainView.selectArray.append(objectsIn: studentData)
         }
-        
+
         if let data = realmRepository.read(StudentTable.self) {
-            mainView.data = data.sorted(by: \.name)
+            var tempData = data.where {
+                $0.ishidden == false
+            }.sorted(by: \.name)
+            
+            mainView.data = tempData
         }
     }
 

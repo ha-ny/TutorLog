@@ -127,7 +127,9 @@ extension StudentListView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let realmData = realmRepository.read(StudentTable.self) else { return }
         
-        var tempData = realmData.sorted(by: \.name)
+        var tempData = realmData.where {
+            $0.ishidden == false
+        }.sorted(by: \.name)
         
         if !searchText.isEmpty {
             tempData = tempData.where {

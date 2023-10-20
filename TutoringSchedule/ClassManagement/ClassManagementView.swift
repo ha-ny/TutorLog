@@ -95,8 +95,6 @@ extension ClassManagementView: UITableViewDelegate, UITableViewDataSource {
             }.filter {
                 Int($0.date.timeIntervalSince(Date())) >= 0
             }
-
-            let aa = Array(calendarFilterData)
             
             for data in calendarFilterData {
                 realmRepository.delete(data: data)
@@ -107,7 +105,13 @@ extension ClassManagementView: UITableViewDelegate, UITableViewDataSource {
             realmRepository.delete(data: data)
         }
         
-        realmRepository.delete(data: classData[indexPath.row])
+        let indexData = classData[indexPath.row]
+        let newData = ClassTable(className: indexData.className, tutoringPlace: indexData.tutoringPlace, startDate: indexData.startDate, endDate: indexData.endDate, studentPK: indexData.studentPK)
+        
+        let originId = indexData._id
+        newData._id = originId
+        newData.ishidden = true
+        realmRepository.update(data: newData)
 
         tableView.reloadData()
     }
@@ -122,7 +126,9 @@ extension ClassManagementView: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         guard let realmData = realmRepository.read(ClassTable.self) else { return }
         
-        var tempData = realmData.sorted(by: \.className)
+        var tempData = realmData.where {
+            $0.ishidden == false
+        }.sorted(by: \.className)
         
         if !searchText.isEmpty {
             tempData = tempData.where {

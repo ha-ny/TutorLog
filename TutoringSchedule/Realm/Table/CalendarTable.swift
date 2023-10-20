@@ -1,15 +1,12 @@
 //
-//  RealmTable.swift
+//  CalendarTable.swift
 //  TutoringSchedule
 //
-//  Created by 김하은 on 2023/10/02.
+//  Created by 김하은 on 2023/10/21.
 //
 
 import Foundation
 import RealmSwift
-
-
-
 
 class CalendarTable: Object {
 

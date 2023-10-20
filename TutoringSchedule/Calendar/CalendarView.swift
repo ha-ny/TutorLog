@@ -13,22 +13,20 @@ class CalendarView: BaseView {
     
     private let realmRepository = RealmRepository()
     var data: Results<CalendarTable>?
-
-    lazy var yearMonthLabel = {
-        let view = UITextField()
+    
+    let yearMonthLabel = {
+        let view = UILabel()
         view.text = Date().convertToString(format: "yyyy년 MM월", date: Date())
-        view.tintColor = .clear
-        view.delegate = self
         view.font = .boldSystemFont(ofSize: 20)
         return view
     }()
-
-    let searchButton = {
-        let view = UIButton()
-        view.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-        view.tintColor = .black
-        return view
-    }()
+    
+//    let searchButton = {
+//        let view = UIButton()
+//        view.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
+//        view.tintColor = .black
+//        return view
+//    }()
     
     let todayButton = {
         let view = UIButton()
@@ -36,7 +34,7 @@ class CalendarView: BaseView {
         view.tintColor = .darkGray
         return view
     }()
-
+    
     let calendar = FSCalendar()
     
     let lineView = {
@@ -46,7 +44,7 @@ class CalendarView: BaseView {
     }()
     
     lazy var tableView = {
-       let view = UITableView()
+        let view = UITableView()
         view.delegate = self
         view.dataSource = self
         view.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
@@ -65,7 +63,7 @@ class CalendarView: BaseView {
     override func setConfigure() {
         addSubview(calendar)
         addSubview(yearMonthLabel)
-        addSubview(searchButton)
+        //addSubview(searchButton)
         addSubview(todayButton)
         addSubview(lineView)
         addSubview(tableView)
@@ -77,16 +75,22 @@ class CalendarView: BaseView {
         }
         
         todayButton.snp.makeConstraints { make in
-            make.right.equalTo(searchButton.snp.left)
-            make.top.bottom.equalTo(searchButton)
+            make.right.equalTo(self).inset(20)
+            make.top.equalTo(self).inset(20)
             make.size.equalTo(30)
         }
-
-        searchButton.snp.makeConstraints { make in
-            make.size.equalTo(30)
-            make.top.right.equalTo(self.safeAreaLayoutGuide).inset(20)
-        }
-
+        
+//        todayButton.snp.makeConstraints { make in
+//            make.right.equalTo(searchButton.snp.left)
+//            make.top.bottom.equalTo(searchButton)
+//            make.size.equalTo(30)
+//        }
+        
+//        searchButton.snp.makeConstraints { make in
+//            make.size.equalTo(30)
+//            make.top.right.equalTo(self.safeAreaLayoutGuide).inset(20)
+//        }
+        
         calendar.snp.makeConstraints { make in
             make.top.equalTo(yearMonthLabel.snp.bottom).inset(25)
             make.centerX.equalTo(self)
@@ -113,21 +117,38 @@ extension CalendarView: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         guard let data else { return UITableViewCell() }
         guard let scheduleTable = realmRepository.read(ScheduleTable.self) else { return UITableViewCell() }
         guard let classTable = realmRepository.read(ClassTable.self) else { return UITableViewCell() }
-        
-//        let scheduleData = scheduleTable.where {
-//            $0._id = data[indexPath.row].schedulePK
-//        }
-//        
-//        let classData = classTable.where {
-//            $0._id = scheduleData.
-//        }
 
+        let scheduleData = scheduleTable.where {
+            $0._id == data[indexPath.row].schedulePK
+        }
+
+        let classData = classTable.where {
+            $0._id == scheduleData[0].classPK
+        }
         
-        let cell = UITableViewCell()
-        cell.textLabel?.text = "데이터"
+        
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "cellIdentifier")
+        cell.textLabel?.text = classData[0].className
+        
+        guard let selectDate = calendar.selectedDate else { return UITableViewCell() }
+
+        for schedule in scheduleData {
+            if Calendar.current.component(.weekday, from: selectDate) - 1 == schedule.day {
+
+                //print("---------Time",schedule.startTime, schedule.endTime)
+                
+                let startTime = Date().convertToString(format: "HH:mm", date: schedule.startTime)
+                let endTime = Date().convertToString(format: "HH:mm", date: schedule.endTime)
+
+                let text = startTime + "~" + endTime
+                cell.detailTextLabel?.text = text
+            }
+        }
+        
         return cell
     }
 }
@@ -153,7 +174,7 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
         calendar.appearance.weekdayFont = .systemFont(ofSize: 14)
         // 숫자들 글자 폰트 및 사이즈 지정
         calendar.appearance.titleFont = .systemFont(ofSize: 16)
-
+        
         //헤더 숨김
         calendar.calendarHeaderView.isHidden = true
         
@@ -165,10 +186,10 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
         
         // 양옆 년도, 월 지우기
         calendar.appearance.headerMinimumDissolvedAlpha = 0.0
-
+        
         // 달에 유효하지않은 날짜 지우기
         calendar.placeholderType = .none
-
+        
         calendar.appearance.selectionColor = .gray
         calendar.appearance.todayColor = .systemGray4
     }
@@ -185,38 +206,39 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
             return .black
         }
     }
-
+    
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-
-        guard let data else { return }
         
-        let label = UILabel(frame: CGRect(x: 28, y: 25, width: 14, height: 14))
-        label.layer.backgroundColor = UIColor.black.cgColor
-        label.layer.cornerRadius = 6
-        label.font = .boldSystemFont(ofSize: 9)
-        label.textAlignment = .center
-        label.textColor = .white
-
-        let betweenDate = Date().betweenDate(date: date)
-        let result = data.filter("date >= %@ AND date <= %@", betweenDate.start, betweenDate.end)
-
-        if result.isEmpty {
-            for subview in cell.subviews {
-                if subview is UILabel {
+        for subview in cell.subviews {
+            if subview is UILabel {
                     subview.removeFromSuperview()
                 }
-            }
-        } else {
-            label.text = "\(result.count)"
+           }
+        
+        guard let calendarData = realmRepository.read(CalendarTable.self) else { return }
+        
+        let betweenDate = Date().betweenDate(date: date)
+        let filterCalendarData = calendarData.filter("date >= %@ AND date <= %@", betweenDate.start, betweenDate.end)
+        
+        if !filterCalendarData.isEmpty {
+            let label = UILabel(frame: CGRect(x: 28, y: 25, width: 14, height: 14))
+            label.layer.backgroundColor = UIColor.black.cgColor
+            label.layer.cornerRadius = 6
+            label.font = .boldSystemFont(ofSize: 9)
+            label.textAlignment = .center
+            label.textColor = .white
+            
+            label.text = "\(filterCalendarData.count)"
             cell.addSubview(label)
         }
     }
     
     //캘린더 스크롤 감지
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        yearMonthLabel.text =  Date().convertToString(format: "yyyy년 MM월", date: calendar.currentPage)
+        guard let date = Calendar.current.date(byAdding: .day, value: 1, to: calendar.currentPage) else { return }
+        yearMonthLabel.text =  Date().convertToString(format: "yyyy년 MM월", date: date)
     }
-
+    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         guard let calendarData = realmRepository.read(CalendarTable.self) else { return }
         
@@ -225,12 +247,5 @@ extension CalendarView: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDele
         
         data = result
         tableView.reloadData()
-    }
-}
-
-extension CalendarView: UITextFieldDelegate {
-    //textField 입력 막음
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        return false
     }
 }

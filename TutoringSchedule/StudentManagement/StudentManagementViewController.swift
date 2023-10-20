@@ -8,9 +8,9 @@
 import UIKit
 
 class StudentManagementViewController: UIViewController {
-
+    
     private let mainView = StudentManagementView()
-    private let realmRepository = RealmRepository()
+    private let viewModel = StudentManagementViewModel()
     
     override func loadView() {
         self.view = mainView
@@ -21,7 +21,7 @@ class StudentManagementViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.title = "학생관리"
-
+        
         let addItem = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle.badge.plus"), style: .plain, target: self, action: #selector(addButtonTapped))
         addItem.width = 100
         addItem.tintColor = .black
@@ -32,11 +32,25 @@ class StudentManagementViewController: UIViewController {
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
         
-        if let data = realmRepository.read(StudentTable.self) {
-            mainView.data = data.sorted(by: \.name)
+        mainView.searchBar.delegate = self
+        
+        bind()
+        viewModel.settingData()
+    }
+    
+    private func bind() {
+        viewModel.state.bind { [weak self] eventType in
+            guard let self = self else { return }
+            
+            if case .settingData(let data) = eventType {
+                self.mainView.data = data
+            } else if case .searchData(let data) = eventType {
+                self.mainView.data = data
+                self.mainView.tableView.reloadData()
+            }
         }
     }
-        
+    
     @objc private func didTapView() {
         view.endEditing(true)
     }
@@ -56,10 +70,15 @@ extension StudentManagementViewController: saveSucsessDelegate {
 extension StudentManagementViewController: sendSelectRowDelegate {
     func selectRow<T>(data: T) {
         guard let studentData = data as? StudentTable else { return }
-
-        let vc = EditStudentViewController(editType: .update, delegate: self)
-        vc.data = studentData
+        
+        let vc = EditStudentViewController(editType: .update(studentData), delegate: self)
         navigationController?.pushViewController(vc, animated: true)
     }
 }
- 
+
+extension StudentManagementViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchData(keyWord: searchText)
+    }
+}
+

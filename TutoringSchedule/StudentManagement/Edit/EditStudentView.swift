@@ -12,7 +12,7 @@ protocol saveSucsessDelegate {
 }
 
 class EditStudentView: BaseView {
-
+    
     let lineView = {
        let view = UILabel()
         view.backgroundColor = .systemGray5
@@ -23,7 +23,6 @@ class EditStudentView: BaseView {
         let view = UITextField().hoshi(title: "* 이름")
         view.tag = 0
         view.returnKeyType = .continue
-        view.delegate = self
         return view
     }()
     
@@ -31,7 +30,6 @@ class EditStudentView: BaseView {
         let view = UITextField().hoshi(title: "학생 연락처")
         view.tag = 1
         view.keyboardType = .numberPad
-        view.delegate = self
         return view
     }()
  
@@ -39,7 +37,6 @@ class EditStudentView: BaseView {
         let view = UITextField().hoshi(title: "학부모 연락처")
         view.tag = 2
         view.keyboardType = .numberPad
-        view.delegate = self
         return view
     }()
     
@@ -47,7 +44,6 @@ class EditStudentView: BaseView {
         let view = UITextField().hoshi(title: "주소")
         view.tag = 3
         view.returnKeyType = .continue
-        view.delegate = self
         return view
     }()
     
@@ -104,15 +100,5 @@ class EditStudentView: BaseView {
             make.horizontalEdges.equalToSuperview().inset(45)
             make.height.equalTo(60)
         }
-    }
-}
-
-extension EditStudentView: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let textField = textField.superview?.viewWithTag(textField.tag + 1) {
-            textField.becomeFirstResponder()
-        }
-        
-        return true
     }
 }

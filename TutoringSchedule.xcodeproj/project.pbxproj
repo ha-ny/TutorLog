@@ -20,6 +20,13 @@
 		3F13437B2AD8EBA4001FE7EA /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3F13437A2AD8EBA4001FE7EA /* SnapKit */; };
 		3F4F175E2AD9749D00F04DF1 /* StudentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F175D2AD9749D00F04DF1 /* StudentListViewController.swift */; };
 		3F4F17602AD9764C00F04DF1 /* StudentListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F175F2AD9764C00F04DF1 /* StudentListView.swift */; };
+		3F4F17622AE1792800F04DF1 /* EditStudentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17612AE1792800F04DF1 /* EditStudentViewModel.swift */; };
+		3F4F17642AE1807F00F04DF1 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17632AE1807F00F04DF1 /* Observable.swift */; };
+		3F4F17662AE2AAAB00F04DF1 /* StudentManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17652AE2AAAB00F04DF1 /* StudentManagementViewModel.swift */; };
+		3F4F17692AE2DF8100F04DF1 /* StudentTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17682AE2DF8100F04DF1 /* StudentTable.swift */; };
+		3F4F176B2AE2DFCB00F04DF1 /* ClassTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F176A2AE2DFCB00F04DF1 /* ClassTable.swift */; };
+		3F4F176D2AE2DFEA00F04DF1 /* ScheduleTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F176C2AE2DFEA00F04DF1 /* ScheduleTable.swift */; };
+		3F4F176F2AE2DFF800F04DF1 /* CalendarTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F176E2AE2DFF800F04DF1 /* CalendarTable.swift */; };
 		3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */; };
 		3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */; };
 		3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB402AC46D4700BFCD46 /* TabBarViewController.swift */; };
@@ -38,7 +45,6 @@
 		3FB8DB782AC76CD100BFCD46 /* EditClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB772AC76CD100BFCD46 /* EditClassViewController.swift */; };
 		3FB8DB7B2AC76D6900BFCD46 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB8DB7A2AC76D6900BFCD46 /* TextFieldEffects */; };
 		3FB8DB7E2ACA406800BFCD46 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB8DB7D2ACA406800BFCD46 /* RealmSwift */; };
-		3FB8DB802ACA40EF00BFCD46 /* RealmTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB7F2ACA40EF00BFCD46 /* RealmTable.swift */; };
 		3FB8DB822ACA452000BFCD46 /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB812ACA452000BFCD46 /* RealmRepository.swift */; };
 /* End PBXBuildFile section */
 
@@ -53,6 +59,13 @@
 		3F1343762AD6C30C001FE7EA /* EditStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStudentViewController.swift; sourceTree = "<group>"; };
 		3F4F175D2AD9749D00F04DF1 /* StudentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentListViewController.swift; sourceTree = "<group>"; };
 		3F4F175F2AD9764C00F04DF1 /* StudentListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentListView.swift; sourceTree = "<group>"; };
+		3F4F17612AE1792800F04DF1 /* EditStudentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStudentViewModel.swift; sourceTree = "<group>"; };
+		3F4F17632AE1807F00F04DF1 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
+		3F4F17652AE2AAAB00F04DF1 /* StudentManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentManagementViewModel.swift; sourceTree = "<group>"; };
+		3F4F17682AE2DF8100F04DF1 /* StudentTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTable.swift; sourceTree = "<group>"; };
+		3F4F176A2AE2DFCB00F04DF1 /* ClassTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTable.swift; sourceTree = "<group>"; };
+		3F4F176C2AE2DFEA00F04DF1 /* ScheduleTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTable.swift; sourceTree = "<group>"; };
+		3F4F176E2AE2DFF800F04DF1 /* CalendarTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTable.swift; sourceTree = "<group>"; };
 		3FB8DB392AC46D4700BFCD46 /* TutoringSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutoringSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -71,7 +84,6 @@
 		3FB8DB6D2AC764B700BFCD46 /* StudentManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentManagementViewController.swift; sourceTree = "<group>"; };
 		3FB8DB6F2AC764C100BFCD46 /* StudentManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentManagementView.swift; sourceTree = "<group>"; };
 		3FB8DB772AC76CD100BFCD46 /* EditClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClassViewController.swift; sourceTree = "<group>"; };
-		3FB8DB7F2ACA40EF00BFCD46 /* RealmTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmTable.swift; sourceTree = "<group>"; };
 		3FB8DB812ACA452000BFCD46 /* RealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -105,8 +117,8 @@
 		3F1343622ACFD0AB001FE7EA /* Realm */ = {
 			isa = PBXGroup;
 			children = (
-				3FB8DB7F2ACA40EF00BFCD46 /* RealmTable.swift */,
 				3FB8DB812ACA452000BFCD46 /* RealmRepository.swift */,
+				3F4F17672AE2DF6F00F04DF1 /* Table */,
 			);
 			path = Realm;
 			sourceTree = "<group>";
@@ -142,10 +154,22 @@
 		3F1343782AD6C69F001FE7EA /* Edit */ = {
 			isa = PBXGroup;
 			children = (
+				3F4F17612AE1792800F04DF1 /* EditStudentViewModel.swift */,
 				3F1343662AD29A51001FE7EA /* EditStudentView.swift */,
 				3F1343762AD6C30C001FE7EA /* EditStudentViewController.swift */,
 			);
 			path = Edit;
+			sourceTree = "<group>";
+		};
+		3F4F17672AE2DF6F00F04DF1 /* Table */ = {
+			isa = PBXGroup;
+			children = (
+				3F4F17682AE2DF8100F04DF1 /* StudentTable.swift */,
+				3F4F176A2AE2DFCB00F04DF1 /* ClassTable.swift */,
+				3F4F176C2AE2DFEA00F04DF1 /* ScheduleTable.swift */,
+				3F4F176E2AE2DFF800F04DF1 /* CalendarTable.swift */,
+			);
+			path = Table;
 			sourceTree = "<group>";
 		};
 		3FB8DB302AC46D4700BFCD46 = {
@@ -167,13 +191,11 @@
 		3FB8DB3B2AC46D4700BFCD46 /* TutoringSchedule */ = {
 			isa = PBXGroup;
 			children = (
-				3FB8DB5D2AC475B400BFCD46 /* BaseView.swift */,
 				3F13432F2ACBF778001FE7EA /* Model.swift */,
 				3F1343622ACFD0AB001FE7EA /* Realm */,
 				3F13436C2AD2A7F8001FE7EA /* Extension */,
 				3F13436B2AD2A6FD001FE7EA /* TabBar */,
 				3FB8DB642AC47A8F00BFCD46 /* Calendar */,
-				3FB8DB6C2AC5F72500BFCD46 /* CalendarSearch */,
 				3FB8DB712AC764C700BFCD46 /* StudentManagement */,
 				3F13435D2ACFA86C001FE7EA /* ClassManagement */,
 				3FB8DB5F2AC4793C00BFCD46 /* Delegate */,
@@ -181,7 +203,10 @@
 				3F1343532ACCF7EF001FE7EA /* GoogleService-Info.plist */,
 				3FB8DB4A2AC46D4800BFCD46 /* Info.plist */,
 				3FB8DB452AC46D4800BFCD46 /* Assets.xcassets */,
+				3F4F17632AE1807F00F04DF1 /* Observable.swift */,
+				3FB8DB5D2AC475B400BFCD46 /* BaseView.swift */,
 				3FB8DB472AC46D4800BFCD46 /* LaunchScreen.storyboard */,
+				3FB8DB6C2AC5F72500BFCD46 /* CalendarSearch */,
 			);
 			path = TutoringSchedule;
 			sourceTree = "<group>";
@@ -216,6 +241,7 @@
 		3FB8DB712AC764C700BFCD46 /* StudentManagement */ = {
 			isa = PBXGroup;
 			children = (
+				3F4F17652AE2AAAB00F04DF1 /* StudentManagementViewModel.swift */,
 				3FB8DB6F2AC764C100BFCD46 /* StudentManagementView.swift */,
 				3FB8DB6D2AC764B700BFCD46 /* StudentManagementViewController.swift */,
 				3F1343782AD6C69F001FE7EA /* Edit */,
@@ -338,6 +364,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3FB8DB612AC47A6500BFCD46 /* CalendarViewController.swift in Sources */,
+				3F4F176B2AE2DFCB00F04DF1 /* ClassTable.swift in Sources */,
 				3FB8DB632AC47A8500BFCD46 /* CalendarView.swift in Sources */,
 				3F1343672AD29A51001FE7EA /* EditStudentView.swift in Sources */,
 				3F1343612ACFA889001FE7EA /* ClassManagementView.swift in Sources */,
@@ -348,17 +375,22 @@
 				3F13436A2AD29C2B001FE7EA /* EditClassView.swift in Sources */,
 				3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */,
 				3F4F17602AD9764C00F04DF1 /* StudentListView.swift in Sources */,
+				3F4F17642AE1807F00F04DF1 /* Observable.swift in Sources */,
 				3FB8DB692AC5F70D00BFCD46 /* CalendarSearchViewController.swift in Sources */,
 				3F1343302ACBF778001FE7EA /* Model.swift in Sources */,
 				3FB8DB5E2AC475B400BFCD46 /* BaseView.swift in Sources */,
-				3FB8DB802ACA40EF00BFCD46 /* RealmTable.swift in Sources */,
 				3FB8DB702AC764C100BFCD46 /* StudentManagementView.swift in Sources */,
+				3F4F176D2AE2DFEA00F04DF1 /* ScheduleTable.swift in Sources */,
 				3FB8DB822ACA452000BFCD46 /* RealmRepository.swift in Sources */,
 				3F4F175E2AD9749D00F04DF1 /* StudentListViewController.swift in Sources */,
 				3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */,
 				3F1343772AD6C30C001FE7EA /* EditStudentViewController.swift in Sources */,
 				3FB8DB6B2AC5F71E00BFCD46 /* CalendarSearchView.swift in Sources */,
 				3F1343322ACC2B4F001FE7EA /* DatePickHalfView.swift in Sources */,
+				3F4F17692AE2DF8100F04DF1 /* StudentTable.swift in Sources */,
+				3F4F17622AE1792800F04DF1 /* EditStudentViewModel.swift in Sources */,
+				3F4F17662AE2AAAB00F04DF1 /* StudentManagementViewModel.swift in Sources */,
+				3F4F176F2AE2DFF800F04DF1 /* CalendarTable.swift in Sources */,
 				3FB8DB572AC471F700BFCD46 /* Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

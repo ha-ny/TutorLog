@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import RealmSwift
 
 protocol sendSelectRowDelegate {
     func selectRow<T>(data: T)
@@ -14,15 +13,14 @@ protocol sendSelectRowDelegate {
 
 class StudentManagementView: BaseView {
 
-    private let realmRepository = RealmRepository()
-    var data: Results<StudentTable>?
+    private let viewModel = StudentManagementViewModel()
+    var data: [StudentTable]?
     var delegate: sendSelectRowDelegate?
     
-    lazy var searchBar = {
+    let searchBar = {
         let view = UISearchBar()
         view.placeholder = "이름"
         view.searchBarStyle = .minimal
-        view.delegate = self
         return view
     }()
     
@@ -85,29 +83,18 @@ extension StudentManagementView: UITableViewDelegate, UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let data else { return }
-        realmRepository.delete(data: data[indexPath.row])
+        let indexData = data[indexPath.row]
+        let newData = StudentTable(name: indexData.name, studentPhoneNum: indexData.studentPhoneNum, parentPhoneNum: indexData.parentPhoneNum, address: indexData.address, memo: indexData.memo)
+        
+        let originId = indexData._id
+        newData._id = originId
+        
+        viewModel.rowDelete(newData: newData)
         tableView.reloadData()
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let data else { return }
         delegate?.selectRow(data: data[indexPath.row])
-    }
-}
-
-extension StudentManagementView: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        guard let realmData = realmRepository.read(StudentTable.self) else { return }
-        
-        var tempData = realmData.sorted(by: \.name)
-        
-        if !searchText.isEmpty {
-            tempData = tempData.where {
-                $0.name.contains(searchText)
-            }
-        }
-        
-        data = tempData
-        tableView.reloadData()
     }
 }

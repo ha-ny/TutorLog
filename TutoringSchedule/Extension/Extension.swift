@@ -8,6 +8,10 @@
 import UIKit
 import TextFieldEffects
 
+extension NSNotification.Name {
+    static let calendarReload = Notification.Name("calendarReload")
+}
+
 //다국어 지원
 extension String {
     var localized: String {
@@ -20,15 +24,12 @@ extension Date {
     func convertToString(format: String, date: Date) -> String {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        dateFormatter.locale = Locale(identifier: "ko_kr") // 한국의 시간을 지정해준다.
-        dateFormatter.timeZone = TimeZone(abbreviation: "KST") // 한국의 시간대로 지정한다.
-        return dateFormatter.string(from: date) // Date to String
+        return dateFormatter.string(from: date)
     }
     
     func betweenDate(date: Date) -> (start: Date, end: Date) {
         let start = Calendar.current.startOfDay(for: date)
         let end = start.addingTimeInterval(24 * 60 * 60 - 1) // 1초 = 60, 1시간 = 60 * 60, 하루 24시간, - 1분
-        print("0--------------------betweenDate",start, end)
         return (start, end)
     }
 }

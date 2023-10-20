@@ -8,9 +8,9 @@
 import Foundation
 import UIKit
 
-enum EditType {
+enum EditType<T> {
     case create
-    case update
+    case update(T)
 }
 
 enum Days: Int {

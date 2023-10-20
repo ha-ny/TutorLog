@@ -8,21 +8,37 @@
 import UIKit
 
 class EditStudentViewController: UIViewController {
+        
+    enum AlertType: String {
+        case name = "이름은 필수입력입니다"
+        case numberIsInt = "숫자만 입력가능합니다"
+    }
     
-    //VC 기본 세팅
-    var editType: EditType?
     var delegate: saveSucsessDelegate?
-    
-    //editType .update시 기본 세팅
-    var data: StudentTable?
-    
+
     private let mainView = EditStudentView()
-    private let realmRepository = RealmRepository()
+    private let viewModel = EditStudentViewModel()
     
-    convenience init(editType: EditType, delegate: saveSucsessDelegate) {
-        self.init()
-        self.editType = editType
+    init(editType: EditType<StudentTable>, delegate: saveSucsessDelegate) {
+        super.init(nibName: nil, bundle: nil)
+        
+        viewModel.state.bind { [weak self] eventType in
+            guard let self = self else { return }
+            
+            if case .settingData(let data) = eventType {
+                self.dataSetting(data)
+            } else if case .saveData = eventType {
+                delegate.saveSucsess()
+                navigationController?.popViewController(animated: true)
+            }
+        }
+        
+        viewModel.editType = editType
         self.delegate = delegate
+    }
+
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func loadView() {
@@ -44,13 +60,17 @@ class EditStudentViewController: UIViewController {
         saveItem.tintColor = .black
         navigationItem.rightBarButtonItem = saveItem
 
-        mainView.memoTextField.addTarget(self, action: #selector(didTapView), for: .editingDidEndOnExit)
-        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView))
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
         
-        dataSetting()
+        mainView.memoTextField.addTarget(self, action: #selector(didTapView), for: .editingDidEndOnExit)
+
+        mainView.nameTextField.delegate = self
+        mainView.studentPhoneNumTextField.delegate = self
+        mainView.parentPhoneNumTextField.delegate = self
+        mainView.addressTextField.delegate = self
+        mainView.memoTextField.delegate = self
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -62,9 +82,8 @@ class EditStudentViewController: UIViewController {
         view.endEditing(true)
     }
     
-    private func dataSetting() {
-        guard let data else { return }
-        
+    private func dataSetting(_ data: StudentTable) {
+
         mainView.nameTextField.text = data.name
         mainView.studentPhoneNumTextField.text = data.studentPhoneNum
         mainView.parentPhoneNumTextField.text = data.parentPhoneNum
@@ -77,21 +96,25 @@ class EditStudentViewController: UIViewController {
     }
     
     @objc private func saveButtonTapped() {
-
+        
         guard let name = mainView.nameTextField.text, !name.isEmpty else {
-            let alert = UIAlertController().customMessageAlert(message: "이름 입력은 필수입니다")
+            let alert = UIAlertController().customMessageAlert(message: AlertType.name.rawValue)
             present(alert, animated: true)
             return //필수체크
         }
                
         var studentPhoneNum: String
         
+        func isInt(text: String) -> Bool {
+            return Int(text) ?? -1 != -1 ? true : false
+        }
+        
         if let studentPhoneNumText = mainView.studentPhoneNumTextField.text, !studentPhoneNumText.isEmpty{
             if isInt(text: studentPhoneNumText) {
                 studentPhoneNum = studentPhoneNumText
             }else {
                 mainView.studentPhoneNumTextField.becomeFirstResponder()
-                let alert = UIAlertController().customMessageAlert(message: "번호는 숫자만 입력해주세요")
+                let alert = UIAlertController().customMessageAlert(message: AlertType.numberIsInt.rawValue)
                 present(alert, animated: true)
                 return
             }
@@ -106,7 +129,7 @@ class EditStudentViewController: UIViewController {
                 parentPhoneNum = parentPhoneNumText
             }else {
                 mainView.parentPhoneNumTextField.becomeFirstResponder()
-                let alert = UIAlertController().customMessageAlert(message: "번호는 숫자만 입력해주세요")
+                let alert = UIAlertController().customMessageAlert(message: AlertType.numberIsInt.rawValue)
                 present(alert, animated: true)
                 return
             }
@@ -119,26 +142,16 @@ class EditStudentViewController: UIViewController {
         
         let newData = StudentTable(name: name, studentPhoneNum: studentPhoneNum, parentPhoneNum: parentPhoneNum, address: address, memo: memo)
         
-        switch editType {
-        case .create: realmRepository.create(data: newData)
-        case .update:
-            guard let data else { return }
-            
-            let originId = data._id
-            newData._id = originId
-            realmRepository.update(data: newData)
-        case .none:
-            let alert = UIAlertController().customMessageAlert(message: "오류가 발생했습니다.\n다시 실행해주세요")
-            present(alert, animated: true)
-            return
-        }
-    
-        delegate?.saveSucsess()
-        navigationController?.popViewController(animated: true)
-    }
-    
-    func isInt(text: String) -> Bool {
-        return Int(text) ?? -1 != -1 ? true : false
+        viewModel.saveData(newData: newData)
     }
 }
 
+extension EditStudentViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let textField = textField.superview?.viewWithTag(textField.tag + 1) {
+            textField.becomeFirstResponder()
+        }
+        
+        return true
+    }
+}

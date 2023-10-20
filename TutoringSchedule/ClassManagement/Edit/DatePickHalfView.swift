@@ -26,6 +26,13 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         return view
     }()
     
+    lazy var timeLabel = {
+        let view = UILabel()
+        view.textColor = .black
+        view.font = .boldSystemFont(ofSize: 25)
+        return view
+    }()
+    
     let startLabel = {
         let view = UILabel()
         view.text = "시작 시간"
@@ -53,16 +60,17 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
 
     var startHour = 9
     var startMinute = 0
-    var endHour = 9
+    var endHour = 10
     var endMinute = 0
     
     override func viewDidLoad() {
         view.backgroundColor = .white
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(okButtonTapped))
+        navigationItem.rightBarButtonItem?.tintColor = .black
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "삭제", style: .plain, target: self, action: #selector(deleteButtonTapped))
-        
+        navigationItem.leftBarButtonItem?.tintColor = .black
         
         
         switch Days(rawValue: day) {
@@ -74,11 +82,12 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         case .fri: dayLabel.text = "금요일"
         case .sat: dayLabel.text = "토요일"
         case .none:
-            dayLabel.text = ""
+            dayLabel.text = "요일 불러오기 실패"
         }
         
         
         view.addSubview(dayLabel)
+        view.addSubview(timeLabel)
         view.addSubview(startLabel)
         view.addSubview(endLabel)
         view.addSubview(pickerView)
@@ -86,7 +95,12 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         dayLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(4)
-            make.horizontalEdges.equalTo(view.safeAreaLayoutGuide).inset(30)
+            make.left.equalTo(view.safeAreaLayoutGuide).inset(24)
+        }
+        
+        timeLabel.snp.makeConstraints { make in
+            make.top.bottom.equalTo(dayLabel)
+            make.left.equalTo(dayLabel.snp.right).offset(14)
         }
         
         startLabel.snp.makeConstraints { make in
@@ -96,7 +110,7 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         }
         
         endLabel.snp.makeConstraints { make in
-            make.top.equalTo(dayLabel.snp.bottom).offset(10)
+            make.top.bottom.equalTo(startLabel)
             make.right.equalTo(view.safeAreaLayoutGuide)
             make.width.equalTo(view.snp.width).multipliedBy(0.5)
         }
@@ -107,10 +121,12 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(24)
         }
         let newRow = maxCount / 2
-        pickerView.selectRow(newRow, inComponent: 0, animated: true)
-        pickerView.selectRow(newRow + 4, inComponent: 1, animated: true)
-        pickerView.selectRow(newRow + 1, inComponent: 2, animated: true)
-        pickerView.selectRow(newRow + 4, inComponent: 3, animated: true)
+        pickerView.selectRow(newRow, inComponent: 0, animated: true) // 9
+        pickerView.selectRow(newRow + 4, inComponent: 1, animated: true) //0
+        pickerView.selectRow(newRow + 1, inComponent: 2, animated: true) // 10
+        pickerView.selectRow(newRow + 4, inComponent: 3, animated: true) //0
+        
+        timeSetting()
     }
 
     @objc func okButtonTapped() {
@@ -139,6 +155,16 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         dismiss(animated: true)
     }
     
+    func timeSetting() {
+        var time = "\(startHour):\(startMinute)"
+        guard let startTime = stringToDate(format: "HH:mm", date: time) else { return }
+        
+        time = "\(endHour):\(endMinute)"
+        guard let endTime = stringToDate(format: "HH:mm", date: time) else { return }
+        
+        timeLabel.text = Date().convertToString(format: "HH:mm", date: startTime) + "~" + Date().convertToString(format: "HH:mm", date: endTime)
+    }
+    
     @objc func deleteButtonTapped() {
         delegate?.deleteData()
         dismiss(animated: true)
@@ -147,13 +173,7 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
     func stringToDate(format: String, date: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        dateFormatter.timeZone = NSTimeZone(name: "UTC") as TimeZone?
-        
-        guard let data = dateFormatter.date(from: date) else {
-            return nil
-        }
-        
-        return data
+        return dateFormatter.date(from: date)
     }
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
@@ -181,7 +201,7 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-                
+             
         switch TimeType(rawValue: component) {
         case .startHour: startHour = (row % 24) + 1
         case .startMinute: startMinute = (row % 12) * 5
@@ -190,5 +210,7 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         case .none:
             return
         }
+        
+        timeSetting()
     }
 }
