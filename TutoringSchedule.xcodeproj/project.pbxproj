@@ -27,6 +27,9 @@
 		3F4F176B2AE2DFCB00F04DF1 /* ClassTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F176A2AE2DFCB00F04DF1 /* ClassTable.swift */; };
 		3F4F176D2AE2DFEA00F04DF1 /* ScheduleTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F176C2AE2DFEA00F04DF1 /* ScheduleTable.swift */; };
 		3F4F176F2AE2DFF800F04DF1 /* CalendarTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F176E2AE2DFF800F04DF1 /* CalendarTable.swift */; };
+		3F4F17712AE2E0C800F04DF1 /* ClassManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17702AE2E0C800F04DF1 /* ClassManagementViewModel.swift */; };
+		3F4F17732AE2E4AE00F04DF1 /* EditClassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17722AE2E4AE00F04DF1 /* EditClassViewModel.swift */; };
+		3F4F17762AE2EEA300F04DF1 /* CalendarViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17752AE2EEA300F04DF1 /* CalendarViewModel.swift */; };
 		3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */; };
 		3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */; };
 		3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB402AC46D4700BFCD46 /* TabBarViewController.swift */; };
@@ -66,6 +69,9 @@
 		3F4F176A2AE2DFCB00F04DF1 /* ClassTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTable.swift; sourceTree = "<group>"; };
 		3F4F176C2AE2DFEA00F04DF1 /* ScheduleTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTable.swift; sourceTree = "<group>"; };
 		3F4F176E2AE2DFF800F04DF1 /* CalendarTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTable.swift; sourceTree = "<group>"; };
+		3F4F17702AE2E0C800F04DF1 /* ClassManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassManagementViewModel.swift; sourceTree = "<group>"; };
+		3F4F17722AE2E4AE00F04DF1 /* EditClassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClassViewModel.swift; sourceTree = "<group>"; };
+		3F4F17752AE2EEA300F04DF1 /* CalendarViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewModel.swift; sourceTree = "<group>"; };
 		3FB8DB392AC46D4700BFCD46 /* TutoringSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutoringSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +115,7 @@
 			children = (
 				3F1343602ACFA889001FE7EA /* ClassManagementView.swift */,
 				3F13435E2ACFA87D001FE7EA /* ClassManagementViewController.swift */,
+				3F4F17702AE2E0C800F04DF1 /* ClassManagementViewModel.swift */,
 				3F1343752AD6C2B5001FE7EA /* Edit */,
 			);
 			path = ClassManagement;
@@ -142,11 +149,10 @@
 		3F1343752AD6C2B5001FE7EA /* Edit */ = {
 			isa = PBXGroup;
 			children = (
-				3F1343312ACC2B4F001FE7EA /* DatePickHalfView.swift */,
 				3F1343692AD29C2B001FE7EA /* EditClassView.swift */,
 				3FB8DB772AC76CD100BFCD46 /* EditClassViewController.swift */,
-				3F4F175F2AD9764C00F04DF1 /* StudentListView.swift */,
-				3F4F175D2AD9749D00F04DF1 /* StudentListViewController.swift */,
+				3F4F17722AE2E4AE00F04DF1 /* EditClassViewModel.swift */,
+				3F4F17742AE2E4B800F04DF1 /* etc */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -154,9 +160,9 @@
 		3F1343782AD6C69F001FE7EA /* Edit */ = {
 			isa = PBXGroup;
 			children = (
-				3F4F17612AE1792800F04DF1 /* EditStudentViewModel.swift */,
 				3F1343662AD29A51001FE7EA /* EditStudentView.swift */,
 				3F1343762AD6C30C001FE7EA /* EditStudentViewController.swift */,
+				3F4F17612AE1792800F04DF1 /* EditStudentViewModel.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -170,6 +176,16 @@
 				3F4F176E2AE2DFF800F04DF1 /* CalendarTable.swift */,
 			);
 			path = Table;
+			sourceTree = "<group>";
+		};
+		3F4F17742AE2E4B800F04DF1 /* etc */ = {
+			isa = PBXGroup;
+			children = (
+				3F1343312ACC2B4F001FE7EA /* DatePickHalfView.swift */,
+				3F4F175D2AD9749D00F04DF1 /* StudentListViewController.swift */,
+				3F4F175F2AD9764C00F04DF1 /* StudentListView.swift */,
+			);
+			path = etc;
 			sourceTree = "<group>";
 		};
 		3FB8DB302AC46D4700BFCD46 = {
@@ -191,7 +207,6 @@
 		3FB8DB3B2AC46D4700BFCD46 /* TutoringSchedule */ = {
 			isa = PBXGroup;
 			children = (
-				3F13432F2ACBF778001FE7EA /* Model.swift */,
 				3F1343622ACFD0AB001FE7EA /* Realm */,
 				3F13436C2AD2A7F8001FE7EA /* Extension */,
 				3F13436B2AD2A6FD001FE7EA /* TabBar */,
@@ -204,6 +219,7 @@
 				3FB8DB4A2AC46D4800BFCD46 /* Info.plist */,
 				3FB8DB452AC46D4800BFCD46 /* Assets.xcassets */,
 				3F4F17632AE1807F00F04DF1 /* Observable.swift */,
+				3F13432F2ACBF778001FE7EA /* Model.swift */,
 				3FB8DB5D2AC475B400BFCD46 /* BaseView.swift */,
 				3FB8DB472AC46D4800BFCD46 /* LaunchScreen.storyboard */,
 				3FB8DB6C2AC5F72500BFCD46 /* CalendarSearch */,
@@ -225,6 +241,7 @@
 			children = (
 				3FB8DB622AC47A8500BFCD46 /* CalendarView.swift */,
 				3FB8DB602AC47A6500BFCD46 /* CalendarViewController.swift */,
+				3F4F17752AE2EEA300F04DF1 /* CalendarViewModel.swift */,
 			);
 			path = Calendar;
 			sourceTree = "<group>";
@@ -241,9 +258,9 @@
 		3FB8DB712AC764C700BFCD46 /* StudentManagement */ = {
 			isa = PBXGroup;
 			children = (
-				3F4F17652AE2AAAB00F04DF1 /* StudentManagementViewModel.swift */,
 				3FB8DB6F2AC764C100BFCD46 /* StudentManagementView.swift */,
 				3FB8DB6D2AC764B700BFCD46 /* StudentManagementViewController.swift */,
+				3F4F17652AE2AAAB00F04DF1 /* StudentManagementViewModel.swift */,
 				3F1343782AD6C69F001FE7EA /* Edit */,
 			);
 			path = StudentManagement;
@@ -386,9 +403,12 @@
 				3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */,
 				3F1343772AD6C30C001FE7EA /* EditStudentViewController.swift in Sources */,
 				3FB8DB6B2AC5F71E00BFCD46 /* CalendarSearchView.swift in Sources */,
+				3F4F17732AE2E4AE00F04DF1 /* EditClassViewModel.swift in Sources */,
+				3F4F17762AE2EEA300F04DF1 /* CalendarViewModel.swift in Sources */,
 				3F1343322ACC2B4F001FE7EA /* DatePickHalfView.swift in Sources */,
 				3F4F17692AE2DF8100F04DF1 /* StudentTable.swift in Sources */,
 				3F4F17622AE1792800F04DF1 /* EditStudentViewModel.swift in Sources */,
+				3F4F17712AE2E0C800F04DF1 /* ClassManagementViewModel.swift in Sources */,
 				3F4F17662AE2AAAB00F04DF1 /* StudentManagementViewModel.swift in Sources */,
 				3F4F176F2AE2DFF800F04DF1 /* CalendarTable.swift in Sources */,
 				3FB8DB572AC471F700BFCD46 /* Extension.swift in Sources */,

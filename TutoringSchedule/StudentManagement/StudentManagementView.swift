@@ -7,16 +7,8 @@
 
 import UIKit
 
-protocol sendSelectRowDelegate {
-    func selectRow<T>(data: T)
-}
-
 class StudentManagementView: BaseView {
 
-    private let viewModel = StudentManagementViewModel()
-    var data: [StudentTable]?
-    var delegate: sendSelectRowDelegate?
-    
     let searchBar = {
         let view = UISearchBar()
         view.placeholder = "이름"
@@ -30,14 +22,12 @@ class StudentManagementView: BaseView {
         return view
     }()
     
-    lazy var tableView = {
+    let tableView = {
         let view = UITableView()
-        view.delegate = self
-        view.dataSource = self
         view.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
         return view
     }()
-    
+
     override func setConfigure() {
         addSubview(searchBar)
         addSubview(lineView)
@@ -62,39 +52,5 @@ class StudentManagementView: BaseView {
             make.leading.trailing.equalTo(searchBar)
             make.bottom.equalTo(self.safeAreaLayoutGuide).inset(24)
         }
-    }
-}
-
-extension StudentManagementView: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let data else { return UITableViewCell() }
-        
-        let cell = UITableViewCell()
-        cell.textLabel?.text = data[indexPath.row].name
-        cell.selectionStyle = .none
-        cell.accessoryType = .disclosureIndicator
-        return cell
-    }
-
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let data else { return }
-        let indexData = data[indexPath.row]
-        let newData = StudentTable(name: indexData.name, studentPhoneNum: indexData.studentPhoneNum, parentPhoneNum: indexData.parentPhoneNum, address: indexData.address, memo: indexData.memo)
-        
-        let originId = indexData._id
-        newData._id = originId
-        
-        viewModel.rowDelete(newData: newData)
-        tableView.reloadData()
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard let data else { return }
-        delegate?.selectRow(data: data[indexPath.row])
     }
 }

@@ -23,7 +23,7 @@ class EditStudentViewController: UIViewController {
         super.init(nibName: nil, bundle: nil)
         
         viewModel.state.bind { [weak self] eventType in
-            guard let self = self else { return }
+            guard let self else { return }
             
             if case .settingData(let data) = eventType {
                 self.dataSetting(data)

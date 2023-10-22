@@ -12,9 +12,10 @@ class StudentManagementViewController: UIViewController {
     private let mainView = StudentManagementView()
     private let viewModel = StudentManagementViewModel()
     
+    var data: [StudentTable]?
+    
     override func loadView() {
         self.view = mainView
-        mainView.delegate = self
     }
     
     override func viewDidLoad() {
@@ -33,6 +34,8 @@ class StudentManagementViewController: UIViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         
         mainView.searchBar.delegate = self
+        mainView.tableView.delegate = self
+        mainView.tableView.dataSource = self
         
         bind()
         viewModel.settingData()
@@ -40,12 +43,14 @@ class StudentManagementViewController: UIViewController {
     
     private func bind() {
         viewModel.state.bind { [weak self] eventType in
-            guard let self = self else { return }
+            guard let self else { return }
             
             if case .settingData(let data) = eventType {
-                self.mainView.data = data
+                self.data = data
             } else if case .searchData(let data) = eventType {
-                self.mainView.data = data
+                self.data = data
+                self.mainView.tableView.reloadData()
+            }else if case .rowDelete = eventType {
                 self.mainView.tableView.reloadData()
             }
         }
@@ -67,18 +72,38 @@ extension StudentManagementViewController: saveSucsessDelegate {
     }
 }
 
-extension StudentManagementViewController: sendSelectRowDelegate {
-    func selectRow<T>(data: T) {
-        guard let studentData = data as? StudentTable else { return }
-        
-        let vc = EditStudentViewController(editType: .update(studentData), delegate: self)
-        navigationController?.pushViewController(vc, animated: true)
-    }
-}
-
 extension StudentManagementViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         viewModel.searchData(keyWord: searchText)
+    }
+}
+
+extension StudentManagementViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let data else { return UITableViewCell() }
+        
+        let cell = UITableViewCell()
+        cell.textLabel?.text = data[indexPath.row].name
+        cell.selectionStyle = .none
+        cell.accessoryType = .disclosureIndicator
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard let data else { return }
+        viewModel.rowDelete(data: data[indexPath.row])
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let data else { return }
+        
+        let vc = EditStudentViewController(editType: .update(data[indexPath.row]), delegate: self)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 

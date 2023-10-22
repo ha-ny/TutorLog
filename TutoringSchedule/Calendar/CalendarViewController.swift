@@ -6,12 +6,14 @@
 //
 
 import UIKit
-import RealmSwift
+import FSCalendar
 
 class CalendarViewController: UIViewController {
    
-    private let realmRepository = RealmRepository()
+    private let viewModel = CalendarViewModel()
     let mainView = CalendarView()
+    
+    var data: [CalendarTable]?
     
     override func loadView() {
         self.view = mainView
@@ -21,10 +23,29 @@ class CalendarViewController: UIViewController {
         view.backgroundColor = .white
         mainView.todayButton.addTarget(self, action: #selector(todayButtonTapped), for: .touchUpInside)
         //mainView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
+                
+        mainView.calendar.delegate = self
+        mainView.calendar.dataSource = self
+        mainView.tableView.delegate = self
+        mainView.tableView.dataSource = self
         
+        bind()
         todayButtonTapped()
         
         NotificationCenter.default.addObserver(self, selector: #selector(calendarReload), name: .calendarReload, object: nil)
+    }
+    
+    func bind() {
+        viewModel.state.bind { [weak self] eventType in
+            guard let self else { return }
+            
+            if case .calendarPageChange(let text) = eventType {
+                mainView.yearMonthLabel.text = text
+            } else if case .calendarDidSelect(let data) = eventType {
+                self.data = data
+                mainView.tableView.reloadData()
+            }
+        }
     }
     
     @objc func calendarReload() {
@@ -39,6 +60,73 @@ class CalendarViewController: UIViewController {
     //오늘 날짜로 돌아오기
     @objc func todayButtonTapped() {
         mainView.calendar.select(Date())
-        mainView.calendar(mainView.calendar, didSelect: Date(), at: .current)
+        //주석 풀기
+        //mainView.calendar(mainView.calendar, didSelect: Date(), at: .current)
+    }
+}
+
+extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let selectDate = mainView.calendar.selectedDate else { return UITableViewCell() }
+        guard let data else { return UITableViewCell() }
+        guard let classData = viewModel.cellSetting(data: data[indexPath.row], selectDate: selectDate) else { return UITableViewCell() }
+
+        let cell = UITableViewCell(style: .value1, reuseIdentifier: "cellIdentifier")
+        cell.textLabel?.text = classData.className
+        cell.detailTextLabel?.text = classData.time
+        
+        return cell
+    }
+}
+
+extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        let day = Calendar.current.component(.weekday, from: date) - 1
+        
+        if Calendar.current.shortWeekdaySymbols[day] == "일" {
+            return .systemRed
+        } else if Calendar.current.shortWeekdaySymbols[day] == "토" {
+            return .systemBlue
+        } else {
+            return .black
+        }
+    }
+    
+    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
+        
+        for subview in cell.subviews {
+            if subview is UILabel {
+                    subview.removeFromSuperview()
+                }
+           }
+
+        guard let data = viewModel.calendarWillDisplay(date: date) else { return }
+        
+        if !data.isEmpty {
+            let label = UILabel(frame: CGRect(x: 28, y: 25, width: 14, height: 14))
+            label.layer.backgroundColor = UIColor.black.cgColor
+            label.layer.cornerRadius = 6
+            label.font = .boldSystemFont(ofSize: 9)
+            label.textAlignment = .center
+            label.textColor = .white
+            
+            label.text = "\(data.count)"
+            cell.addSubview(label)
+        }
+    }
+    
+    //캘린더 스크롤 감지
+    func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
+        guard let date = Calendar.current.date(byAdding: .day, value: 1, to: calendar.currentPage) else { return }
+        viewModel.calendarPageChange(date: date)
+    }
+    
+    func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        viewModel.calendarDidSelect(date: date)
     }
 }

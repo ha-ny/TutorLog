@@ -14,7 +14,7 @@ class StudentManagementViewModel {
     enum EventType {
         case settingData([StudentTable])
         case searchData([StudentTable])
-        case rowDelete(StudentTable)
+        case rowDelete
         case idle
     }
     
@@ -32,11 +32,12 @@ class StudentManagementViewModel {
         state.value = .searchData(filterData)
     }
     
-    func rowDelete(newData: StudentTable) {
-        do {
-            try realmRepository.update(data: newData)
-        } catch {
-            
-        }
+    func rowDelete(data: StudentTable) {
+        let newData = StudentTable(name: data.name, studentPhoneNum: data.studentPhoneNum, parentPhoneNum: data.parentPhoneNum, address: data.address, memo: data.memo)
+        newData._id = data._id
+        newData.ishidden = true
+        realmRepository.update(data: data)
+        
+        state.value = .rowDelete
     }
 }

@@ -17,13 +17,7 @@ class RealmRepository {
         guard let realm else { return nil }
         return Array(realm.objects(object))
     }
-    
-//    func read<T: Object>(_ object: T.Type) -> Results<T>? {
-//
-//        guard let realm else { return nil }
-//        return realm.objects(object)
-//    }
-    
+
     func create<T: Object>(data: T) {
         guard let realm else { return }
         
@@ -41,7 +35,6 @@ class RealmRepository {
 
         do {
             try realm.write {
-                
                 realm.add(data, update: .modified)
             }
         } catch {
@@ -49,12 +42,14 @@ class RealmRepository {
         }
     }
     
-    func delete<T: Object>(data: T) {
+    func delete<T: Object>(data: [T]) {
         guard let realm else { return }
         
         do {
             try realm.write {
-                realm.delete(data)
+                for i in data {
+                    realm.delete(i)
+                }
             }
         } catch {
             
