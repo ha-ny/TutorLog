@@ -61,8 +61,8 @@ class ClassManagementViewController: UIViewController {
     }
     
     @objc private func addButtonTapped() {
-//        let vc = EditClassViewController(editType: .create, delegate: self)
-//        navigationController?.pushViewController(vc, animated: true)
+        let vc = EditClassViewController(editType: .create, delegate: self)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }
 
@@ -95,13 +95,22 @@ extension ClassManagementViewController: UITableViewDelegate, UITableViewDataSou
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let data else { return }
-        viewModel.rowDelete(data: data[indexPath.row])
+        let classData = data[indexPath.row]
+
+
+        var studentPK = [String]()
+        studentPK.append(contentsOf: classData.studentPK)
+
+        let newData = ClassTable(className: classData.className, tutoringPlace: classData.tutoringPlace, startDate: classData.startDate, endDate: classData.endDate, studentPK: studentPK)
+        newData._id = classData._id
+        newData.ishidden = true
+        viewModel.rowDelete(data: newData)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let data else { return }
         
-//        let vc = EditClassViewController(editType: .update(data[indexPath.row]), delegate: self)
-//        navigationController?.pushViewController(vc, animated: true)
+        let vc = EditClassViewController(editType: .update(data[indexPath.row]), delegate: self)
+        navigationController?.pushViewController(vc, animated: true)
     }
 }

@@ -6,28 +6,71 @@
 //
 
 import UIKit
-import RealmSwift
+
+struct weekTime {
+    var week: Int
+    var startTime: Date //2:54
+    var endTime: Date
+
+    init(week: Int, startTime: Date, endTime: Date) {
+        self.week = week
+        self.startTime = startTime
+        self.endTime = endTime
+    }
+}
 
 class EditClassViewController: UIViewController {
     
-    //VC 기본 세팅
-    var editType: EditType<ClassTable>?
     var delegate: saveSucsessDelegate?
     
     //editType .update시 기본 세팅
     var data: ClassTable?
     
     private let mainView = EditClassView()
-    private let realmRepository = RealmRepository()
+    private let viewModel = EditClassViewModel()
     
     private var days: [weekTime] = []
-    private var studentArray = List<ObjectId>()
+    private var studentArray = [String]()
     private var tapButton: UIButton?
     
-    convenience init(editType: EditType<ClassTable>, delegate: saveSucsessDelegate) {
-        self.init()
-        self.editType = editType
+    init(editType: EditType<ClassTable>, delegate: saveSucsessDelegate) {
+        super.init(nibName: nil, bundle: nil)
+        
+        viewModel.state.bind { [weak self] eventType in
+            guard let self else { return }
+            
+            if case .settingData(let data) = eventType {
+                dataSetting(data)
+            } else if case .saveData = eventType {
+                delegate.saveSucsess()
+                NotificationCenter.default.post(name: .calendarReload, object: nil)
+                navigationController?.popViewController(animated: true)
+            } else if case .settingDayButton(let schedule) = eventType {
+                
+                for data in schedule {
+                    switch DayType(rawValue: data.day) {
+                    case .sun: tapButton = mainView.sunButton
+                    case .mon: tapButton = mainView.monButton
+                    case .tue: tapButton = mainView.tueButton
+                    case .wed: tapButton = mainView.wedButton
+                    case .thu: tapButton = mainView.thuButton
+                    case .fri: tapButton = mainView.friButton
+                    case .sat: tapButton = mainView.satButton
+                    case .none:
+                        return
+                    }
+                    
+                    saveData(startTime: data.startTime, endTime: data.endTime)
+                }
+            }
+        }
+        
+        viewModel.editType = editType
         self.delegate = delegate
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     override func loadView() {
@@ -54,7 +97,6 @@ class EditClassViewController: UIViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
         
         setConfigure()
-        dataSetting()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -73,6 +115,46 @@ class EditClassViewController: UIViewController {
         }
     }
     
+    @objc private func studentButtonTapped(_ sender: UIButton) {
+        studentArray.remove(at: sender.tag)
+        setStudent()
+    }
+    
+    @objc private func studentDataButton() {
+        let vc = StudentListViewController()
+        vc.delegate = self
+        vc.studentData = studentArray
+
+        let nav = UINavigationController(rootViewController: vc)
+        
+        if let sheet = nav.sheetPresentationController {
+
+            sheet.detents = [.medium(), .large()]
+            sheet.prefersGrabberVisible = true
+        }
+
+        present(nav, animated: true)
+    }
+    
+    @objc private func dayButtonTapped(_ sender: UIButton) {
+        
+        let vc = DatePickHalfView()
+        vc.delegate = self
+        vc.day = sender.tag
+        let nav = UINavigationController(rootViewController: vc)
+        
+        if let sheet = nav.sheetPresentationController {
+            
+            // 3
+            sheet.detents = [.medium()]
+            
+            sheet.preferredCornerRadius = 30
+        }
+        
+        tapButton = sender
+        present(nav, animated: true)
+    }
+    
     @objc private func didTapView() {
         view.endEditing(true)
     }
@@ -81,9 +163,7 @@ class EditClassViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
-    private func dataSetting() {
-        guard let data else { return }
-        
+    private func dataSetting(_ data: ClassTable) {
         mainView.classNameTextField.text = data.className
         mainView.tutoringPlaceTextField.text = data.tutoringPlace
         mainView.startDatePicker.date = data.startDate
@@ -94,30 +174,11 @@ class EditClassViewController: UIViewController {
         
         mainView.startDateTextField.text = startDate
         mainView.endDateTextField.text = endDate
-        studentArray = data.studentPK
+
+        studentArray.append(contentsOf: data.studentPK )
         setStudent()
         
-        guard let scheduleData = realmRepository.read(ScheduleTable.self) else { return }
-        
-        let schedules = scheduleData.where {
-            $0.classPK == data._id
-        }
-        
-        for data in schedules {
-            switch Days(rawValue: data.day) {
-            case .sun: tapButton = mainView.sunButton
-            case .mon: tapButton = mainView.monButton
-            case .tue: tapButton = mainView.tueButton
-            case .wed: tapButton = mainView.wedButton
-            case .thu: tapButton = mainView.thuButton
-            case .fri: tapButton = mainView.friButton
-            case .sat: tapButton = mainView.satButton
-            case .none:
-                return
-            }
-            
-            saveData(startTime: data.startTime, endTime: data.endTime)
-        }
+        viewModel.settingData(classData: data)
     }
     
     @objc private func startDateChange(_ sender: UIDatePicker) {
@@ -140,111 +201,39 @@ class EditClassViewController: UIViewController {
     }
     
     @objc private func saveButtonTapped() {
-        
-        guard let classPK = classDataSave() else { return }
-        scheduleDataSave(classPK: classPK)
-        delegate?.saveSucsess()
-        NotificationCenter.default.post(name: .calendarReload, object: nil)
-        navigationController?.popViewController(animated: true)
-    }
-    
-    func classDataSave() -> ObjectId? {
         guard let className = mainView.classNameTextField.text, !className.isEmpty else {
             mainView.classNameTextField.becomeFirstResponder()
             
             let alert = UIAlertController().customMessageAlert(message: "수업명 입력은 필수입니다")
             present(alert, animated: true)
-            return nil//필수체크
+            return //필수체크
         }
         
         let tutoringPlace = mainView.tutoringPlaceTextField.text ?? ""
         
         let newData = ClassTable(className: className, tutoringPlace: tutoringPlace, startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, studentPK: studentArray)
-        
-        switch editType {
-        case .create:
-            realmRepository.create(data: newData)
-        case .update:
-            guard let data else { return nil }
-            
-            let originId = data._id
-            newData._id = originId
-            realmRepository.update(data: newData)
-        case .none:
-            let alert = UIAlertController().customMessageAlert(message: "오류가 발생했습니다.\n다시 실행해주세요")
-            present(alert, animated: true)
-            return nil
-        }
-        
-        return newData._id
-    }
-    
-    func scheduleDataSave(classPK: ObjectId) {
 
-        switch editType {
-        case .create:
-            for day in days {
-                let newScheduleData = ScheduleTable(classPK: classPK, day: day.week, startTime: day.startTime, endTime: day.endTime)
-                realmRepository.create(data: newScheduleData)
-                
-                guard let betweenDates = getBetweenDates(startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, day: day.week) else {
-                    let alert = UIAlertController().customMessageAlert(message: "날짜 생성 중 문제가 발생했습니다.\n다시 실행해주세요")
-                    present(alert, animated: true)
-                    return
-                }
-                
-                for date in betweenDates {
-                    let calendarData = CalendarTable(date: date, schedulePK: newScheduleData._id)
-                    realmRepository.create(data: calendarData)
-                }
-            }
-        case .update:
+        let classPK = viewModel.classDataSave(classData: newData)._id
+        
+        for day in days {
             
-            guard let scheduleData = realmRepository.read(ScheduleTable.self) else { return }
-            
-            let filterScheduleData = scheduleData.where {
-                $0.classPK == classPK
-            }
-            
-            for data in filterScheduleData {
-                
-                for data in filterScheduleData {
-                    
-                    guard let calendarData = realmRepository.read(CalendarTable.self) else { return }
-                    
-                    let filterCalendarData = calendarData.where {
-                        $0.schedulePK == data._id
-                    }
-                    
-                    for result in filterCalendarData {
-                        realmRepository.delete(data: result)
-                    }
-                    
-                    realmRepository.delete(data: data)
-                }
-            }
-            
-            for day in days {
-                let newScheduleData = ScheduleTable(classPK: classPK, day: day.week, startTime: day.startTime, endTime: day.endTime)
-                realmRepository.create(data: newScheduleData)
-                
-                guard let betweenDates = getBetweenDates(startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, day: day.week) else {
-                    let alert = UIAlertController().customMessageAlert(message: "날짜 생성 중 문제가 발생했습니다.\n다시 실행해주세요")
-                    present(alert, animated: true)
-                    return
-                }
-                
-                for date in betweenDates {
-                    let calendarData = CalendarTable(date: date, schedulePK: newScheduleData._id)
-                    realmRepository.create(data: calendarData)
-                }
-            }
-            
-            case .none:
-                let alert = UIAlertController().customMessageAlert(message: "오류가 발생했습니다.\n다시 실행해주세요")
+            guard let betweenDates = getBetweenDates(startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, day: day.week) else {
+                let alert = UIAlertController().customMessageAlert(message: "날짜 생성 중 문제가 발생했습니다.\n다시 실행해주세요")
                 present(alert, animated: true)
+                return
             }
+            
+            let scheduleData = ScheduleTable(classPK: classPK, day: day.week, startTime: day.startTime, endTime: day.endTime)
+            
+            var calendarData = [CalendarTable]()
+            
+            for date in betweenDates {
+                calendarData.append(CalendarTable(date: date, schedulePK: scheduleData._id))
+            }
+            
+            viewModel.scheduleDataSave(scheduleData: scheduleData, calendarData: calendarData)
         }
+    }
     
     //0(일요일) 선택시 기간 내의 모든 일요일 return
     func getBetweenDates(startDate: Date, endDate: Date, day: Int) -> [Date]? {
@@ -268,15 +257,8 @@ class EditClassViewController: UIViewController {
         
         mainView.scrollView.subviews.forEach({ $0.removeFromSuperview() })
         
-        for i in 0..<studentArray.count{
-            
-            guard let data = realmRepository.read(StudentTable.self) else { return }
-            
-            let filterData = data.where {
-                ($0._id == self.studentArray[i]) && ($0.ishidden == false)
-            }
-            
-            if filterData.count > 0 {
+        for studentID in studentArray{
+            if let name = viewModel.setStudentButton(studentID: studentID), !name.isEmpty {
                 let views = mainView.scrollView.subviews.count
                 let xPos = 80 * views
                 let button = UIButton()
@@ -284,7 +266,7 @@ class EditClassViewController: UIViewController {
                 button.layer.borderColor = UIColor.lightGray.cgColor
                 button.layer.borderWidth = 1
                 
-                button.setTitle(filterData[0].name , for: .normal)
+                button.setTitle(name , for: .normal)
                 button.titleLabel?.font = .systemFont(ofSize: 15)
                 button.setTitleColor(UIColor.black, for: .normal)
                 button.frame = CGRect(x: xPos, y: 0, width: 70, height: 30)
@@ -295,45 +277,6 @@ class EditClassViewController: UIViewController {
                 mainView.scrollView.contentSize.width = 80 * CGFloat(views + 1)
             }
         }
-    }
-    
-    @objc private func studentButtonTapped(_ sender: UIButton) {
-        studentArray.remove(at: sender.tag)
-        setStudent()
-    }
-    
-    @objc private func studentDataButton() {
-        let vc = StudentListViewController()
-        vc.delegate = self
-        vc.studentData = studentArray
-        
-        if let sheet = vc.sheetPresentationController {
-            
-            sheet.detents = [.medium(), .large()]
-            sheet.prefersGrabberVisible = true
-            sheet.preferredCornerRadius = 30
-        }
-        
-        present(vc, animated: true)
-    }
-    
-    @objc private func dayButtonTapped(_ sender: UIButton) {
-        
-        let vc = DatePickHalfView()
-        vc.delegate = self
-        vc.day = sender.tag
-        let nav = UINavigationController(rootViewController: vc)
-        
-        if let sheet = nav.sheetPresentationController {
-            
-            // 3
-            sheet.detents = [.medium()]
-            
-            sheet.preferredCornerRadius = 30
-        }
-        
-        tapButton = sender
-        present(nav, animated: true)
     }
 }
 
@@ -364,8 +307,9 @@ extension EditClassViewController: sendWeekStateDelegate{
 }
 
 extension EditClassViewController: studentArrayDelegate {
-    func studentArray(data: List<ObjectId>) {
+    func studentArray(data: [String]) {
         studentArray = data
         setStudent()
     }
 }
+

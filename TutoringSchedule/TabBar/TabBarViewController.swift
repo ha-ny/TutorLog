@@ -9,12 +9,11 @@ import UIKit
 import SnapKit
 
 class TabBarViewController: UIViewController {
-
+    
     let tabBar = {
         let view = UITabBarController()
         view.tabBar.tintColor = .black
         view.viewControllers = {
-            
             let calendar = CalendarViewController()
             calendar.tabBarItem = UITabBarItem(title: "CalendarTabName".localized, image: UIImage(systemName: "calendar"), tag: 0)
     
@@ -23,7 +22,6 @@ class TabBarViewController: UIViewController {
                         
             let schedule = UINavigationController(rootViewController: ClassManagementViewController())
             schedule.tabBarItem = UITabBarItem(title: "ScheduleTabName".localized, image: UIImage(systemName: "note.text"), tag: 0)
-
             
              return [calendar, student, schedule]
         }()
@@ -34,7 +32,6 @@ class TabBarViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-
         setConfigure()
         setConstraint()
     }

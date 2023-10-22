@@ -34,7 +34,7 @@ class EditStudentViewModel {
             newData._id = originId
         }
 
-        realmRepository.update(data: newData)
+        realmRepository.create(data: newData)
         state.value = .saveData
     }
     

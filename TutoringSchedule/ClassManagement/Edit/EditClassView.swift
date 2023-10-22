@@ -79,43 +79,43 @@ class EditClassView: BaseView {
     
     let sunButton = {
         let view = UIButton().days(title: "일")
-        view.tag = Days.sun.rawValue
+        view.tag = DayType.sun.rawValue
         return view
     }()
     
     let monButton = {
         let view = UIButton().days(title: "월")
-        view.tag = Days.mon.rawValue
+        view.tag = DayType.mon.rawValue
         return view
     }()
     
     let tueButton = {
         let view = UIButton().days(title: "화")
-        view.tag = Days.tue.rawValue
+        view.tag = DayType.tue.rawValue
         return view
     }()
     
     let wedButton = {
         let view = UIButton().days(title: "수")
-        view.tag = Days.wed.rawValue
+        view.tag = DayType.wed.rawValue
         return view
     }()
     
     let thuButton = {
         let view = UIButton().days(title: "목")
-        view.tag = Days.thu.rawValue
+        view.tag = DayType.thu.rawValue
         return view
     }()
     
     let friButton = {
         let view = UIButton().days(title: "금")
-        view.tag = Days.fri.rawValue
+        view.tag = DayType.fri.rawValue
         return view
     }()
     
     let satButton = {
         let view = UIButton().days(title: "토")
-        view.tag = Days.sat.rawValue
+        view.tag = DayType.sat.rawValue
         return view
     }()
     

@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class CalendarTable: Object {
-
+    
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var date: Date
     @Persisted var schedulePK: ObjectId

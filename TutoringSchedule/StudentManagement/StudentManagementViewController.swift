@@ -96,7 +96,13 @@ extension StudentManagementViewController: UITableViewDelegate, UITableViewDataS
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         guard let data else { return }
-        viewModel.rowDelete(data: data[indexPath.row])
+        let indexData = data[indexPath.row]
+        
+        let newData = StudentTable(name: indexData.name, studentPhoneNum: indexData.studentPhoneNum, parentPhoneNum: indexData.parentPhoneNum, address: indexData.address, memo: indexData.memo)
+        newData._id = indexData._id
+        newData.ishidden = true
+        
+        viewModel.rowDelete(data: newData)
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

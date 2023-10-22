@@ -48,12 +48,7 @@ class ClassManagementViewModel {
         }
 
         realmRepository.delete(data: scheduleData)
-
-        let newData = ClassTable(className: classData.className, tutoringPlace: classData.tutoringPlace, startDate: classData.startDate, endDate: classData.endDate, studentPK: classData.studentPK)
-        newData._id = classData._id
-        newData.ishidden = true
-        realmRepository.update(data: newData)
-        
+        realmRepository.create(data: classData)
         state.value = .rowDelete
     }
 }

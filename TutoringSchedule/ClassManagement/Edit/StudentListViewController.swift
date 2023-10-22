@@ -9,16 +9,17 @@ import UIKit
 import RealmSwift
 
 protocol studentArrayDelegate {
-    func studentArray(data: List<ObjectId>)
+    func studentArray(data: [String])
 }
 
 class StudentListViewController: UIViewController {
 
-    private let mainView = StudentListView()
-    private let realmRepository = RealmRepository()
+    private let mainView = StudentManagementView()
+    private let viewModel = StudentManagementViewModel()
     
-    var studentData: List<ObjectId>?
+    var data: [StudentTable]?
     var delegate: studentArrayDelegate?
+    var studentData = [String]()
     
     override func loadView() {
         self.view = mainView
@@ -29,33 +30,91 @@ class StudentListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
 
+        let addItem = UIBarButtonItem(title: "선택완료", style: .plain, target: self, action: #selector(addButtonTapped))
+        addItem.tintColor = .darkGray
+        navigationItem.rightBarButtonItem = addItem
+        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView))
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
-        
-        mainView.nextButton.addTarget(self, action: #selector(nextButtonTapped), for: .touchUpInside)
-        
-        if let studentData {
-            mainView.selectArray.append(objectsIn: studentData)
-        }
 
-        if let data = realmRepository.read(StudentTable.self) {
-            var tempData = data.where {
-                $0.ishidden == false
-            }.sorted(by: \.name)
-            
-            mainView.data = tempData
-        }
+        bind()
+        viewModel.settingData()
     }
 
-    @objc private func nextButtonTapped() {
-        delegate?.studentArray(data: mainView.selectArray)
+    @objc private func addButtonTapped() {
+        delegate?.studentArray(data: studentData)
         dismiss(animated: true)
     }
     
+    private func bind() {
+        viewModel.state.bind { [weak self] eventType in
+            guard let self else { return }
+            
+            if case .settingData(let data) = eventType {
+                self.data = data
+            } else if case .searchData(let data) = eventType {
+                self.data = data
+                self.mainView.tableView.reloadData()
+            }
+        }
+    }
+
     @objc private func didTapView() {
         view.endEditing(true)
     }
 }
- 
+
+extension StudentListViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchData(keyWord: searchText)
+    }
+}
+
+extension StudentListViewController: UITableViewDelegate, UITableViewDataSource {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data?.count ?? 0
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        guard let data else { return UITableViewCell() }
+        
+        let cell = UITableViewCell()
+        cell.textLabel?.text = data[indexPath.row].name
+        
+        if let index = isStudentPK(data: data[indexPath.row]) {
+            cell.isSelected = true
+            cell.imageView?.image = UIImage(systemName: "checkmark")
+        }
+        
+        return cell
+    }
+
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath), let data else { return }
+
+        guard let index = isStudentPK(data: data[indexPath.row]) else {
+            cell.imageView?.image = UIImage(systemName: "checkmark")
+            studentData.append(data[indexPath.row]._id.stringValue)
+            return
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+        guard let cell = tableView.cellForRow(at: indexPath), let data else { return }
+        cell.imageView?.image = nil
+
+        if let index = isStudentPK(data: data[indexPath.row]) {
+            studentData.remove(at: index)
+        }
+    }
+    
+    func isStudentPK(data: StudentTable) -> IndexPath.Index? {
+        guard let index = studentData.firstIndex(where: {$0 == data._id.stringValue}) else { return nil }
+        return index
+    }
+}
+
+
 

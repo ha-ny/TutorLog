@@ -37,6 +37,7 @@ class CalendarView: BaseView {
         
         // 상단 요일
         view.appearance.weekdayFont = .systemFont(ofSize: 14)
+        view.appearance.weekdayTextColor = .black
 
         view.calendarWeekdayView.weekdayLabels[0].text = "일"
         view.calendarWeekdayView.weekdayLabels[1].text = "월"

@@ -9,7 +9,7 @@ import Foundation
 import RealmSwift
 
 class ScheduleTable: Object {
-
+    
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var classPK: ObjectId
     @Persisted var day: Int

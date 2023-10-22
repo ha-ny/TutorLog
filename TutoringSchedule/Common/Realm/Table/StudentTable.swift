@@ -9,16 +9,15 @@ import Foundation
 import RealmSwift
 
 class StudentTable: Object {
-
+    
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var name: String
-    @Persisted var studentPhoneNum: String //Int
-    @Persisted var parentPhoneNum: String //Int
+    @Persisted var studentPhoneNum: String
+    @Persisted var parentPhoneNum: String
     @Persisted var address: String
     @Persisted var memo: String
     @Persisted var ishidden: Bool = false
 
-    //init -> id: String
     convenience init(name: String, studentPhoneNum: String, parentPhoneNum: String, address: String, memo: String) {
         self.init()
         self.name = name

@@ -33,11 +33,7 @@ class StudentManagementViewModel {
     }
     
     func rowDelete(data: StudentTable) {
-        let newData = StudentTable(name: data.name, studentPhoneNum: data.studentPhoneNum, parentPhoneNum: data.parentPhoneNum, address: data.address, memo: data.memo)
-        newData._id = data._id
-        newData.ishidden = true
-        realmRepository.update(data: data)
-        
+        realmRepository.create(data: data)
         state.value = .rowDelete
     }
 }

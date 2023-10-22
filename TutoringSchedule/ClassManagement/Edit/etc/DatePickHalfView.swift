@@ -13,7 +13,7 @@ protocol sendWeekStateDelegate {
     func deleteData()
 }
 
-class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewDataSource {
+class DatePickHalfView: UIViewController {
 
     private let maxCount = 10000
     var day = 0
@@ -26,7 +26,7 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         return view
     }()
     
-    lazy var timeLabel = {
+    let timeLabel = {
         let view = UILabel()
         view.textColor = .black
         view.font = .boldSystemFont(ofSize: 25)
@@ -71,9 +71,18 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "삭제", style: .plain, target: self, action: #selector(deleteButtonTapped))
         navigationItem.leftBarButtonItem?.tintColor = .black
+
+        setConfigure()
+        setConstraint()
+        timeSetting()
         
+        let newRow = maxCount / 2
+        pickerView.selectRow(newRow, inComponent: 0, animated: true) // 9
+        pickerView.selectRow(newRow + 4, inComponent: 1, animated: true) //0
+        pickerView.selectRow(newRow + 1, inComponent: 2, animated: true) // 10
+        pickerView.selectRow(newRow + 4, inComponent: 3, animated: true) //0
         
-        switch Days(rawValue: day) {
+        switch DayType(rawValue: day) {
         case .sun: dayLabel.text = "일요일"
         case .mon: dayLabel.text = "월요일"
         case .tue: dayLabel.text = "화요일"
@@ -84,15 +93,17 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         case .none:
             dayLabel.text = "요일 불러오기 실패"
         }
-        
-        
+    }
+
+    func setConfigure() {
         view.addSubview(dayLabel)
         view.addSubview(timeLabel)
         view.addSubview(startLabel)
         view.addSubview(endLabel)
         view.addSubview(pickerView)
-
-        
+    }
+    
+    func setConstraint() {
         dayLabel.snp.makeConstraints { make in
             make.top.equalTo(view.safeAreaLayoutGuide).inset(4)
             make.left.equalTo(view.safeAreaLayoutGuide).inset(24)
@@ -120,17 +131,10 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
             make.horizontalEdges.equalToSuperview().inset(6)
             make.bottom.equalTo(view.safeAreaLayoutGuide).offset(24)
         }
-        let newRow = maxCount / 2
-        pickerView.selectRow(newRow, inComponent: 0, animated: true) // 9
-        pickerView.selectRow(newRow + 4, inComponent: 1, animated: true) //0
-        pickerView.selectRow(newRow + 1, inComponent: 2, animated: true) // 10
-        pickerView.selectRow(newRow + 4, inComponent: 3, animated: true) //0
-        
-        timeSetting()
     }
-
+    
     @objc func okButtonTapped() {
-
+        
         var time = "\(startHour):\(startMinute)"
         guard let startTime = stringToDate(format: "HH:mm", date: time) else {
             let alert = UIAlertController().customMessageAlert(message: "시작시간 저장에 실패했습니다./n다시 실행해주세요.")
@@ -175,42 +179,34 @@ class DatePickHalfView: UIViewController, UIPickerViewDelegate, UIPickerViewData
         dateFormatter.dateFormat = format
         return dateFormatter.date(from: date)
     }
-    
+}
+
+extension DatePickHalfView: UIPickerViewDelegate, UIPickerViewDataSource {
+        
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 4
     }
     
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int
-    {
-
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         return maxCount
-        
     }
-    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String?
-    {
-        if component % 2 == 0
-        {
-            return String(format: "%02d", (row%24)+1)
-        }
-        else
-        {
-
-            return String(format: "%02d", (row%12)*5)
-        }
-
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        let num = component % 2 == 0 ? (row%24)+1 : (row%12)*5
+        return String(format: "%02d", num)
     }
-    
+
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-             
-        switch TimeType(rawValue: component) {
-        case .startHour: startHour = (row % 24) + 1
-        case .startMinute: startMinute = (row % 12) * 5
-        case .endHour: endHour = (row % 24) + 1
-        case .endMinute:  endMinute = (row % 12) * 5
-        case .none:
+        let num = component % 2 == 0 ? (row%24)+1 : (row%12)*5
+        
+        switch component {
+        case 0: startHour = num
+        case 1: startMinute = num
+        case 2: startMinute = num
+        case 3: startMinute = num
+        default:
             return
         }
-        
+
         timeSetting()
     }
 }
