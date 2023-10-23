@@ -30,7 +30,7 @@ class StudentListViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
 
-        let addItem = UIBarButtonItem(title: "선택완료", style: .plain, target: self, action: #selector(addButtonTapped))
+        let addItem = UIBarButtonItem(title: "addButtonTapped".localized, style: .plain, target: self, action: #selector(addButtonTapped))
         addItem.tintColor = .darkGray
         navigationItem.rightBarButtonItem = addItem
         

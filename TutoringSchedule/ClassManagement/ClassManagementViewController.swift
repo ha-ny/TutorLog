@@ -21,7 +21,7 @@ class ClassManagementViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "수업관리"
+        navigationItem.title = "scheduleTabTitle".localized
         
         let addItem = UIBarButtonItem(image: UIImage(systemName: "text.badge.plus"), style: .plain, target: self, action: #selector(addButtonTapped))
         addItem.width = 100

@@ -43,7 +43,7 @@ class EditStudentViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "학생정보"
+        navigationItem.title = "studentEditViewTitle".localized
         
         let backItem = UIBarButtonItem(image: UIImage(systemName: "lessthan.circle.fill"), style: .plain, target: self, action: #selector(backButtonTapped))
         backItem.width = 70

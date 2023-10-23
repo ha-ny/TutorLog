@@ -12,7 +12,7 @@ class CalendarView: BaseView {
         
     let yearMonthLabel = {
         let view = UILabel()
-        view.text = Date.convertToString(format: "yyyy년 MM월", date: Date())
+        view.text = Date.convertToString(format: "yearMonthFormat".localized, date: Date())
         view.font = .boldSystemFont(ofSize: 20)
         return view
     }()
@@ -33,19 +33,24 @@ class CalendarView: BaseView {
     
     let calendar = {
        let view = FSCalendar()
-        view.locale = Locale(identifier: "ko_KR")
+        view.locale = Locale.current
         
         // 상단 요일
         view.appearance.weekdayFont = .systemFont(ofSize: 14)
         view.appearance.weekdayTextColor = .black
 
-        view.calendarWeekdayView.weekdayLabels[0].text = "일"
-        view.calendarWeekdayView.weekdayLabels[1].text = "월"
-        view.calendarWeekdayView.weekdayLabels[2].text = "화"
-        view.calendarWeekdayView.weekdayLabels[3].text = "수"
-        view.calendarWeekdayView.weekdayLabels[4].text = "목"
-        view.calendarWeekdayView.weekdayLabels[5].text = "금"
-        view.calendarWeekdayView.weekdayLabels[6].text = "토"
+
+        for (index, item) in Calendar.current.shortWeekdaySymbols.enumerated() {
+            view.calendarWeekdayView.weekdayLabels[index].text = item
+        }
+
+//        view.calendarWeekdayView.weekdayLabels[0].text = "일"
+//        view.calendarWeekdayView.weekdayLabels[1].text = "월"
+//        view.calendarWeekdayView.weekdayLabels[2].text = "화"
+//        view.calendarWeekdayView.weekdayLabels[3].text = "수"
+//        view.calendarWeekdayView.weekdayLabels[4].text = "목"
+//        view.calendarWeekdayView.weekdayLabels[5].text = "금"
+//        view.calendarWeekdayView.weekdayLabels[6].text = "토"
         
         // 숫자 폰트 사이즈
         view.appearance.titleFont = .systemFont(ofSize: 16)

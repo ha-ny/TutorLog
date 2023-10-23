@@ -45,7 +45,7 @@ class CalendarViewModel {
     }
     
     func calendarPageChange(date: Date) {
-        state.value = .calendarPageChange(Date.convertToString(format: "yyyy년 MM월", date: date))
+        state.value = .calendarPageChange(Date.convertToString(format: "yearMonthFormat".localized, date: date))
     }
     
     func calendarDidSelect(date: Date) throws {

@@ -80,7 +80,7 @@ class EditClassViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "수업정보"
+        navigationItem.title = "scheduleEditViewTitle".localized
         
         let backItem = UIBarButtonItem(image: UIImage(systemName: "lessthan.circle.fill"), style: .plain, target: self, action: #selector(backButtonTapped))
         backItem.width = 70
@@ -169,8 +169,8 @@ class EditClassViewController: UIViewController {
         mainView.startDatePicker.date = data.startDate
         mainView.endDatePicker.date = data.endDate
         
-        let startDate = Date.convertToString(format: "yyyy년 MM월 dd일", date: data.startDate)
-        let endDate = Date.convertToString(format: "yyyy년 MM월 dd일", date: data.endDate)
+        let startDate = Date.convertToString(format: "fullDateFormat".localized, date: data.startDate)
+        let endDate = Date.convertToString(format: "fullDateFormat".localized, date: data.endDate)
         
         mainView.startDateTextField.text = startDate
         mainView.endDateTextField.text = endDate
@@ -184,7 +184,7 @@ class EditClassViewController: UIViewController {
     }
     
     @objc private func startDateChange(_ sender: UIDatePicker) {
-        mainView.startDateTextField.text = Date.convertToString(format: "yyyy년 MM월 dd일", date: sender.date)
+        mainView.startDateTextField.text = Date.convertToString(format: "fullDateFormat".localized, date: sender.date)
         mainView.endDatePicker.date = sender.date
         mainView.endDateTextField.text = mainView.startDateTextField.text
         view.endEditing(true)
@@ -199,7 +199,7 @@ class EditClassViewController: UIViewController {
             return
         }
         
-        mainView.endDateTextField.text = Date.convertToString(format: "yyyy년 MM월 dd일", date: sender.date)
+        mainView.endDateTextField.text = Date.convertToString(format: "fullDateFormat".localized, date: sender.date)
         view.endEditing(true)
     }
     

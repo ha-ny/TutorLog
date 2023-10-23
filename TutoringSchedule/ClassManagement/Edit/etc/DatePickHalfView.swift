@@ -35,7 +35,7 @@ class DatePickHalfView: UIViewController {
     
     let startLabel = {
         let view = UILabel()
-        view.text = "시작 시간"
+        view.text = "startLabel".localized
         view.textAlignment = .center
         view.textColor = .black
         view.font = .boldSystemFont(ofSize: 13)
@@ -44,7 +44,7 @@ class DatePickHalfView: UIViewController {
     
     let endLabel = {
         let view = UILabel()
-        view.text = "종료 시간"
+        view.text = "endLabel".localized
         view.textAlignment = .center
         view.textColor = .black
         view.font = .boldSystemFont(ofSize: 13)
@@ -66,10 +66,10 @@ class DatePickHalfView: UIViewController {
     override func viewDidLoad() {
         view.backgroundColor = .white
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "완료", style: .plain, target: self, action: #selector(okButtonTapped))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(title: "okButtonTapped".localized, style: .plain, target: self, action: #selector(okButtonTapped))
         navigationItem.rightBarButtonItem?.tintColor = .black
         
-        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "삭제", style: .plain, target: self, action: #selector(deleteButtonTapped))
+        navigationItem.leftBarButtonItem = UIBarButtonItem(title: "deleteButtonTapped".localized, style: .plain, target: self, action: #selector(deleteButtonTapped))
         navigationItem.leftBarButtonItem?.tintColor = .black
 
         setConfigure()
@@ -82,17 +82,9 @@ class DatePickHalfView: UIViewController {
         pickerView.selectRow(newRow + 1, inComponent: 2, animated: true) // 10
         pickerView.selectRow(newRow + 4, inComponent: 3, animated: true) //0
         
-        switch DayType(rawValue: day) {
-        case .sun: dayLabel.text = "일요일"
-        case .mon: dayLabel.text = "월요일"
-        case .tue: dayLabel.text = "화요일"
-        case .wed: dayLabel.text = "수요일"
-        case .thu: dayLabel.text = "목요일"
-        case .fri: dayLabel.text = "금요일"
-        case .sat: dayLabel.text = "토요일"
-        case .none:
-            dayLabel.text = "요일 불러오기 실패"
-        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dayLabel.text = dateFormatter.shortWeekdaySymbols[day] + "dayLabel".localized
     }
 
     func setConfigure() {

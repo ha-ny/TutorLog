@@ -96,9 +96,9 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         let day = Calendar.current.component(.weekday, from: date) - 1
         
-        if Calendar.current.shortWeekdaySymbols[day] == "일" {
+        if day == 0 {
             return .systemRed
-        } else if Calendar.current.shortWeekdaySymbols[day] == "토" {
+        } else if day == 1 {
             return .systemBlue
         } else {
             return .black

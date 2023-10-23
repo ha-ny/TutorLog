@@ -11,7 +11,7 @@ class ClassManagementView: BaseView {
     
     let searchBar = {
         let view = UISearchBar()
-        view.placeholder = "수업명"
+        view.placeholder = "placeOfClassName".localized
         view.searchBarStyle = .minimal
         return view
     }()

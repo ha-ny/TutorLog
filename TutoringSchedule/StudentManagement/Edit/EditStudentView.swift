@@ -20,7 +20,7 @@ class EditStudentView: BaseView {
     }()
     
     lazy var nameTextField = {
-        let view = UITextField().hoshi(title: "* 이름")
+        let view = UITextField().hoshi(title: "* \("placeOfName".localized)")
         view.tag = 0
         view.returnKeyType = .continue
         return view

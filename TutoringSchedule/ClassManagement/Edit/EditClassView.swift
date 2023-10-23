@@ -16,7 +16,7 @@ class EditClassView: BaseView {
     }()
 
     lazy var classNameTextField = {
-        let view = UITextField().hoshi(title: "* 수업명")
+        let view = UITextField().hoshi(title: "* \("placeOfClassName".localized)")
         view.tag = 0
         view.returnKeyType = .continue
         view.delegate = self
@@ -36,7 +36,7 @@ class EditClassView: BaseView {
         view.datePickerMode = .date
         view.preferredDatePickerStyle = .inline
         view.backgroundColor = .white
-        view.locale = Locale(identifier: "ko-KR")
+        view.locale = Locale.current
         return view
     }()
     
@@ -45,13 +45,13 @@ class EditClassView: BaseView {
         view.datePickerMode = .date
         view.preferredDatePickerStyle = .inline
         view.backgroundColor = .white
-        view.locale = Locale(identifier: "ko-KR")
+        view.locale = Locale.current
         return view
     }()
     
     lazy var startDateTextField = {
-        let view = UITextField().hoshi(title: "시작일")
-        view.text = Date.convertToString(format: "yyyy년 MM월 dd일", date: Date())
+        let view = UITextField().hoshi(title: "placeOfStartDate".localized)
+        view.text = Date.convertToString(format: "fullDateFormat".localized, date: Date())
         view.tag = 1001
         view.delegate = self
         view.tintColor = .clear
@@ -60,8 +60,8 @@ class EditClassView: BaseView {
     }()
     
     lazy var endDateTextField = {
-        let view = UITextField().hoshi(title: "종료일")
-        view.text = Date.convertToString(format: "yyyy년 MM월 dd일", date: Date())
+        let view = UITextField().hoshi(title: "placeOfEndDate".localized)
+        view.text = Date.convertToString(format: "fullDateFormat".localized, date: Date())
         view.tag = 1002
         view.delegate = self
         view.tintColor = .clear
@@ -71,50 +71,50 @@ class EditClassView: BaseView {
     
     let dayTitleLabel = {
         let view = UILabel()
-        view.text = "* 요일 선택"
+        view.text = "* \("placeOfDay".localized)"
         view.textColor = .darkGray
         view.font = .boldSystemFont(ofSize: 20)
         return view
     }()
     
     let sunButton = {
-        let view = UIButton().days(title: "일")
+        let view = UIButton().days()
         view.tag = DayType.sun.rawValue
         return view
     }()
     
     let monButton = {
-        let view = UIButton().days(title: "월")
+        let view = UIButton().days()
         view.tag = DayType.mon.rawValue
         return view
     }()
     
     let tueButton = {
-        let view = UIButton().days(title: "화")
+        let view = UIButton().days()
         view.tag = DayType.tue.rawValue
         return view
     }()
     
     let wedButton = {
-        let view = UIButton().days(title: "수")
+        let view = UIButton().days()
         view.tag = DayType.wed.rawValue
         return view
     }()
     
     let thuButton = {
-        let view = UIButton().days(title: "목")
+        let view = UIButton().days()
         view.tag = DayType.thu.rawValue
         return view
     }()
     
     let friButton = {
-        let view = UIButton().days(title: "금")
+        let view = UIButton().days()
         view.tag = DayType.fri.rawValue
         return view
     }()
     
     let satButton = {
-        let view = UIButton().days(title: "토")
+        let view = UIButton().days()
         view.tag = DayType.sat.rawValue
         return view
     }()
@@ -130,27 +130,31 @@ class EditClassView: BaseView {
     
     let studentTitleLabel = {
         let view = UILabel()
-        view.text = "학생 선택"
+        view.text = "studentTitleLabel".localized
         view.textColor = .darkGray
         view.font = .boldSystemFont(ofSize: 20)
         return view
     }()
     
     let studentButton = {
-        let view = UIButton().days(title: " 데이터 가져오기 ")
+        let view = UIButton().days()
+        view.setTitle("studentButton".localized, for: .normal)
         return view
     }()
     
     let scrollView = UIScrollView()
 
     override func setConfigure() {
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        
+        for (index, item) in [sunButton, monButton, tueButton, wedButton, thuButton, friButton, satButton].enumerated() {
+            item.setTitle(dateFormatter.shortWeekdaySymbols[index], for: .normal)
+        }
         
         [lineView, classNameTextField, tutoringPlaceTextField, startDateTextField, endDateTextField, stackView, dayTitleLabel, studentTitleLabel, studentButton, scrollView].forEach {
             addSubview($0)
-        }
-        
-        [sunButton, monButton, tueButton, wedButton, thuButton, friButton, satButton] .forEach {
-            stackView.addArrangedSubview($0)
         }
     }
     

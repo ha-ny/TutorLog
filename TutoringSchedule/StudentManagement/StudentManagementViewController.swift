@@ -21,7 +21,7 @@ class StudentManagementViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        navigationItem.title = "학생관리"
+        navigationItem.title = "studentTabTitle".localized
         
         let addItem = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle.badge.plus"), style: .plain, target: self, action: #selector(addButtonTapped))
         addItem.width = 100

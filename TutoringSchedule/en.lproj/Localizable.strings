@@ -6,7 +6,46 @@
   
 */
 
-//TabBarName
-"CalendarTabName" = "Calendar";
-"StudentTabName" = "Student";
-"ScheduleTabName" = "Schedule";
+// TabBarName
+"calendarTabTitle" = "Calendar";
+
+"studentTabTitle" = "Student Management";
+"studentEditViewTitle" = "Student Information";
+
+"scheduleTabTitle" = "Class Management";
+"scheduleEditViewTitle" = "Class Information";
+
+// customMessageAlert
+"alertOKButtonTitle" = "OK";
+
+//DateFormat
+"yearMonthFormat" = "MMMM yyyy";
+"fullDateFormat" = "MMMM dd, yyyy";
+
+// searchBar - placeholder
+"placeOfName" = "Name";
+"placeOfClassName" = "Class Name";
+
+// EditStudentView - TextField placeholder
+"placeOfStudentPhoneNum" = "Student Phone Number";
+"placeOfParentPhoneNum" = "Parent Phone Number";
+"placeOfAddress" = "Address";
+"placeOfMemo" = "Memo";
+
+// EditClassView - TextField placeholder
+"placeOfTutoringPlace" = "Class Location";
+"placeOfStartDate" = "Start Date";
+"placeOfEndDate" = "End Date";
+"placeOfDay" = "Select Class Day";
+
+// DatePickHalfView - Label Text
+"startLabel" = "Start Time";
+"endLabel" = "End Time";
+"dayLabel" = "day";
+
+// ButtonTitleLabel
+"studentTitleLabel" = "Student"
+"studentButton" = "Get List"
+"addButtonTapped" = "Complete Selection"
+"okButtonTapped" = "Complete";
+"deleteButtonTapped" = "Delete";
