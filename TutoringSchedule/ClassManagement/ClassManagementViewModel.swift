@@ -9,8 +9,6 @@ import Foundation
 
 class ClassManagementViewModel {
     
-    private let realmRepository = RealmRepository()
-
     enum EventType {
         case settingData([ClassTable])
         case searchData([ClassTable])
@@ -18,24 +16,25 @@ class ClassManagementViewModel {
         case idle
     }
     
+    private let realmRepository = RealmRepository()
     var state: Observable<EventType> = Observable(value: .idle)
     
-    func settingData() {
-        guard let data = realmRepository.read(ClassTable.self) else { return }
+    func settingData() throws {
+        let data = try realmRepository.read(ClassTable.self)
         let filterData = data.filter { !$0.ishidden }.sorted { $0[keyPath: \.className] < $1[keyPath: \.className] }
         state.value = .settingData(filterData)
     }
     
-    func searchData(keyWord: String) {
-        guard let data = realmRepository.read(ClassTable.self) else { return }
+    func searchData(keyWord: String) throws {
+        let data = try realmRepository.read(ClassTable.self)
         let filterData = data.filter { !$0.ishidden && $0.className.contains(keyWord) }.sorted { $0[keyPath: \.className] < $1[keyPath: \.className] }
         state.value = .searchData(filterData)
     }
     
-    func rowDelete(data classData: ClassTable) {
-        guard let scheduleData = realmRepository.read(ScheduleTable.self) else { return }
-        guard let calendarData = realmRepository.read(CalendarTable .self) else { return }
-                
+    func rowDelete(data classData: ClassTable) throws {
+        let scheduleData = try realmRepository.read(ScheduleTable.self)
+        let calendarData = try realmRepository.read(CalendarTable.self)
+        
         let schedules = scheduleData.filter { $0.classPK == classData._id }
         
         for schedule in schedules {
@@ -44,11 +43,11 @@ class ClassManagementViewModel {
                 $0.schedulePK == schedule._id && Int($0.date.timeIntervalSince(Date())) >= 0
             }
 
-            realmRepository.delete(data: calendarFilterData)
+            try realmRepository.delete(data: calendarFilterData)
         }
 
-        realmRepository.delete(data: scheduleData)
-        realmRepository.create(data: classData)
+        try realmRepository.delete(data: scheduleData)
+        try realmRepository.create(data: classData)
         state.value = .rowDelete
     }
 }

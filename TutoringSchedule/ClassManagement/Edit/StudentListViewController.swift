@@ -39,7 +39,10 @@ class StudentListViewController: UIViewController {
         view.addGestureRecognizer(tapGestureRecognizer)
 
         bind()
-        viewModel.settingData()
+        
+        errorHandling {
+            try viewModel.settingData()
+        }
     }
 
     @objc private func addButtonTapped() {
@@ -67,7 +70,10 @@ class StudentListViewController: UIViewController {
 
 extension StudentListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.searchData(keyWord: searchText)
+        
+        errorHandling {
+            try viewModel.searchData(keyWord: searchText)
+        }
     }
 }
 

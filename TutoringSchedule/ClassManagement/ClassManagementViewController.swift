@@ -38,7 +38,10 @@ class ClassManagementViewController: UIViewController {
         mainView.tableView.dataSource = self
         
         bind()
-        viewModel.settingData()
+        
+        errorHandling {
+            try viewModel.settingData()
+        }
     }
     
     private func bind() {
@@ -74,7 +77,9 @@ extension ClassManagementViewController: saveSucsessDelegate {
 
 extension ClassManagementViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        viewModel.searchData(keyWord: searchText)
+        errorHandling {
+            try viewModel.searchData(keyWord: searchText)
+        }
     }
 }
 
@@ -104,7 +109,10 @@ extension ClassManagementViewController: UITableViewDelegate, UITableViewDataSou
         let newData = ClassTable(className: classData.className, tutoringPlace: classData.tutoringPlace, startDate: classData.startDate, endDate: classData.endDate, studentPK: studentPK)
         newData._id = classData._id
         newData.ishidden = true
-        viewModel.rowDelete(data: newData)
+        
+        errorHandling {
+            try viewModel.rowDelete(data: newData)
+        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

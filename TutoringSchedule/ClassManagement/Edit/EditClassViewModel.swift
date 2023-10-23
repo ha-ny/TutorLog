@@ -28,57 +28,56 @@ class EditClassViewModel {
     
     var state: Observable<EventType> = Observable(value: .idle)
     
-    func settingData(classData: ClassTable) {
-        guard let data = realmRepository.read(ScheduleTable.self) else { return }
+    func settingData(classData: ClassTable) throws {
+        let data = try realmRepository.read(ScheduleTable.self)
         let scheduleData = data.filter { $0.classPK == classData._id }
         state.value = .settingDayButton(scheduleData)
     }
     
-    func setStudentButton(studentID: String) -> String? {
-        guard let data = realmRepository.read(StudentTable.self) else { return nil }
+    func setStudentButton(studentID: String) throws -> String? {
+        let data = try realmRepository.read(StudentTable.self)
         return data.filter { !$0.ishidden && $0._id.stringValue == studentID }[0].name
     }
     
-    func saveData(newData: ClassTable) {
+    func saveData(newData: ClassTable) throws {
         
         if case .update(let data) = editType {
             let originId = data._id
             newData._id = originId
         }
 
-        realmRepository.create(data: newData)
+        try realmRepository.create(data: newData)
         state.value = .saveData
     }
     
-    func classDataSave(classData: ClassTable) -> ClassTable {
+    func classDataSave(classData: ClassTable) throws -> ClassTable {
         if case .update(let data) = editType {
             classData._id = data._id
         }
 
-        realmRepository.create(data: classData)
+        try realmRepository.create(data: classData)
         return classData
     }
     
-    func scheduleDataSave(scheduleData: ScheduleTable, calendarData: [CalendarTable]) {
+    func scheduleDataSave(scheduleData: ScheduleTable, calendarData: [CalendarTable]) throws {
         
         if case .update(let data) = editType {
-            guard let scheduleData = realmRepository.read(ScheduleTable.self) else { return }
+            let scheduleData = try realmRepository.read(ScheduleTable.self)
             
             let filterScheduleData = scheduleData.filter { $0.classPK == data._id }
             for Schedule in filterScheduleData {
-                guard let calendarData = realmRepository.read(CalendarTable.self) else { return }
-                
+                let calendarData = try realmRepository.read(CalendarTable.self)
                 let filterCalendarData = calendarData.filter { $0.schedulePK == Schedule._id }
-                realmRepository.delete(data: filterCalendarData)
+                try realmRepository.delete(data: filterCalendarData)
             }
             
-            realmRepository.delete(data: filterScheduleData)
+            try realmRepository.delete(data: filterScheduleData)
         }
         
-        realmRepository.create(data: scheduleData)
+        try realmRepository.create(data: scheduleData)
 
         for data in calendarData {
-            realmRepository.create(data: data)
+            try realmRepository.create(data: data)
         }
 
         state.value = .saveData

@@ -9,10 +9,10 @@ import UIKit
 
 extension UIAlertController {
     
-    func customMessageAlert(message: String) -> UIAlertController {
-        let alert = UIAlertController(title: "알림", message: message, preferredStyle: .alert)
+    static func customMessageAlert(view: UIViewController, title: String, message: String) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "확인", style: .default)
         alert.addAction(ok)
-        return alert
+        view.present(alert, animated: true)
     }
 }

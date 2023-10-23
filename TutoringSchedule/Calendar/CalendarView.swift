@@ -12,7 +12,7 @@ class CalendarView: BaseView {
         
     let yearMonthLabel = {
         let view = UILabel()
-        view.text = Date().convertToString(format: "yyyy년 MM월", date: Date())
+        view.text = Date.convertToString(format: "yyyy년 MM월", date: Date())
         view.font = .boldSystemFont(ofSize: 20)
         return view
     }()

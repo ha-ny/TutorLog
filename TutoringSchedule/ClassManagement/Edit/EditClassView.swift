@@ -51,7 +51,7 @@ class EditClassView: BaseView {
     
     lazy var startDateTextField = {
         let view = UITextField().hoshi(title: "시작일")
-        view.text = Date().convertToString(format: "yyyy년 MM월 dd일", date: Date())
+        view.text = Date.convertToString(format: "yyyy년 MM월 dd일", date: Date())
         view.tag = 1001
         view.delegate = self
         view.tintColor = .clear
@@ -61,7 +61,7 @@ class EditClassView: BaseView {
     
     lazy var endDateTextField = {
         let view = UITextField().hoshi(title: "종료일")
-        view.text = Date().convertToString(format: "yyyy년 MM월 dd일", date: Date())
+        view.text = Date.convertToString(format: "yyyy년 MM월 dd일", date: Date())
         view.tag = 1002
         view.delegate = self
         view.tintColor = .clear

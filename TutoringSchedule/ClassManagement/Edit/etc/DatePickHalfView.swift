@@ -137,21 +137,21 @@ class DatePickHalfView: UIViewController {
         
         var time = "\(startHour):\(startMinute)"
         guard let startTime = stringToDate(format: "HH:mm", date: time) else {
-            let alert = UIAlertController().customMessageAlert(message: "시작시간 저장에 실패했습니다./n다시 실행해주세요.")
-            present(alert, animated: true)
+            let description = AlertMessageType.startTimeSaveFailure.description
+            UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
             return
         }
 
         time = "\(endHour):\(endMinute)"
         guard let endTime = stringToDate(format: "HH:mm", date: time) else {
-            let alert = UIAlertController().customMessageAlert(message: "종료시간 저장에 실패했습니다./n다시 실행해주세요.")
-            present(alert, animated: true)
+            let description = AlertMessageType.endTimeSaveFailure.description
+            UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
             return
         }
 
         guard Int(endTime.timeIntervalSince(startTime)) >= 0 else {
-            let alert = UIAlertController().customMessageAlert(message: "시작시간은 종료시간보다 클 수 없습니다")
-            present(alert, animated: true)
+            let description = AlertMessageType.invalidTimeRange.description
+            UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
             return
         }
             
@@ -166,7 +166,7 @@ class DatePickHalfView: UIViewController {
         time = "\(endHour):\(endMinute)"
         guard let endTime = stringToDate(format: "HH:mm", date: time) else { return }
         
-        timeLabel.text = Date().convertToString(format: "HH:mm", date: startTime) + "~" + Date().convertToString(format: "HH:mm", date: endTime)
+        timeLabel.text = Date.convertToString(format: "HH:mm", date: startTime) + "~" + Date.convertToString(format: "HH:mm", date: endTime)
     }
     
     @objc func deleteButtonTapped() {

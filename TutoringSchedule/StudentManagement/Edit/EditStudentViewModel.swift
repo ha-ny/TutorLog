@@ -27,14 +27,14 @@ class EditStudentViewModel {
     
     var state: Observable<EventType> = Observable(value: .idle)
     
-    func saveData(newData: StudentTable) {
+    func saveData(newData: StudentTable) throws {
         
         if case .update(let data) = editType {
             let originId = data._id
             newData._id = originId
         }
 
-        realmRepository.create(data: newData)
+        try realmRepository.create(data: newData)
         state.value = .saveData
     }
     

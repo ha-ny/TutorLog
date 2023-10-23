@@ -12,25 +12,25 @@ class RealmRepository {
     
     private let realm = try? Realm()
     
-    func read<T: Object>(_ object: T.Type) -> [T]? {
-        guard let realm else { return nil }
+    func read<T: Object>(_ object: T.Type) throws -> [T] {
+        guard let realm else { throw RealmErrorType.connectionFailure }
         return Array(realm.objects(object))
     }
 
-    func create<T: Object>(data: T) {
-        guard let realm else { return }
+    func create<T: Object>(data: T) throws {
+        guard let realm else { throw RealmErrorType.connectionFailure }
         
         do {
             try realm.write {
                 realm.add(data, update: .modified)
             }
         } catch {
-            
+            throw RealmErrorType.createFailed
         }
     }
 
-    func delete<T: Object>(data: [T]) {
-        guard let realm else { return }
+    func delete<T: Object>(data: [T]) throws {
+        guard let realm else { throw RealmErrorType.connectionFailure }
         
         do {
             try realm.write {
@@ -39,7 +39,7 @@ class RealmRepository {
                 }
             }
         } catch {
-            
+            throw RealmErrorType.deleteFailed
         }
     }
 }

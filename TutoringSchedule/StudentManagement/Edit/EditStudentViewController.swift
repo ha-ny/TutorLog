@@ -9,11 +9,6 @@ import UIKit
 
 class EditStudentViewController: UIViewController {
         
-    enum AlertType: String {
-        case name = "이름은 필수입력입니다"
-        case numberIsInt = "숫자만 입력가능합니다"
-    }
-    
     var delegate: saveSucsessDelegate?
 
     private let mainView = EditStudentView()
@@ -98,8 +93,8 @@ class EditStudentViewController: UIViewController {
     @objc private func saveButtonTapped() {
         
         guard let name = mainView.nameTextField.text, !name.isEmpty else {
-            let alert = UIAlertController().customMessageAlert(message: AlertType.name.rawValue)
-            present(alert, animated: true)
+            let description = AlertMessageType.missingName.description
+            UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
             return //필수체크
         }
                
@@ -114,8 +109,8 @@ class EditStudentViewController: UIViewController {
                 studentPhoneNum = studentPhoneNumText
             }else {
                 mainView.studentPhoneNumTextField.becomeFirstResponder()
-                let alert = UIAlertController().customMessageAlert(message: AlertType.numberIsInt.rawValue)
-                present(alert, animated: true)
+                let description = AlertMessageType.invalidNumberFormat.description
+                UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
                 return
             }
         }else {
@@ -129,8 +124,8 @@ class EditStudentViewController: UIViewController {
                 parentPhoneNum = parentPhoneNumText
             }else {
                 mainView.parentPhoneNumTextField.becomeFirstResponder()
-                let alert = UIAlertController().customMessageAlert(message: AlertType.numberIsInt.rawValue)
-                present(alert, animated: true)
+                let description = AlertMessageType.invalidNumberFormat.description
+                UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
                 return
             }
         }else {
@@ -142,7 +137,9 @@ class EditStudentViewController: UIViewController {
         
         let newData = StudentTable(name: name, studentPhoneNum: studentPhoneNum, parentPhoneNum: parentPhoneNum, address: address, memo: memo)
         
-        viewModel.saveData(newData: newData)
+        errorHandling {
+            try viewModel.saveData(newData: newData)
+        }
     }
 }
 

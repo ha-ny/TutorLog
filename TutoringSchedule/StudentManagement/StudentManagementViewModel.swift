@@ -20,20 +20,20 @@ class StudentManagementViewModel {
     
     var state: Observable<EventType> = Observable(value: .idle)
     
-    func settingData() {
-        guard let data = realmRepository.read(StudentTable.self) else { return }
+    func settingData() throws {
+        let data = try realmRepository.read(StudentTable.self)
         let filterData = data.filter { !$0.ishidden }.sorted { $0[keyPath: \.name] < $1[keyPath: \.name] }
         state.value = .settingData(filterData)
     }
     
-    func searchData(keyWord: String) {
-        guard let data = realmRepository.read(StudentTable.self) else { return }
+    func searchData(keyWord: String) throws {
+        let data = try realmRepository.read(StudentTable.self)
         let filterData = data.filter { !$0.ishidden && $0.name.contains(keyWord) }.sorted { $0[keyPath: \.name] < $1[keyPath: \.name] }
         state.value = .searchData(filterData)
     }
     
-    func rowDelete(data: StudentTable) {
-        realmRepository.create(data: data)
+    func rowDelete(data: StudentTable) throws {
+        try realmRepository.create(data: data)
         state.value = .rowDelete
     }
 }

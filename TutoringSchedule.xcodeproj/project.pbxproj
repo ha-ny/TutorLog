@@ -36,6 +36,9 @@
 		3F4F17822AE55C9500F04DF1 /* Extension+UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17812AE55C9500F04DF1 /* Extension+UIAlertController.swift */; };
 		3F4F17862AE5998D00F04DF1 /* EditType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17852AE5998D00F04DF1 /* EditType.swift */; };
 		3F4F17882AE599BE00F04DF1 /* DayType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17872AE599BE00F04DF1 /* DayType.swift */; };
+		3F4F178B2AE59CF200F04DF1 /* RealmErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F178A2AE59CF200F04DF1 /* RealmErrorType.swift */; };
+		3F4F178E2AE5B27300F04DF1 /* Extension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F178D2AE5B27300F04DF1 /* Extension+UIViewController.swift */; };
+		3F4F17902AE5B40100F04DF1 /* AlertMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F178F2AE5B40100F04DF1 /* AlertMessageType.swift */; };
 		3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */; };
 		3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */; };
 		3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB402AC46D4700BFCD46 /* TabBarViewController.swift */; };
@@ -83,6 +86,9 @@
 		3F4F17812AE55C9500F04DF1 /* Extension+UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIAlertController.swift"; sourceTree = "<group>"; };
 		3F4F17852AE5998D00F04DF1 /* EditType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditType.swift; sourceTree = "<group>"; };
 		3F4F17872AE599BE00F04DF1 /* DayType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayType.swift; sourceTree = "<group>"; };
+		3F4F178A2AE59CF200F04DF1 /* RealmErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmErrorType.swift; sourceTree = "<group>"; };
+		3F4F178D2AE5B27300F04DF1 /* Extension+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIViewController.swift"; sourceTree = "<group>"; };
+		3F4F178F2AE5B40100F04DF1 /* AlertMessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessageType.swift; sourceTree = "<group>"; };
 		3FB8DB392AC46D4700BFCD46 /* TutoringSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutoringSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -157,6 +163,7 @@
 				3F4F177D2AE55C6800F04DF1 /* Extension+UITextField.swift */,
 				3F4F177F2AE55C7F00F04DF1 /* Extension+UIButton.swift */,
 				3F4F17812AE55C9500F04DF1 /* Extension+UIAlertController.swift */,
+				3F4F178D2AE5B27300F04DF1 /* Extension+UIViewController.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -219,6 +226,7 @@
 			children = (
 				3F4F17852AE5998D00F04DF1 /* EditType.swift */,
 				3F4F17872AE599BE00F04DF1 /* DayType.swift */,
+				3F4F178C2AE5A9C600F04DF1 /* Error */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -229,6 +237,15 @@
 				3FB8DB6C2AC5F72500BFCD46 /* CalendarSearch */,
 			);
 			path = Temp;
+			sourceTree = "<group>";
+		};
+		3F4F178C2AE5A9C600F04DF1 /* Error */ = {
+			isa = PBXGroup;
+			children = (
+				3F4F178A2AE59CF200F04DF1 /* RealmErrorType.swift */,
+				3F4F178F2AE5B40100F04DF1 /* AlertMessageType.swift */,
+			);
+			path = Error;
 			sourceTree = "<group>";
 		};
 		3FB8DB302AC46D4700BFCD46 = {
@@ -423,6 +440,7 @@
 				3F4F177E2AE55C6800F04DF1 /* Extension+UITextField.swift in Sources */,
 				3F4F17802AE55C7F00F04DF1 /* Extension+UIButton.swift in Sources */,
 				3F4F17862AE5998D00F04DF1 /* EditType.swift in Sources */,
+				3F4F178E2AE5B27300F04DF1 /* Extension+UIViewController.swift in Sources */,
 				3F4F176B2AE2DFCB00F04DF1 /* ClassTable.swift in Sources */,
 				3FB8DB632AC47A8500BFCD46 /* CalendarView.swift in Sources */,
 				3F4F17882AE599BE00F04DF1 /* DayType.swift in Sources */,
@@ -436,6 +454,7 @@
 				3F4F17822AE55C9500F04DF1 /* Extension+UIAlertController.swift in Sources */,
 				3F13436A2AD29C2B001FE7EA /* EditClassView.swift in Sources */,
 				3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */,
+				3F4F178B2AE59CF200F04DF1 /* RealmErrorType.swift in Sources */,
 				3F4F17642AE1807F00F04DF1 /* Observable.swift in Sources */,
 				3FB8DB692AC5F70D00BFCD46 /* CalendarSearchViewController.swift in Sources */,
 				3FB8DB5E2AC475B400BFCD46 /* BaseView.swift in Sources */,
@@ -452,6 +471,7 @@
 				3F4F17762AE2EEA300F04DF1 /* CalendarViewModel.swift in Sources */,
 				3F1343322ACC2B4F001FE7EA /* DatePickHalfView.swift in Sources */,
 				3F4F17692AE2DF8100F04DF1 /* StudentTable.swift in Sources */,
+				3F4F17902AE5B40100F04DF1 /* AlertMessageType.swift in Sources */,
 				3F4F17622AE1792800F04DF1 /* EditStudentViewModel.swift in Sources */,
 				3F4F17712AE2E0C800F04DF1 /* ClassManagementViewModel.swift in Sources */,
 				3F4F17662AE2AAAB00F04DF1 /* StudentManagementViewModel.swift in Sources */,

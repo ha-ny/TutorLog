@@ -73,13 +73,21 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let selectDate = mainView.calendar.selectedDate else { return UITableViewCell() }
         guard let data else { return UITableViewCell() }
-        guard let classData = viewModel.cellSetting(data: data[indexPath.row], selectDate: selectDate) else { return UITableViewCell() }
 
-        let cell = UITableViewCell(style: .value1, reuseIdentifier: "cellIdentifier")
-        cell.textLabel?.text = classData.className
-        cell.detailTextLabel?.text = classData.time
+        //errorHandling
+        do {
+            guard let classData = try viewModel.cellSetting(data: data[indexPath.row], selectDate: selectDate) else { return UITableViewCell() }
+            
+            let cell = UITableViewCell(style: .value1, reuseIdentifier: "cellIdentifier")
+            cell.textLabel?.text = classData.className
+            cell.detailTextLabel?.text = classData.time
+            return cell
+        } catch let realmError as RealmErrorType {
+            let errorDescription = realmError.description
+            UIAlertController.customMessageAlert(view: self, title: errorDescription.title, message: errorDescription.message)
+        } catch { }
         
-        return cell
+        return UITableViewCell()
     }
 }
 
@@ -105,19 +113,25 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
                 }
            }
 
-        guard let data = viewModel.calendarWillDisplay(date: date) else { return }
-        
-        if !data.isEmpty {
-            let label = UILabel(frame: CGRect(x: 28, y: 25, width: 14, height: 14))
-            label.layer.backgroundColor = UIColor.black.cgColor
-            label.layer.cornerRadius = 6
-            label.font = .boldSystemFont(ofSize: 9)
-            label.textAlignment = .center
-            label.textColor = .white
+        //errorHandling
+        do {
+            guard let data = try viewModel.calendarWillDisplay(date: date) else { return }
             
-            label.text = "\(data.count)"
-            cell.addSubview(label)
-        }
+            if !data.isEmpty {
+                let label = UILabel(frame: CGRect(x: 28, y: 25, width: 14, height: 14))
+                label.layer.backgroundColor = UIColor.black.cgColor
+                label.layer.cornerRadius = 6
+                label.font = .boldSystemFont(ofSize: 9)
+                label.textAlignment = .center
+                label.textColor = .white
+                
+                label.text = "\(data.count)"
+                cell.addSubview(label)
+            }
+        } catch let realmError as RealmErrorType {
+            let errorDescription = realmError.description
+            UIAlertController.customMessageAlert(view: self, title: errorDescription.title, message: errorDescription.message)
+        } catch { }
     }
     
     //캘린더 스크롤 감지
@@ -127,6 +141,8 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        viewModel.calendarDidSelect(date: date)
+        errorHandling {
+            try viewModel.calendarDidSelect(date: date)
+        }
     }
 }

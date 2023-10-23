@@ -169,8 +169,8 @@ class EditClassViewController: UIViewController {
         mainView.startDatePicker.date = data.startDate
         mainView.endDatePicker.date = data.endDate
         
-        let startDate = Date().convertToString(format: "yyyy년 MM월 dd일", date: data.startDate)
-        let endDate = Date().convertToString(format: "yyyy년 MM월 dd일", date: data.endDate)
+        let startDate = Date.convertToString(format: "yyyy년 MM월 dd일", date: data.startDate)
+        let endDate = Date.convertToString(format: "yyyy년 MM월 dd일", date: data.endDate)
         
         mainView.startDateTextField.text = startDate
         mainView.endDateTextField.text = endDate
@@ -178,11 +178,13 @@ class EditClassViewController: UIViewController {
         studentArray.append(contentsOf: data.studentPK )
         setStudent()
         
-        viewModel.settingData(classData: data)
+        errorHandling {
+            try viewModel.settingData(classData: data)
+        }
     }
     
     @objc private func startDateChange(_ sender: UIDatePicker) {
-        mainView.startDateTextField.text = Date().convertToString(format: "yyyy년 MM월 dd일", date: sender.date)
+        mainView.startDateTextField.text = Date.convertToString(format: "yyyy년 MM월 dd일", date: sender.date)
         mainView.endDatePicker.date = sender.date
         mainView.endDateTextField.text = mainView.startDateTextField.text
         view.endEditing(true)
@@ -191,48 +193,55 @@ class EditClassViewController: UIViewController {
     @objc private func endDateChange(_ sender: UIDatePicker) {
         
         guard Int(sender.date.timeIntervalSince(mainView.startDatePicker.date)) >= 0 else {
-            let alert = UIAlertController().customMessageAlert(message: "시작일이 종료일보다 이후일 수 없습니다")
-            present(alert, animated: true)
+            
+            let description = AlertMessageType.startDateAfterEndDate.description
+            UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
             return
         }
         
-        mainView.endDateTextField.text = Date().convertToString(format: "yyyy년 MM월 dd일", date: sender.date)
+        mainView.endDateTextField.text = Date.convertToString(format: "yyyy년 MM월 dd일", date: sender.date)
         view.endEditing(true)
     }
     
     @objc private func saveButtonTapped() {
         guard let className = mainView.classNameTextField.text, !className.isEmpty else {
             mainView.classNameTextField.becomeFirstResponder()
-            
-            let alert = UIAlertController().customMessageAlert(message: "수업명 입력은 필수입니다")
-            present(alert, animated: true)
-            return //필수체크
+            let description = AlertMessageType.missingClassName.description
+            UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
+            return
         }
         
         let tutoringPlace = mainView.tutoringPlaceTextField.text ?? ""
         
         let newData = ClassTable(className: className, tutoringPlace: tutoringPlace, startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, studentPK: studentArray)
 
-        let classPK = viewModel.classDataSave(classData: newData)._id
-        
-        for day in days {
-            
-            guard let betweenDates = getBetweenDates(startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, day: day.week) else {
-                let alert = UIAlertController().customMessageAlert(message: "날짜 생성 중 문제가 발생했습니다.\n다시 실행해주세요")
-                present(alert, animated: true)
-                return
+        //errorHandling
+        do {
+            let classPK = try viewModel.classDataSave(classData: newData)._id
+                
+            for day in days {
+                
+                guard let betweenDates = getBetweenDates(startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, day: day.week) else {
+                    let description = AlertMessageType.dateCreationError.description
+                    UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
+                    return
+                }
+                
+                let scheduleData = ScheduleTable(classPK: classPK, day: day.week, startTime: day.startTime, endTime: day.endTime)
+                
+                var calendarData = [CalendarTable]()
+                
+                for date in betweenDates {
+                    calendarData.append(CalendarTable(date: date, schedulePK: scheduleData._id))
+                }
+                
+                try viewModel.scheduleDataSave(scheduleData: scheduleData, calendarData: calendarData)
             }
             
-            let scheduleData = ScheduleTable(classPK: classPK, day: day.week, startTime: day.startTime, endTime: day.endTime)
-            
-            var calendarData = [CalendarTable]()
-            
-            for date in betweenDates {
-                calendarData.append(CalendarTable(date: date, schedulePK: scheduleData._id))
-            }
-            
-            viewModel.scheduleDataSave(scheduleData: scheduleData, calendarData: calendarData)
-        }
+        } catch let realmError as RealmErrorType {
+            let errorDescription = realmError.description
+            UIAlertController.customMessageAlert(view: self, title: errorDescription.title, message: errorDescription.message)
+        } catch { }
     }
     
     //0(일요일) 선택시 기간 내의 모든 일요일 return
@@ -258,24 +267,31 @@ class EditClassViewController: UIViewController {
         mainView.scrollView.subviews.forEach({ $0.removeFromSuperview() })
         
         for studentID in studentArray{
-            if let name = viewModel.setStudentButton(studentID: studentID), !name.isEmpty {
-                let views = mainView.scrollView.subviews.count
-                let xPos = 80 * views
-                let button = UIButton()
-                button.layer.cornerRadius = 8
-                button.layer.borderColor = UIColor.lightGray.cgColor
-                button.layer.borderWidth = 1
-                
-                button.setTitle(name , for: .normal)
-                button.titleLabel?.font = .systemFont(ofSize: 15)
-                button.setTitleColor(UIColor.black, for: .normal)
-                button.frame = CGRect(x: xPos, y: 0, width: 70, height: 30)
-                button.addTarget(self, action: #selector(studentButtonTapped), for: .touchUpInside)
-                button.tag = views
-                
-                mainView.scrollView.addSubview(button)
-                mainView.scrollView.contentSize.width = 80 * CGFloat(views + 1)
-            }
+            
+            //errorHandling
+            do {
+                if let name = try viewModel.setStudentButton(studentID: studentID), !name.isEmpty{
+                    let views = mainView.scrollView.subviews.count
+                    let xPos = 80 * views
+                    let button = UIButton()
+                    button.layer.cornerRadius = 8
+                    button.layer.borderColor = UIColor.lightGray.cgColor
+                    button.layer.borderWidth = 1
+                    
+                    button.setTitle(name , for: .normal)
+                    button.titleLabel?.font = .systemFont(ofSize: 15)
+                    button.setTitleColor(UIColor.black, for: .normal)
+                    button.frame = CGRect(x: xPos, y: 0, width: 70, height: 30)
+                    button.addTarget(self, action: #selector(studentButtonTapped), for: .touchUpInside)
+                    button.tag = views
+                    
+                    mainView.scrollView.addSubview(button)
+                    mainView.scrollView.contentSize.width = 80 * CGFloat(views + 1)
+                }
+            } catch let realmError as RealmErrorType {
+                let errorDescription = realmError.description
+                UIAlertController.customMessageAlert(view: self, title: errorDescription.title, message: errorDescription.message)
+            } catch { }
         }
     }
 }
