@@ -44,8 +44,46 @@
 "dayLabel" = "day";
 
 // ButtonTitleLabel
-"studentTitleLabel" = "Student"
-"studentButton" = "Get List"
-"addButtonTapped" = "Complete Selection"
+"studentTitleLabel" = "Student";
+"studentButton" = "Get List";
+"addButtonTapped" = "Complete Selection";
 "okButtonTapped" = "Complete";
 "deleteButtonTapped" = "Delete";
+
+//RealmErrorType description
+"connectionFailureTitle" = "Connection Failure";
+"connectionFailureMessage" = "An error occurred while connecting to the data.\nPlease try again.";
+
+"createFailedTitle" = "Save Failed";
+"createFailedMessage" = "An error occurred while saving the data.\nPlease try again.";
+
+"deleteFailedTitle" = "Deletion Failed";
+"deleteFailedMessage" = "An error occurred while deleting the data.\nPlease try again.";
+
+//AlertMessageType description
+"missingNameTitle" = "Missing Required Information";
+"missingNameMessage" = "Name is required.";
+
+"invalidNumberFormatTitle" = "Invalid Number Format";
+"invalidNumberFormatMessage" = "Only numbers are allowed.\nPlease re-enter.";
+
+"startTimeSaveFailureTitle" = "Start Time Save Failure";
+"startTimeSaveFailureMessage" = "An error occurred while saving the start time.\nPlease try again.";
+
+"endTimeSaveFailureTitle" = "End Time Save Failure";
+"endTimeSaveFailureMessage" = "An error occurred while saving the end time.\nPlease try again.";
+
+"invalidTimeRangeTitle" = "Invalid Time Range";
+"invalidTimeRangeMessage" = "The start time is greater than the end time.\nPlease re-enter.";
+
+"startDateAfterEndDateTitle" = "Invalid Date Range";
+"startDateAfterEndDateMessage" = "The start date is later than the end date.\nPlease re-enter.";
+
+"missingClassNameTitle" = "Missing Required Information";
+"missingClassNameMessage" = "Class name is required.";
+
+"missingDaySelectionTitle" = "Missing Required Information";
+"missingDaySelectionMessage" = "Day selection is required.";
+
+"dateCreationErrorTitle" = "Date Creation Error";
+"dateCreationErrorMessage" = "An error occurred while creating the date.\nPlease try again.";

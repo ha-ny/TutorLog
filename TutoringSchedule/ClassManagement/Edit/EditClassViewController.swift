@@ -47,19 +47,10 @@ class EditClassViewController: UIViewController {
                 navigationController?.popViewController(animated: true)
             } else if case .settingDayButton(let schedule) = eventType {
                 
+                let buttons = [mainView.sunButton, mainView.monButton, mainView.tueButton, mainView.wedButton, mainView.thuButton, mainView.friButton, mainView.satButton]
+                
                 for data in schedule {
-                    switch DayType(rawValue: data.day) {
-                    case .sun: tapButton = mainView.sunButton
-                    case .mon: tapButton = mainView.monButton
-                    case .tue: tapButton = mainView.tueButton
-                    case .wed: tapButton = mainView.wedButton
-                    case .thu: tapButton = mainView.thuButton
-                    case .fri: tapButton = mainView.friButton
-                    case .sat: tapButton = mainView.satButton
-                    case .none:
-                        return
-                    }
-                    
+                    tapButton = buttons[data.day]
                     saveData(startTime: data.startTime, endTime: data.endTime)
                 }
             }
@@ -207,6 +198,13 @@ class EditClassViewController: UIViewController {
         guard let className = mainView.classNameTextField.text, !className.isEmpty else {
             mainView.classNameTextField.becomeFirstResponder()
             let description = AlertMessageType.missingClassName.description
+            UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
+            return
+        }
+        
+        guard !days.isEmpty else {
+            mainView.classNameTextField.becomeFirstResponder()
+            let description = AlertMessageType.missingDaySelection.description
             UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
             return
         }

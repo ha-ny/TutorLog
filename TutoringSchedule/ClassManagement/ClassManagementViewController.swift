@@ -50,10 +50,9 @@ class ClassManagementViewController: UIViewController {
             
             if case .settingData(let data) = eventType {
                 self.data = data
+                self.mainView.tableView.reloadData()
             } else if case .searchData(let data) = eventType {
                 self.data = data
-                self.mainView.tableView.reloadData()
-            } else if case .rowDelete = eventType {
                 self.mainView.tableView.reloadData()
             }
         }
@@ -71,6 +70,7 @@ class ClassManagementViewController: UIViewController {
 
 extension ClassManagementViewController: saveSucsessDelegate {
     func saveSucsess() {
+        mainView.searchBar.text = nil
         mainView.tableView.reloadData()
     }
 }
@@ -112,6 +112,7 @@ extension ClassManagementViewController: UITableViewDelegate, UITableViewDataSou
         
         errorHandling {
             try viewModel.rowDelete(data: newData)
+            try viewModel.settingData()
         }
     }
     

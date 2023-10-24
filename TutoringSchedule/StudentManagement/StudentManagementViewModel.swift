@@ -28,7 +28,7 @@ class StudentManagementViewModel {
     
     func searchData(keyWord: String) throws {
         let data = try realmRepository.read(StudentTable.self)
-        let filterData = data.filter { !$0.ishidden && $0.name.contains(keyWord) }.sorted { $0[keyPath: \.name] < $1[keyPath: \.name] }
+        let filterData = data.filter { !$0.ishidden && (keyWord.isEmpty || $0.name.contains(keyWord)) }.sorted { $0[keyPath: \.name] < $1[keyPath: \.name] }
         state.value = .searchData(filterData)
     }
     

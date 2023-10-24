@@ -27,7 +27,7 @@ class ClassManagementViewModel {
     
     func searchData(keyWord: String) throws {
         let data = try realmRepository.read(ClassTable.self)
-        let filterData = data.filter { !$0.ishidden && $0.className.contains(keyWord) }.sorted { $0[keyPath: \.className] < $1[keyPath: \.className] }
+        let filterData = data.filter { !$0.ishidden && (keyWord.isEmpty || $0.className.contains(keyWord)) }.sorted { $0[keyPath: \.className] < $1[keyPath: \.className] }
         state.value = .searchData(filterData)
     }
     

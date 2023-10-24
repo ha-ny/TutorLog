@@ -35,7 +35,6 @@
 		3F4F17802AE55C7F00F04DF1 /* Extension+UIButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F177F2AE55C7F00F04DF1 /* Extension+UIButton.swift */; };
 		3F4F17822AE55C9500F04DF1 /* Extension+UIAlertController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17812AE55C9500F04DF1 /* Extension+UIAlertController.swift */; };
 		3F4F17862AE5998D00F04DF1 /* EditType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17852AE5998D00F04DF1 /* EditType.swift */; };
-		3F4F17882AE599BE00F04DF1 /* DayType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17872AE599BE00F04DF1 /* DayType.swift */; };
 		3F4F178B2AE59CF200F04DF1 /* RealmErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F178A2AE59CF200F04DF1 /* RealmErrorType.swift */; };
 		3F4F178E2AE5B27300F04DF1 /* Extension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F178D2AE5B27300F04DF1 /* Extension+UIViewController.swift */; };
 		3F4F17902AE5B40100F04DF1 /* AlertMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F178F2AE5B40100F04DF1 /* AlertMessageType.swift */; };
@@ -85,7 +84,6 @@
 		3F4F177F2AE55C7F00F04DF1 /* Extension+UIButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIButton.swift"; sourceTree = "<group>"; };
 		3F4F17812AE55C9500F04DF1 /* Extension+UIAlertController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIAlertController.swift"; sourceTree = "<group>"; };
 		3F4F17852AE5998D00F04DF1 /* EditType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditType.swift; sourceTree = "<group>"; };
-		3F4F17872AE599BE00F04DF1 /* DayType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DayType.swift; sourceTree = "<group>"; };
 		3F4F178A2AE59CF200F04DF1 /* RealmErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmErrorType.swift; sourceTree = "<group>"; };
 		3F4F178D2AE5B27300F04DF1 /* Extension+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIViewController.swift"; sourceTree = "<group>"; };
 		3F4F178F2AE5B40100F04DF1 /* AlertMessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessageType.swift; sourceTree = "<group>"; };
@@ -175,7 +173,7 @@
 				3FB8DB772AC76CD100BFCD46 /* EditClassViewController.swift */,
 				3F4F17722AE2E4AE00F04DF1 /* EditClassViewModel.swift */,
 				3F4F175D2AD9749D00F04DF1 /* StudentListViewController.swift */,
-				3F4F17742AE2E4B800F04DF1 /* etc */,
+				3F1343312ACC2B4F001FE7EA /* DatePickHalfView.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -201,14 +199,6 @@
 			path = Table;
 			sourceTree = "<group>";
 		};
-		3F4F17742AE2E4B800F04DF1 /* etc */ = {
-			isa = PBXGroup;
-			children = (
-				3F1343312ACC2B4F001FE7EA /* DatePickHalfView.swift */,
-			);
-			path = etc;
-			sourceTree = "<group>";
-		};
 		3F4F17832AE595E100F04DF1 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -225,7 +215,6 @@
 			isa = PBXGroup;
 			children = (
 				3F4F17852AE5998D00F04DF1 /* EditType.swift */,
-				3F4F17872AE599BE00F04DF1 /* DayType.swift */,
 				3F4F178C2AE5A9C600F04DF1 /* Error */,
 			);
 			path = Model;
@@ -443,7 +432,6 @@
 				3F4F178E2AE5B27300F04DF1 /* Extension+UIViewController.swift in Sources */,
 				3F4F176B2AE2DFCB00F04DF1 /* ClassTable.swift in Sources */,
 				3FB8DB632AC47A8500BFCD46 /* CalendarView.swift in Sources */,
-				3F4F17882AE599BE00F04DF1 /* DayType.swift in Sources */,
 				3F1343672AD29A51001FE7EA /* EditStudentView.swift in Sources */,
 				3F1343612ACFA889001FE7EA /* ClassManagementView.swift in Sources */,
 				3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */,

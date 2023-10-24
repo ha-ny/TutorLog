@@ -48,12 +48,11 @@ class StudentManagementViewController: UIViewController {
         viewModel.state.bind { [weak self] eventType in
             guard let self else { return }
             
-            if case .settingData(let data) = eventType {
-                self.data = data
-            } else if case .searchData(let data) = eventType {
+            if case .settingData(let data) = eventType{
                 self.data = data
                 self.mainView.tableView.reloadData()
-            }else if case .rowDelete = eventType {
+            } else if case .searchData(let data) = eventType {
+                self.data = data
                 self.mainView.tableView.reloadData()
             }
         }
@@ -71,7 +70,9 @@ class StudentManagementViewController: UIViewController {
 
 extension StudentManagementViewController: saveSucsessDelegate {
     func saveSucsess() {
-        mainView.tableView.reloadData()
+        errorHandling {
+            try viewModel.settingData()
+        }
     }
 }
 
@@ -109,6 +110,7 @@ extension StudentManagementViewController: UITableViewDelegate, UITableViewDataS
         
         errorHandling {
             try viewModel.rowDelete(data: newData)
+            try viewModel.settingData()
         }
     }
     

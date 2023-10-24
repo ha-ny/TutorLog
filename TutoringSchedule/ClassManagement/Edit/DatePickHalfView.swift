@@ -193,8 +193,8 @@ extension DatePickHalfView: UIPickerViewDelegate, UIPickerViewDataSource {
         switch component {
         case 0: startHour = num
         case 1: startMinute = num
-        case 2: startMinute = num
-        case 3: startMinute = num
+        case 2: endHour = num
+        case 3: endMinute = num
         default:
             return
         }

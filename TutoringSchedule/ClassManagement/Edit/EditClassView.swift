@@ -79,43 +79,43 @@ class EditClassView: BaseView {
     
     let sunButton = {
         let view = UIButton().days()
-        view.tag = DayType.sun.rawValue
+        view.tag = 0
         return view
     }()
     
     let monButton = {
         let view = UIButton().days()
-        view.tag = DayType.mon.rawValue
+        view.tag = 1
         return view
     }()
     
     let tueButton = {
         let view = UIButton().days()
-        view.tag = DayType.tue.rawValue
+        view.tag = 2
         return view
     }()
     
     let wedButton = {
         let view = UIButton().days()
-        view.tag = DayType.wed.rawValue
+        view.tag = 3
         return view
     }()
     
     let thuButton = {
         let view = UIButton().days()
-        view.tag = DayType.thu.rawValue
+        view.tag = 4
         return view
     }()
     
     let friButton = {
         let view = UIButton().days()
-        view.tag = DayType.fri.rawValue
+        view.tag = 5
         return view
     }()
     
     let satButton = {
         let view = UIButton().days()
-        view.tag = DayType.sat.rawValue
+        view.tag = 6
         return view
     }()
     
@@ -231,7 +231,7 @@ extension EditClassView: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField.tag > 1000{
-            return false // 입력 불가
+            return false // Date textField 입력 불가
         }
         
         return true

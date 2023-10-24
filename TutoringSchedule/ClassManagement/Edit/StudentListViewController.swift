@@ -38,6 +38,9 @@ class StudentListViewController: UIViewController {
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
 
+        mainView.tableView.delegate = self
+        mainView.tableView.dataSource = self
+        
         bind()
         
         errorHandling {
@@ -54,8 +57,9 @@ class StudentListViewController: UIViewController {
         viewModel.state.bind { [weak self] eventType in
             guard let self else { return }
             
-            if case .settingData(let data) = eventType {
+            if case .settingData(let data) = eventType{
                 self.data = data
+                self.mainView.tableView.reloadData()
             } else if case .searchData(let data) = eventType {
                 self.data = data
                 self.mainView.tableView.reloadData()
@@ -80,6 +84,7 @@ extension StudentListViewController: UISearchBarDelegate {
 extension StudentListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        print(data)
         return data?.count ?? 0
     }
     
@@ -90,10 +95,9 @@ extension StudentListViewController: UITableViewDelegate, UITableViewDataSource 
         cell.textLabel?.text = data[indexPath.row].name
         
         if let index = isStudentPK(data: data[indexPath.row]) {
-            cell.isSelected = true
+            cell.tintColor = .darkGray
             cell.imageView?.image = UIImage(systemName: "checkmark")
         }
-        
         return cell
     }
 
@@ -101,6 +105,7 @@ extension StudentListViewController: UITableViewDelegate, UITableViewDataSource 
         guard let cell = tableView.cellForRow(at: indexPath), let data else { return }
 
         guard let index = isStudentPK(data: data[indexPath.row]) else {
+            cell.tintColor = .darkGray
             cell.imageView?.image = UIImage(systemName: "checkmark")
             studentData.append(data[indexPath.row]._id.stringValue)
             return

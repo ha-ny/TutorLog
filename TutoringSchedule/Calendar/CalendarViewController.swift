@@ -76,6 +76,8 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
 
         //errorHandling
         do {
+            print(data)
+
             guard let classData = try viewModel.cellSetting(data: data[indexPath.row], selectDate: selectDate) else { return UITableViewCell() }
             
             let cell = UITableViewCell(style: .value1, reuseIdentifier: "cellIdentifier")
@@ -98,7 +100,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         
         if day == 0 {
             return .systemRed
-        } else if day == 1 {
+        } else if day == 6 {
             return .systemBlue
         } else {
             return .black

@@ -20,7 +20,7 @@
 
 //DateFormat
 "yearMonthFormat" = "yyyy년 MMMM"; //"yyyy년 MM월";
-"fullDateFormat" = "yyyy년 MMMM dd"; //"yyyy년 MM월 dd일"
+"fullDateFormat" = "yyyy년 MMMM dd일"; //"yyyy년 MM월 dd일"
 
 //searchBar - placeholder
 "placeOfName" = "이름";
@@ -44,12 +44,49 @@
 "dayLabel" = "요일"; //"day" - 외국표기
 
 // ButtonTitleLabel
-"studentTitleLabel" = "학생"
-"studentButton" = "목록 가져오기"
-"addButtonTapped" = "선택완료"
+"studentTitleLabel" = "학생";
+"studentButton" = "목록";
+"addButtonTapped" = "선택완료";
 "okButtonTapped" = "완료";
 "deleteButtonTapped" = "삭제";
 
+//RealmErrorType description
+"connectionFailureTitle" = "연결 실패";
+"connectionFailureMessage" = "데이터를 연결하는 동안 문제가 발생했습니다.\n다시 시도해주세요.";
+
+"createFailedTitle" = "저장 실패";
+"createFailedMessage" = "데이터를 저장하는 동안 문제가 발생했습니다.\n다시 시도해주세요.";
+
+"deleteFailedTitle" = "삭제 실패";
+"deleteFailedMessage" = "데이터를 삭제하는 동안 문제가 발생했습니다.\n다시 시도해주세요.";
+
+//AlertMessageType description
+"missingNameTitle" = "필수 정보 누락";
+"missingNameMessage" = "이름은 반드시 입력해야 합니다.";
+
+"invalidNumberFormatTitle" = "유효하지 않은 번호 형식";
+"invalidNumberFormatMessage" = "숫자만 입력할 수 있습니다.\n다시 설정해주세요.";
+
+"startTimeSaveFailureTitle" = "시작 시간 저장 실패";
+"startTimeSaveFailureMessage" = "시간을 저장하는데 문제가 발생했습니다.\n다시 시도해주세요.";
+
+"endTimeSaveFailureTitle" = "종료 시간 저장 실패";
+"endTimeSaveFailureMessage" = "시간을 저장하는데 문제가 발생했습니다.\n다시 시도해주세요.";
+
+"invalidTimeRangeTitle" = "유효하지 않은 시간 범위";
+"invalidTimeRangeMessage" = "시작 시간이 종료 시간보다 더 큽니다.\n다시 설정해주세요.";
+
+"startDateAfterEndDateTitle" = "유효하지 않은 기간";
+"startDateAfterEndDateMessage" = "시작일이 종료일보다 늦습니다.\n다시 설정해주세요.";
+
+"missingClassNameTitle" = "필수 정보 누락";
+"missingClassNameMessage" = "수업명은 반드시 입력해야 합니다.";
+
+"missingDaySelectionTitle" = "필수 정보 누락";
+"missingDaySelectionMessage" = "요일 선택은 반드시 해야 합니다.";
+
+"dateCreationErrorTitle" = "날짜 생성 오류";
+"dateCreationErrorMessage" = "날짜를 생성하는 중에 문제가 발생했습니다.\n다시 시도해주세요.";
 
 
 
