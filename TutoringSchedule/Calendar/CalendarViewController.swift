@@ -14,6 +14,7 @@ class CalendarViewController: UIViewController {
     let mainView = CalendarView()
     
     var data: [CalendarTable]?
+    var selectDate = Date()
     
     override func loadView() {
         self.view = mainView
@@ -50,6 +51,7 @@ class CalendarViewController: UIViewController {
     
     @objc func calendarReload() {
         mainView.calendar.reloadData()
+        calendar(mainView.calendar, didSelect: selectDate, at: .current)
     }
    
 //    @objc func searchButtonTapped() {
@@ -59,9 +61,9 @@ class CalendarViewController: UIViewController {
     
     //오늘 날짜로 돌아오기
     @objc func todayButtonTapped() {
-        mainView.calendar.select(Date())
-        //주석 풀기
-        //mainView.calendar(mainView.calendar, didSelect: Date(), at: .current)
+        selectDate = Date()
+        mainView.calendar.select(selectDate)
+        calendar(mainView.calendar, didSelect: selectDate, at: .current)
     }
 }
 
@@ -76,8 +78,6 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
 
         //errorHandling
         do {
-            print(data)
-
             guard let classData = try viewModel.cellSetting(data: data[indexPath.row], selectDate: selectDate) else { return UITableViewCell() }
             
             let cell = UITableViewCell(style: .value1, reuseIdentifier: "cellIdentifier")
@@ -121,7 +121,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
             
             if !data.isEmpty {
                 let label = UILabel(frame: CGRect(x: 28, y: 25, width: 14, height: 14))
-                label.layer.backgroundColor = UIColor.black.cgColor
+                label.layer.backgroundColor = UIColor.signatureColor.cgColor
                 label.layer.cornerRadius = 6
                 label.font = .boldSystemFont(ofSize: 9)
                 label.textAlignment = .center
@@ -143,6 +143,8 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        
+        selectDate = date
         errorHandling {
             try viewModel.calendarDidSelect(date: date)
         }

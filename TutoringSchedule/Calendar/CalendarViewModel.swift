@@ -23,14 +23,7 @@ class CalendarViewModel {
         let scheduleData = try realmRepository.read(ScheduleTable.self)
         let classData = try realmRepository.read(ClassTable.self)
         
-        print(calendarData)
-        print(scheduleData)
-        print(classData)
-        
         let schedule = scheduleData.filter { $0._id == calendarData.schedulePK }
-        
-        print(schedule)
-        
         let className = classData.filter { $0._id == schedule[0].classPK }[0].className
         
         for data in schedule {
@@ -48,7 +41,7 @@ class CalendarViewModel {
     func calendarWillDisplay(date: Date) throws -> [CalendarTable]? {
         let data = try realmRepository.read(CalendarTable.self)
         let betweenDate = Date.betweenDate(date: date)
-        return data.filter { $0.date >= betweenDate.start && $0.date <= betweenDate.end }
+        return data.filter { ($0.date >= betweenDate.start && $0.date <= betweenDate.end) }
     }
     
     func calendarPageChange(date: Date) {

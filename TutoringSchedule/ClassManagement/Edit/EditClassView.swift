@@ -24,7 +24,7 @@ class EditClassView: BaseView {
     }()
     
     lazy var tutoringPlaceTextField = {
-        let view = UITextField().hoshi(title: "수업 장소")
+        let view = UITextField().hoshi(title: "placeOfTutoringPlace".localized)
         view.tag = 1
         view.returnKeyType = .done
         view.delegate = self

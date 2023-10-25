@@ -216,7 +216,8 @@ class EditClassViewController: UIViewController {
         //errorHandling
         do {
             let classPK = try viewModel.classDataSave(classData: newData)._id
-                
+            try viewModel.updateDeleteData()
+            
             for day in days {
                 
                 guard let betweenDates = getBetweenDates(startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, day: day.week) else {
@@ -249,7 +250,6 @@ class EditClassViewController: UIViewController {
         
         while currentDate <= endDate {
             if Calendar.current.component(.weekday, from: currentDate) - 1 == day {
-                //print("currentDate-----------------", currentDate)
                 dates.append(currentDate)
             }
             
@@ -304,7 +304,7 @@ extension EditClassViewController: sendWeekStateDelegate{
         }
         
         days.append(weekTime(week: tapButton.tag, startTime: startTime, endTime: endTime))
-        tapButton.backgroundColor = .darkGray
+        tapButton.backgroundColor = .signatureColor
         tapButton.setTitleColor(.white, for: .normal)
     }
     

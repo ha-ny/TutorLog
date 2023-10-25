@@ -50,10 +50,12 @@ class ClassManagementViewController: UIViewController {
             
             if case .settingData(let data) = eventType {
                 self.data = data
-                self.mainView.tableView.reloadData()
+                mainView.tableView.reloadData()
             } else if case .searchData(let data) = eventType {
                 self.data = data
-                self.mainView.tableView.reloadData()
+                mainView.tableView.reloadData()
+            } else if case .rowDelete = eventType {
+                NotificationCenter.default.post(name: .calendarReload, object: nil)
             }
         }
     }
@@ -71,7 +73,10 @@ class ClassManagementViewController: UIViewController {
 extension ClassManagementViewController: saveSucsessDelegate {
     func saveSucsess() {
         mainView.searchBar.text = nil
-        mainView.tableView.reloadData()
+        
+        errorHandling {
+            try viewModel.settingData()
+        }
     }
 }
 

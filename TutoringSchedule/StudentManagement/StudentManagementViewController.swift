@@ -50,10 +50,10 @@ class StudentManagementViewController: UIViewController {
             
             if case .settingData(let data) = eventType{
                 self.data = data
-                self.mainView.tableView.reloadData()
+                mainView.tableView.reloadData()
             } else if case .searchData(let data) = eventType {
                 self.data = data
-                self.mainView.tableView.reloadData()
+                mainView.tableView.reloadData()
             }
         }
     }

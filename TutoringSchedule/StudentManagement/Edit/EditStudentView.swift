@@ -27,28 +27,28 @@ class EditStudentView: BaseView {
     }()
     
     lazy var studentPhoneNumTextField = {
-        let view = UITextField().hoshi(title: "학생 연락처")
+        let view = UITextField().hoshi(title: "placeOfStudentPhoneNum".localized)
         view.tag = 1
         view.keyboardType = .numberPad
         return view
     }()
  
     lazy var parentPhoneNumTextField = {
-        let view = UITextField().hoshi(title: "학부모 연락처")
+        let view = UITextField().hoshi(title: "placeOfParentPhoneNum".localized)
         view.tag = 2
         view.keyboardType = .numberPad
         return view
     }()
     
     lazy var addressTextField = {
-        let view = UITextField().hoshi(title: "주소")
+        let view = UITextField().hoshi(title: "placeOfAddress".localized)
         view.tag = 3
         view.returnKeyType = .continue
         return view
     }()
     
     lazy var memoTextField = {
-        let view = UITextField().hoshi(title: "메모")
+        let view = UITextField().hoshi(title: "placeOfMemo".localized)
         view.returnKeyType = .done
         view.tag = 4
         return view

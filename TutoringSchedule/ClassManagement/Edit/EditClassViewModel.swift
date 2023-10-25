@@ -36,7 +36,8 @@ class EditClassViewModel {
     
     func setStudentButton(studentID: String) throws -> String? {
         let data = try realmRepository.read(StudentTable.self)
-        return data.filter { !$0.ishidden && $0._id.stringValue == studentID }[0].name
+        let student = data.filter { !$0.ishidden && $0._id.stringValue == studentID }
+        return student.isEmpty ? nil : student[0].name
     }
     
     func saveData(newData: ClassTable) throws {
@@ -59,8 +60,7 @@ class EditClassViewModel {
         return classData
     }
     
-    func scheduleDataSave(scheduleData: ScheduleTable, calendarData: [CalendarTable]) throws {
-        
+    func updateDeleteData() throws {
         if case .update(let data) = editType {
             let scheduleData = try realmRepository.read(ScheduleTable.self)
             
@@ -73,7 +73,10 @@ class EditClassViewModel {
             
             try realmRepository.delete(data: filterScheduleData)
         }
-        
+    }
+    
+    func scheduleDataSave(scheduleData: ScheduleTable, calendarData: [CalendarTable]) throws {
+        //삭제일땐 updateDeleteData 한번 호출해주기
         try realmRepository.create(data: scheduleData)
 
         for data in calendarData {

@@ -37,7 +37,8 @@ class StudentListViewController: UIViewController {
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView))
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
-
+        
+        mainView.searchBar.delegate = self
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
         
@@ -59,10 +60,10 @@ class StudentListViewController: UIViewController {
             
             if case .settingData(let data) = eventType{
                 self.data = data
-                self.mainView.tableView.reloadData()
+                mainView.tableView.reloadData()
             } else if case .searchData(let data) = eventType {
                 self.data = data
-                self.mainView.tableView.reloadData()
+                mainView.tableView.reloadData()
             }
         }
     }
@@ -84,7 +85,6 @@ extension StudentListViewController: UISearchBarDelegate {
 extension StudentListViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(data)
         return data?.count ?? 0
     }
     
@@ -94,7 +94,7 @@ extension StudentListViewController: UITableViewDelegate, UITableViewDataSource 
         let cell = UITableViewCell()
         cell.textLabel?.text = data[indexPath.row].name
         
-        if let index = isStudentPK(data: data[indexPath.row]) {
+        if let _ = isStudentPK(data: data[indexPath.row]) {
             cell.tintColor = .darkGray
             cell.imageView?.image = UIImage(systemName: "checkmark")
         }
@@ -104,7 +104,7 @@ extension StudentListViewController: UITableViewDelegate, UITableViewDataSource 
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         guard let cell = tableView.cellForRow(at: indexPath), let data else { return }
 
-        guard let index = isStudentPK(data: data[indexPath.row]) else {
+        guard let _ = isStudentPK(data: data[indexPath.row]) else {
             cell.tintColor = .darkGray
             cell.imageView?.image = UIImage(systemName: "checkmark")
             studentData.append(data[indexPath.row]._id.stringValue)

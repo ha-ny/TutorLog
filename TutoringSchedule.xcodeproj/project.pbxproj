@@ -56,6 +56,8 @@
 		3FB8DB7B2AC76D6900BFCD46 /* TextFieldEffects in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB8DB7A2AC76D6900BFCD46 /* TextFieldEffects */; };
 		3FB8DB7E2ACA406800BFCD46 /* RealmSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB8DB7D2ACA406800BFCD46 /* RealmSwift */; };
 		3FB8DB822ACA452000BFCD46 /* RealmRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB812ACA452000BFCD46 /* RealmRepository.swift */; };
+		3FEADDAF2AE7D06E00FB6254 /* Extension+UIColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEADDAE2AE7D06E00FB6254 /* Extension+UIColor.swift */; };
+		3FEADDB32AE9AA6C00FB6254 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3FEADDB22AE9AA6C00FB6254 /* Settings.bundle */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -105,6 +107,8 @@
 		3FB8DB6F2AC764C100BFCD46 /* StudentManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentManagementView.swift; sourceTree = "<group>"; };
 		3FB8DB772AC76CD100BFCD46 /* EditClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClassViewController.swift; sourceTree = "<group>"; };
 		3FB8DB812ACA452000BFCD46 /* RealmRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmRepository.swift; sourceTree = "<group>"; };
+		3FEADDAE2AE7D06E00FB6254 /* Extension+UIColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIColor.swift"; sourceTree = "<group>"; };
+		3FEADDB22AE9AA6C00FB6254 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +166,7 @@
 				3F4F177F2AE55C7F00F04DF1 /* Extension+UIButton.swift */,
 				3F4F17812AE55C9500F04DF1 /* Extension+UIAlertController.swift */,
 				3F4F178D2AE5B27300F04DF1 /* Extension+UIViewController.swift */,
+				3FEADDAE2AE7D06E00FB6254 /* Extension+UIColor.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 		3FB8DB302AC46D4700BFCD46 = {
 			isa = PBXGroup;
 			children = (
+				3FEADDB22AE9AA6C00FB6254 /* Settings.bundle */,
 				3FB8DB3B2AC46D4700BFCD46 /* TutoringSchedule */,
 				3FB8DB3A2AC46D4700BFCD46 /* Products */,
 			);
@@ -388,6 +394,7 @@
 			files = (
 				3FB8DB492AC46D4800BFCD46 /* LaunchScreen.storyboard in Resources */,
 				3F1343542ACCF7EF001FE7EA /* GoogleService-Info.plist in Resources */,
+				3FEADDB32AE9AA6C00FB6254 /* Settings.bundle in Resources */,
 				3FB8DB522AC4712900BFCD46 /* Localizable.strings in Resources */,
 				3FB8DB462AC46D4800BFCD46 /* Assets.xcassets in Resources */,
 			);
@@ -456,6 +463,7 @@
 				3F1343772AD6C30C001FE7EA /* EditStudentViewController.swift in Sources */,
 				3FB8DB6B2AC5F71E00BFCD46 /* CalendarSearchView.swift in Sources */,
 				3F4F17732AE2E4AE00F04DF1 /* EditClassViewModel.swift in Sources */,
+				3FEADDAF2AE7D06E00FB6254 /* Extension+UIColor.swift in Sources */,
 				3F4F17762AE2EEA300F04DF1 /* CalendarViewModel.swift in Sources */,
 				3F1343322ACC2B4F001FE7EA /* DatePickHalfView.swift in Sources */,
 				3F4F17692AE2DF8100F04DF1 /* StudentTable.swift in Sources */,
@@ -628,7 +636,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.HaEunKim.TutoringSchedule;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HaEun.TutoringSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
@@ -660,7 +668,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.HaEunKim.TutoringSchedule;
+				PRODUCT_BUNDLE_IDENTIFIER = com.HaEun.TutoringSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;

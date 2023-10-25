@@ -21,7 +21,7 @@ class EditStudentViewController: UIViewController {
             guard let self else { return }
             
             if case .settingData(let data) = eventType {
-                self.dataSetting(data)
+                dataSetting(data)
             } else if case .saveData = eventType {
                 delegate.saveSucsess()
                 navigationController?.popViewController(animated: true)
