@@ -195,8 +195,13 @@ class EditClassViewController: UIViewController {
     }
     
     @objc private func saveButtonTapped() {
-        guard let className = mainView.classNameTextField.text, !className.isEmpty else {
+        let className = (mainView.classNameTextField.text ?? "").trimmingCharacters(in: .whitespaces)
+        let tutoringPlace = (mainView.tutoringPlaceTextField.text ?? "").trimmingCharacters(in: .whitespaces)
+        
+        guard !className.isEmpty else {
+            mainView.classNameTextField.text = nil
             mainView.classNameTextField.becomeFirstResponder()
+            
             let description = AlertMessageType.missingClassName.description
             UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
             return
@@ -208,8 +213,6 @@ class EditClassViewController: UIViewController {
             UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
             return
         }
-        
-        let tutoringPlace = mainView.tutoringPlaceTextField.text ?? ""
         
         let newData = ClassTable(className: className, tutoringPlace: tutoringPlace, startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, studentPK: studentArray)
 

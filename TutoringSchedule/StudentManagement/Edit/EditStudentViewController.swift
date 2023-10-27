@@ -91,50 +91,44 @@ class EditStudentViewController: UIViewController {
     }
     
     @objc private func saveButtonTapped() {
+        let name = (mainView.nameTextField.text ?? "").trimmingCharacters(in: .whitespaces)
+        let studentPhoneNum = (mainView.studentPhoneNumTextField.text ?? "").trimmingCharacters(in: .whitespaces)
+        let parentPhoneNum = (mainView.parentPhoneNumTextField.text ?? "").trimmingCharacters(in: .whitespaces)
+        let address = (mainView.addressTextField.text ?? "").trimmingCharacters(in: .whitespaces)
+        let memo = (mainView.memoTextField.text ?? "").trimmingCharacters(in: .whitespaces)
         
-        guard let name = mainView.nameTextField.text, !name.isEmpty else {
+        
+        guard !name.isEmpty else {
+            mainView.nameTextField.text = nil
+            mainView.nameTextField.becomeFirstResponder()
+            
             let description = AlertMessageType.missingName.description
             UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
             return //필수체크
         }
                
-        var studentPhoneNum: String
-        
         func isInt(text: String) -> Bool {
             return Int(text) ?? -1 != -1 ? true : false
         }
-        
-        if let studentPhoneNumText = mainView.studentPhoneNumTextField.text, !studentPhoneNumText.isEmpty{
-            if isInt(text: studentPhoneNumText) {
-                studentPhoneNum = studentPhoneNumText
-            }else {
+
+        if !studentPhoneNum.isEmpty {
+            guard isInt(text: studentPhoneNum) else {
                 mainView.studentPhoneNumTextField.becomeFirstResponder()
                 let description = AlertMessageType.invalidNumberFormat.description
                 UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
                 return
             }
-        }else {
-            studentPhoneNum = ""
         }
-         
-        var parentPhoneNum: String
         
-        if let parentPhoneNumText = mainView.parentPhoneNumTextField.text, !parentPhoneNumText.isEmpty {
-            if isInt(text: parentPhoneNumText) {
-                parentPhoneNum = parentPhoneNumText
-            }else {
-                mainView.parentPhoneNumTextField.becomeFirstResponder()
+        if !parentPhoneNum.isEmpty {
+            guard isInt(text: studentPhoneNum) else {
+                mainView.studentPhoneNumTextField.becomeFirstResponder()
                 let description = AlertMessageType.invalidNumberFormat.description
                 UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
                 return
             }
-        }else {
-            parentPhoneNum = ""
         }
-        
-        let address = mainView.addressTextField.text ?? ""
-        let memo = mainView.memoTextField.text ?? ""
-        
+                
         let newData = StudentTable(name: name, studentPhoneNum: studentPhoneNum, parentPhoneNum: parentPhoneNum, address: address, memo: memo)
         
         errorHandling {
