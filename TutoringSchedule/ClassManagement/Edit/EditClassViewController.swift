@@ -87,6 +87,10 @@ class EditClassViewController: UIViewController {
         [mainView.sunButton, mainView.monButton, mainView.tueButton, mainView.wedButton, mainView.thuButton, mainView.friButton, mainView.satButton] .forEach {
             $0.addTarget(self, action: #selector(dayButtonTapped), for: .touchUpInside)
         }
+        
+        [mainView.classNameTextField, mainView.tutoringPlaceTextField, mainView.startDateTextField, mainView.endDateTextField] .forEach {
+            $0.delegate = self
+        }
     }
     
     @objc private func studentDataButton() {
@@ -318,4 +322,39 @@ extension EditClassViewController {
     }
 }
 
+extension EditClassViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let textField = textField.superview?.viewWithTag(textField.tag + 1) {
+            textField.becomeFirstResponder()
+        }
+        
+        return true
+    }
+
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard textField.tag < 1000 else { return false }// Date textField 입력 불가
+        guard !string.isEmpty, var text = textField.text else { return true }
+        text = text + string
+        
+        //모아쓰기가 아닌 방식(숫자, 영어 등..)
+        if let textInputMode = textField.textInputMode, textInputMode.primaryLanguage == "en-US"{
+            if text.count > 20 {
+                return returnAndSendAlert()
+            }
+        } else {
+            if text.count > 21 {
+                textField.text?.removeLast()
+                return returnAndSendAlert()
+            }
+        }
+
+       return true
+    }
+    
+    func returnAndSendAlert() -> Bool {
+        let description = AlertMessageType.characterLimit.description
+        UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
+        return false
+    }
+}
 

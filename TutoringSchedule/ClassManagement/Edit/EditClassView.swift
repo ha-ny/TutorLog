@@ -15,19 +15,17 @@ class EditClassView: BaseView {
         return view
     }()
 
-    lazy var classNameTextField = {
+    let classNameTextField = {
         let view = UITextField().hoshi(title: "* \("placeOfClassName".localized)")
         view.tag = 0
         view.returnKeyType = .continue
-        view.delegate = self
         return view
     }()
     
-    lazy var tutoringPlaceTextField = {
+    let tutoringPlaceTextField = {
         let view = UITextField().hoshi(title: "placeOfTutoringPlace".localized)
         view.tag = 1
         view.returnKeyType = .done
-        view.delegate = self
         return view
     }()
     
@@ -53,7 +51,6 @@ class EditClassView: BaseView {
         let view = UITextField().hoshi(title: "placeOfStartDate".localized)
         view.text = Date.convertToString(format: "fullDateFormat".localized, date: Date())
         view.tag = 1001
-        view.delegate = self
         view.tintColor = .clear
         view.inputView = startDatePicker
         return view
@@ -63,7 +60,6 @@ class EditClassView: BaseView {
         let view = UITextField().hoshi(title: "placeOfEndDate".localized)
         view.text = Date.convertToString(format: "fullDateFormat".localized, date: Date())
         view.tag = 1002
-        view.delegate = self
         view.tintColor = .clear
         view.inputView = endDatePicker
         return view
@@ -217,23 +213,5 @@ class EditClassView: BaseView {
             make.height.equalTo(50)
             make.horizontalEdges.equalTo(self).offset(24)
         }
-    }
-}
-
-extension EditClassView: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        if let textField = textField.superview?.viewWithTag(textField.tag + 1) {
-            textField.becomeFirstResponder()
-        }
-        
-        return true
-    }
-    
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField.tag > 1000{
-            return false // Date textField 입력 불가
-        }
-        
-        return true
     }
 }
