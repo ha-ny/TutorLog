@@ -68,6 +68,7 @@ class CalendarViewController: UIViewController {
 }
 
 extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data?.count ?? 0
     }
@@ -143,8 +144,9 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        
         selectDate = date
+        mainView.selectDateLabel.text =  "📝 \(Date.convertToString(format: "fullDateFormat".localized, date: selectDate)) "
+        
         errorHandling {
             try viewModel.calendarDidSelect(date: date)
         }

@@ -38,20 +38,11 @@ class CalendarView: BaseView {
         // 상단 요일
         view.appearance.weekdayFont = .systemFont(ofSize: 14)
         view.appearance.weekdayTextColor = .black
-
-
+        
         for (index, item) in Calendar.current.shortWeekdaySymbols.enumerated() {
             view.calendarWeekdayView.weekdayLabels[index].text = item
         }
 
-//        view.calendarWeekdayView.weekdayLabels[0].text = "일"
-//        view.calendarWeekdayView.weekdayLabels[1].text = "월"
-//        view.calendarWeekdayView.weekdayLabels[2].text = "화"
-//        view.calendarWeekdayView.weekdayLabels[3].text = "수"
-//        view.calendarWeekdayView.weekdayLabels[4].text = "목"
-//        view.calendarWeekdayView.weekdayLabels[5].text = "금"
-//        view.calendarWeekdayView.weekdayLabels[6].text = "토"
-        
         // 숫자 폰트 사이즈
         view.appearance.titleFont = .systemFont(ofSize: 16)
 
@@ -72,6 +63,13 @@ class CalendarView: BaseView {
         return view
     }()
     
+    var selectDateLabel = {
+        let view = UILabel()
+        view.font = .boldSystemFont(ofSize: 13)
+        view.textColor = .signatureColor
+        return view
+    }()
+    
     let tableView = {
         let view = UITableView()
         view.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
@@ -84,6 +82,7 @@ class CalendarView: BaseView {
         //addSubview(searchButton)
         addSubview(todayButton)
         addSubview(lineView)
+        addSubview(selectDateLabel)
         addSubview(tableView)
     }
     
@@ -122,8 +121,13 @@ class CalendarView: BaseView {
             make.height.equalTo(0.7)
         }
         
+        selectDateLabel.snp.makeConstraints { make in
+            make.top.equalTo(lineView.snp.bottom).offset(18)
+            make.leading.equalTo(calendar)
+        }
+        
         tableView.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom).offset(8)
+            make.top.equalTo(selectDateLabel.snp.bottom)
             make.bottom.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(16)
         }
     }

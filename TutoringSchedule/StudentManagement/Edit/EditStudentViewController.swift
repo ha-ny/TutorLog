@@ -116,8 +116,8 @@ class EditStudentViewController: UIViewController {
         }
         
         if !parentPhoneNum.isEmpty {
-            guard isInt(text: studentPhoneNum) else {
-                mainView.studentPhoneNumTextField.becomeFirstResponder()
+            guard isInt(text: parentPhoneNum) else {
+                mainView.parentPhoneNumTextField.becomeFirstResponder()
                 let description = AlertMessageType.invalidNumberFormat.description
                 UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
                 return
@@ -142,15 +142,16 @@ extension EditStudentViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard !string.isEmpty, let text = textField.text else { return true }
+        guard !string.isEmpty, var text = textField.text else { return true }
+        text = text + string
         
         //모아쓰기가 아닌 방식(숫자, 영어 등..)
         if let textInputMode = textField.textInputMode, textInputMode.primaryLanguage == "en-US"{
-            if text.count > 19 {
+            if text.count > 20 {
                 return returnAndSendAlert()
             }
         } else {
-            if text.count > 20 {
+            if text.count > 21 {
                 textField.text?.removeLast()
                 return returnAndSendAlert()
             }

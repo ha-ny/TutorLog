@@ -33,21 +33,20 @@ class ClassManagementViewModel {
     
     func rowDelete(data classData: ClassTable) throws {
         let scheduleData = try realmRepository.read(ScheduleTable.self)
-        let calendarData = try realmRepository.read(CalendarTable.self)
-        
         let schedules = scheduleData.filter { $0.classPK == classData._id }
         
         for schedule in schedules {
 
+            let calendarData = try realmRepository.read(CalendarTable.self)
             let calendarFilterData = calendarData.filter {
                 return $0.schedulePK == schedule._id && Int($0.date.timeIntervalSince(Date())) / (24*60*60) >= 0
             }
-
+            
             try realmRepository.delete(data: calendarFilterData)
         }
 
-        //try realmRepository.delete(data: schedules)
         try realmRepository.create(data: classData)
+        
         state.value = .rowDelete
     }
 }

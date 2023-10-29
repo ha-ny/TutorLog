@@ -30,7 +30,7 @@ class EditClassViewModel {
     
     func settingData(classData: ClassTable) throws {
         let data = try realmRepository.read(ScheduleTable.self)
-        let scheduleData = data.filter { $0.classPK == classData._id }
+        let scheduleData = data.filter { $0.classPK == classData._id}
         state.value = .settingDayButton(scheduleData)
     }
     
