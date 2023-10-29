@@ -9,7 +9,6 @@ import Foundation
 import RealmSwift
 
 class StudentTable: Object {
-    
     @Persisted(primaryKey: true) var _id: ObjectId
     @Persisted var name: String
     @Persisted var studentPhoneNum: String

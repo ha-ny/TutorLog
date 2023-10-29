@@ -8,6 +8,5 @@
 import Foundation
 
 extension NSNotification.Name {
-    
     static let calendarReload = Notification.Name("calendarReload")
 }

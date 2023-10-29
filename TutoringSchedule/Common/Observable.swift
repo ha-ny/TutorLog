@@ -8,6 +8,7 @@
 import Foundation
 
 class Observable<T> {
+    
     var listner: ((T) -> Void)?
     
     var value: T {

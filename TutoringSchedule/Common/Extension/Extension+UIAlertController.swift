@@ -8,7 +8,6 @@
 import UIKit
 
 extension UIAlertController {
-    
     static func customMessageAlert(view: UIViewController, title: String, message: String) {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         let ok = UIAlertAction(title: "alertOKButtonTitle".localized, style: .default)

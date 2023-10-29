@@ -34,9 +34,7 @@ class RealmRepository {
         
         do {
             try realm.write {
-                for i in data {
-                    realm.delete(i)
-                }
+                realm.delete(data)
             }
         } catch {
             throw RealmErrorType.deleteFailed

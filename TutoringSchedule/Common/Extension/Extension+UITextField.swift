@@ -10,7 +10,6 @@ import TextFieldEffects
 
 //HoshiTextField
 extension UITextField {
-    
     func hoshi(title: String) -> UITextField {
         let view = HoshiTextField()
         view.placeholder = title

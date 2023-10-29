@@ -9,7 +9,6 @@ import UIKit
 
 //일정등록: 요일 버튼
 extension UIButton {
-    
     func days() -> UIButton {
         let view = UIButton()
         view.setTitleColor(.black, for: .normal)

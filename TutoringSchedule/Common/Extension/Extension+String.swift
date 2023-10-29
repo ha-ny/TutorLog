@@ -9,7 +9,6 @@ import Foundation
 
 //다국어 지원
 extension String {
-    
     var localized: String {
         return NSLocalizedString(self, comment: "")
     }
