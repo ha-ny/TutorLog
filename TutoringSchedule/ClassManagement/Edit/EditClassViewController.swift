@@ -7,20 +7,8 @@
 
 import UIKit
 
-struct weekTime {
-    var week: Int
-    var startTime: Date //2:54
-    var endTime: Date
-
-    init(week: Int, startTime: Date, endTime: Date) {
-        self.week = week
-        self.startTime = startTime
-        self.endTime = endTime
-    }
-}
-
 class EditClassViewController: UIViewController {
-    
+        
     var delegate: saveSucsessDelegate?
     
     //editType .update시 기본 세팅
@@ -29,8 +17,14 @@ class EditClassViewController: UIViewController {
     private let mainView = EditClassView()
     private let viewModel = EditClassViewModel()
     
+    private var studentData: UICollectionViewDiffableDataSource<Int, Student>?
+    
+    struct Student: Hashable {
+        let id: UUID
+        let studentPK: String
+    }
+    
     private var days: [weekTime] = []
-    private var studentArray = [String]()
     private var tapButton: UIButton?
     
     init(editType: EditType<ClassTable>, delegate: saveSucsessDelegate) {
@@ -73,19 +67,31 @@ class EditClassViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "scheduleEditViewTitle".localized
         
-        let backItem = UIBarButtonItem(image: UIImage(systemName: "lessthan.circle.fill"), style: .plain, target: self, action: #selector(backButtonTapped))
-        backItem.width = 70
-        backItem.tintColor = .black
-        navigationItem.leftBarButtonItem = backItem
-        
-        let addItem = UIBarButtonItem(image: UIImage(systemName: "text.badge.checkmark"), style: .plain, target: self, action: #selector(saveButtonTapped))
+        let addItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(saveButtonTapped))
         addItem.width = 100
-        addItem.tintColor = .black
+        addItem.tintColor = .signatureColor
         navigationItem.rightBarButtonItem = addItem
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView))
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
+        
+        studentData = UICollectionViewDiffableDataSource<Int, Student> (collectionView: mainView.collectionView, cellProvider: { collectionView, indexPath, item in
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath)
+            let label = UILabel()
+            label.text = item.studentPK
+            label.textColor = .black
+            label.font = .systemFont(ofSize: 13)
+            cell.contentView.addSubview(label)
+            cell.layer.cornerRadius = 8
+            cell.layer.borderColor = UIColor.signatureColor.cgColor
+            cell.layer.borderWidth = 1
+           return cell
+        })
+        
+        var initialSnapshot = NSDiffableDataSourceSnapshot<Int, Student>()
+        initialSnapshot.appendSections([0])
+        studentData?.apply(initialSnapshot, animatingDifferences: false)
         
         setConfigure()
     }
@@ -106,25 +112,25 @@ class EditClassViewController: UIViewController {
         }
     }
     
-    @objc private func studentButtonTapped(_ sender: UIButton) {
-        studentArray.remove(at: sender.tag)
-        setStudent()
-    }
-    
     @objc private func studentDataButton() {
         let vc = StudentListViewController()
         vc.delegate = self
-        vc.studentData = studentArray
-
-        let nav = UINavigationController(rootViewController: vc)
+        vc.studentData = studentDataToString()
         
+        let nav = UINavigationController(rootViewController: vc)
         if let sheet = nav.sheetPresentationController {
-
             sheet.detents = [.medium(), .large()]
             sheet.prefersGrabberVisible = true
         }
-
+        
         present(nav, animated: true)
+    }
+    
+    func studentDataToString() -> [String] {
+        guard let data = studentData else { return [] }
+        let snapshot = data.snapshot()
+        let students = snapshot.itemIdentifiers(inSection: 0)
+        return students.map { $0.studentPK }
     }
     
     @objc private func dayButtonTapped(_ sender: UIButton) {
@@ -132,16 +138,12 @@ class EditClassViewController: UIViewController {
         let vc = DatePickHalfView()
         vc.delegate = self
         vc.day = sender.tag
-        let nav = UINavigationController(rootViewController: vc)
         
+        let nav = UINavigationController(rootViewController: vc)
         if let sheet = nav.sheetPresentationController {
-            
-            // 3
             sheet.detents = [.medium()]
-            
             sheet.preferredCornerRadius = 30
         }
-        
         tapButton = sender
         present(nav, animated: true)
     }
@@ -154,6 +156,18 @@ class EditClassViewController: UIViewController {
         navigationController?.popViewController(animated: true)
     }
     
+    func snapshotAppendItems(data: [String]) {
+        guard let studentData else { return }
+        var snapshot = studentData.snapshot()
+
+        for studentPK in data {
+            let item = Student(id: UUID(), studentPK: studentPK)
+            snapshot.appendItems([item], toSection: 0)
+        }
+        
+        studentData.apply(snapshot, animatingDifferences: false)
+    }
+    
     private func dataSetting(_ data: ClassTable) {
         mainView.classNameTextField.text = data.className
         mainView.tutoringPlaceTextField.text = data.tutoringPlace
@@ -162,12 +176,10 @@ class EditClassViewController: UIViewController {
         
         let startDate = Date.convertToString(format: "fullDateFormat".localized, date: data.startDate)
         let endDate = Date.convertToString(format: "fullDateFormat".localized, date: data.endDate)
-        
         mainView.startDateTextField.text = startDate
         mainView.endDateTextField.text = endDate
 
-        studentArray.append(contentsOf: data.studentPK )
-        setStudent()
+        snapshotAppendItems(data: Array(data.studentPK))
         
         errorHandling {
             try viewModel.settingData(classData: data)
@@ -214,7 +226,7 @@ class EditClassViewController: UIViewController {
             return
         }
         
-        let newData = ClassTable(className: className, tutoringPlace: tutoringPlace, startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, studentPK: studentArray)
+        let newData = ClassTable(className: className, tutoringPlace: tutoringPlace, startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, studentPK: studentDataToString())
 
         //errorHandling
         do {
@@ -264,36 +276,7 @@ class EditClassViewController: UIViewController {
     }
     
     private func setStudent() {
-        
-        mainView.scrollView.subviews.forEach({ $0.removeFromSuperview() })
-        
-        for studentID in studentArray{
-            
-            //errorHandling
-            do {
-                if let name = try viewModel.setStudentButton(studentID: studentID), !name.isEmpty{
-                    let views = mainView.scrollView.subviews.count
-                    let xPos = 80 * views
-                    let button = UIButton()
-                    button.layer.cornerRadius = 8
-                    button.layer.borderColor = UIColor.lightGray.cgColor
-                    button.layer.borderWidth = 1
-                    
-                    button.setTitle(name , for: .normal)
-                    button.titleLabel?.font = .systemFont(ofSize: 15)
-                    button.setTitleColor(UIColor.black, for: .normal)
-                    button.frame = CGRect(x: xPos, y: 0, width: 70, height: 30)
-                    button.addTarget(self, action: #selector(studentButtonTapped), for: .touchUpInside)
-                    button.tag = views
-                    
-                    mainView.scrollView.addSubview(button)
-                    mainView.scrollView.contentSize.width = 80 * CGFloat(views + 1)
-                }
-            } catch let realmError as RealmErrorType {
-                let errorDescription = realmError.description
-                UIAlertController.customMessageAlert(view: self, title: errorDescription.title, message: errorDescription.message)
-            } catch { }
-        }
+        mainView.collectionView.reloadData()
     }
 }
 
@@ -325,8 +308,34 @@ extension EditClassViewController: sendWeekStateDelegate{
 
 extension EditClassViewController: studentArrayDelegate {
     func studentArray(data: [String]) {
-        studentArray = data
-        setStudent()
+        snapshotAppendItems(data: data)
     }
 }
+
+extension EditClassViewController {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard let data = studentData else { return }
+        var snapshot = data.snapshot()
+        
+        if let itemToRemove = data.itemIdentifier(for: indexPath) {
+           snapshot.deleteItems([itemToRemove])
+            studentData?.apply(snapshot, animatingDifferences: true)
+        }
+   }
+}
+
+extension EditClassViewController {
+    struct weekTime {
+        var week: Int
+        var startTime: Date //2:54
+        var endTime: Date
+
+        init(week: Int, startTime: Date, endTime: Date) {
+            self.week = week
+            self.startTime = startTime
+            self.endTime = endTime
+        }
+    }
+}
+
 

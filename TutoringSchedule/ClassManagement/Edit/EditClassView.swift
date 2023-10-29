@@ -141,9 +141,23 @@ class EditClassView: BaseView {
         view.setTitle("studentButton".localized, for: .normal)
         return view
     }()
-    
-    let scrollView = UIScrollView()
 
+    lazy var collectionView =  {
+        let view = UICollectionView(frame: .zero, collectionViewLayout: collectionViewFlowLayout())
+        view.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "Cell")
+        return view
+    }()
+
+    func collectionViewFlowLayout() -> UICollectionViewFlowLayout {
+        let layout = UICollectionViewFlowLayout()
+        layout.scrollDirection = .vertical // 수직 스크롤을 원하면 .vertical, 수평 스크롤을 원하면 .horizontal
+        layout.minimumLineSpacing = 4 // 셀 사이의 최소 세로 간격
+        layout.minimumInteritemSpacing = 4 // 셀 사이의 최소 가로 간격
+        layout.sectionInset = UIEdgeInsets(top: 4, left: 4, bottom: 4, right: 4) // 섹션의 안쪽 여백
+        return layout
+
+    }
+    
     override func setConfigure() {
 
         let dateFormatter = DateFormatter()
@@ -153,7 +167,7 @@ class EditClassView: BaseView {
             item.setTitle(dateFormatter.shortWeekdaySymbols[index], for: .normal)
         }
         
-        [lineView, classNameTextField, tutoringPlaceTextField, startDateTextField, endDateTextField, stackView, dayTitleLabel, studentTitleLabel, studentButton, scrollView].forEach {
+        [lineView, classNameTextField, tutoringPlaceTextField, startDateTextField, endDateTextField, stackView, dayTitleLabel, studentTitleLabel, studentButton, collectionView].forEach {
             addSubview($0)
         }
     }
@@ -212,10 +226,9 @@ class EditClassView: BaseView {
             make.right.equalTo(self).inset(24)
         }
         
-        scrollView.snp.makeConstraints { make in
+        collectionView.snp.makeConstraints { make in
             make.top.equalTo(studentTitleLabel.snp.bottom).offset(16)
-            make.horizontalEdges.equalTo(self).offset(24)
-            make.height.equalTo(90)
+            make.horizontalEdges.bottom.equalTo(self).inset(24)
         }
     }
 }

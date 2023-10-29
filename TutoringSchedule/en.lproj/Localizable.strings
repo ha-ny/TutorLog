@@ -87,3 +87,6 @@
 
 "dateCreationErrorTitle" = "Date Creation Error";
 "dateCreationErrorMessage" = "An error occurred while creating the date.\nPlease try again.";
+
+"characterLimitTitle" = "Character Limit";
+"characterLimitMessage" = "The maximum character limit is 20.";

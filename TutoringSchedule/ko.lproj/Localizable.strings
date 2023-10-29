@@ -88,7 +88,7 @@
 "dateCreationErrorTitle" = "날짜 생성 오류";
 "dateCreationErrorMessage" = "날짜를 생성하는 중에 문제가 발생했습니다.\n다시 시도해주세요.";
 
-
-
+"characterLimitTitle" = "글자 수 제한";
+"characterLimitMessage" = "최대 글자 수는 20자입니다.";
 
 

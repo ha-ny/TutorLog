@@ -23,10 +23,17 @@ class StudentManagementViewController: UIViewController {
         view.backgroundColor = .white
         navigationItem.title = "studentTabTitle".localized
         
-        let addItem = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle.badge.plus"), style: .plain, target: self, action: #selector(addButtonTapped))
-        addItem.width = 100
-        addItem.tintColor = .black
+        let imageView = UIImageView()
+        imageView.image = UIImage(named: "addButton")
+        imageView.contentMode = .scaleAspectFit
         
+        let backItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: nil)
+        backItem.tintColor = .signatureColor
+        navigationItem.backBarButtonItem = backItem
+        
+        let addItem = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(addButtonTapped))
+        addItem.width = 100
+        addItem.tintColor = .signatureColor
         navigationItem.rightBarButtonItem = addItem
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView))

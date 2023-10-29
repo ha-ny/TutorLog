@@ -21,7 +21,7 @@ class TabBarViewController: UIViewController {
             student.tabBarItem = UITabBarItem(title: "studentTabTitle".localized, image: UIImage(systemName: "person.fill"), tag: 0)
                         
             let schedule = UINavigationController(rootViewController: ClassManagementViewController())
-            schedule.tabBarItem = UITabBarItem(title: "scheduleTabTitle".localized, image: UIImage(systemName: "note.text"), tag: 0)
+            schedule.tabBarItem = UITabBarItem(title: "scheduleTabTitle".localized, image: UIImage(systemName: "chart.bar.doc.horizontal"), tag: 0)
             
              return [calendar, student, schedule]
         }()

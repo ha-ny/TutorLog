@@ -169,7 +169,7 @@ class DatePickHalfView: UIViewController {
     func stringToDate(format: String, date: String) -> Date? {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = format
-        return dateFormatter.date(from: date)
+        return date == "24:0" ? dateFormatter.date(from: "00:00") : dateFormatter.date(from: date)
     }
 }
 

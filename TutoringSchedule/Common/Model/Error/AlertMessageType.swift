@@ -18,6 +18,7 @@ enum AlertMessageType {
     case missingClassName
     case missingDaySelection
     case dateCreationError
+    case characterLimit
 }
 
 extension AlertMessageType {
@@ -41,6 +42,8 @@ extension AlertMessageType {
             return ("missingDaySelectionTitle".localized, "missingDaySelectionMessage".localized)
         case .dateCreationError:
             return ("dateCreationErrorTitle".localized, "dateCreationErrorMessage".localized)
+        case .characterLimit:
+            return ("characterLimitTitle".localized, "characterLimitMessage".localized)
         }
     }
 }

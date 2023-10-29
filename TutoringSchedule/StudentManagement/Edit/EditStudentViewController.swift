@@ -44,15 +44,10 @@ class EditStudentViewController: UIViewController {
         super.viewDidLoad()
         view.backgroundColor = .white
         navigationItem.title = "studentEditViewTitle".localized
-        
-        let backItem = UIBarButtonItem(image: UIImage(systemName: "lessthan.circle.fill"), style: .plain, target: self, action: #selector(backButtonTapped))
-        backItem.width = 70
-        backItem.tintColor = .black
-        navigationItem.leftBarButtonItem = backItem
-        
-        let saveItem = UIBarButtonItem(image: UIImage(systemName: "person.crop.circle.badge.checkmark"), style: .plain, target: self, action: #selector(saveButtonTapped))
+
+        let saveItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(saveButtonTapped))
         saveItem.width = 100
-        saveItem.tintColor = .black
+        saveItem.tintColor = .signatureColor
         navigationItem.rightBarButtonItem = saveItem
 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView))
@@ -78,7 +73,6 @@ class EditStudentViewController: UIViewController {
     }
     
     private func dataSetting(_ data: StudentTable) {
-
         mainView.nameTextField.text = data.name
         mainView.studentPhoneNumTextField.text = data.studentPhoneNum
         mainView.parentPhoneNumTextField.text = data.parentPhoneNum
@@ -145,4 +139,29 @@ extension EditStudentViewController: UITextFieldDelegate {
         
         return true
     }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        guard !string.isEmpty, let text = textField.text else { return true }
+        
+        //모아쓰기가 아닌 방식(숫자, 영어 등..)
+        if let textInputMode = textField.textInputMode, textInputMode.primaryLanguage == "en-US"{
+            if text.count > 19 {
+                return returnAndSendAlert()
+            }
+        } else {
+            if text.count > 20 {
+                textField.text?.removeLast()
+                return returnAndSendAlert()
+            }
+        }
+
+       return true
+    }
+    
+    func returnAndSendAlert() -> Bool {
+        let description = AlertMessageType.characterLimit.description
+        UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
+        return false
+    }
 }
+ 
