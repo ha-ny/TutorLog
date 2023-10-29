@@ -135,9 +135,13 @@ class EditClassViewController: UIViewController {
     
     @objc private func dayButtonTapped(_ sender: UIButton) {
         
-        let vc = DatePickHalfView()
-        vc.delegate = self
-        vc.day = sender.tag
+        var data: weekTime?
+        
+        if let index = days.firstIndex(where: { $0.week == sender.tag }){
+            data = days[index]
+        }
+        
+        let vc = DatePickHalfView(day: sender.tag, startTime: data?.startTime, endTime: data?.endTime, delegate: self)
         
         let nav = UINavigationController(rootViewController: vc)
         if let sheet = nav.sheetPresentationController {

@@ -102,7 +102,8 @@ class EditStudentViewController: UIViewController {
         }
                
         func isInt(text: String) -> Bool {
-            return Int(text) ?? -1 != -1 ? true : false
+            let intArray = text.map { Int(String($0)) }
+            return (intArray as? [Int]) != nil
         }
 
         if !studentPhoneNum.isEmpty {

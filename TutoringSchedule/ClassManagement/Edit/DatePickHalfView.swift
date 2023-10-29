@@ -16,7 +16,7 @@ protocol sendWeekStateDelegate {
 class DatePickHalfView: UIViewController {
 
     private let maxCount = 10000
-    var day = 0
+    
     var delegate: sendWeekStateDelegate?
     
     let dayLabel = {
@@ -62,6 +62,26 @@ class DatePickHalfView: UIViewController {
     var startMinute = 0
     var endHour = 10
     var endMinute = 0
+
+    init(day: Int, startTime: Date?, endTime: Date?, delegate: sendWeekStateDelegate) {
+        super.init(nibName: nil, bundle: nil)
+        self.delegate = delegate
+        
+        let dateFormatter = DateFormatter()
+        dateFormatter.locale = Locale.current
+        dayLabel.text = dateFormatter.shortWeekdaySymbols[day] + "dayLabel".localized
+
+        if let startTime, let endTime {
+            startHour = Int(Date.convertToString(format: "HH", date: startTime)) ?? 0
+            startMinute = Int(Date.convertToString(format: "mm", date: startTime)) ?? 0
+            endHour = Int(Date.convertToString(format: "HH", date: endTime)) ?? 0
+            endMinute = Int(Date.convertToString(format: "mm", date: endTime)) ?? 0
+        }
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
     
     override func viewDidLoad() {
         view.backgroundColor = .white
@@ -75,16 +95,12 @@ class DatePickHalfView: UIViewController {
         setConfigure()
         setConstraint()
         timeSetting()
-        
-        let newRow = maxCount / 2
-        pickerView.selectRow(newRow, inComponent: 0, animated: true) // 9
-        pickerView.selectRow(newRow + 4, inComponent: 1, animated: true) //0
-        pickerView.selectRow(newRow + 1, inComponent: 2, animated: true) // 10
-        pickerView.selectRow(newRow + 4, inComponent: 3, animated: true) //0
-        
-        let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale.current
-        dayLabel.text = dateFormatter.shortWeekdaySymbols[day] + "dayLabel".localized
+
+        let newRow = (maxCount / 2) - 9 //24 , 5
+        pickerView.selectRow(newRow + startHour, inComponent: 0, animated: false)
+        pickerView.selectRow((newRow + 1) + (startMinute / 5), inComponent: 1, animated: false)
+        pickerView.selectRow(newRow + endHour, inComponent: 2, animated: false)
+        pickerView.selectRow((newRow + 1) + (endMinute / 5), inComponent: 3, animated: false)
     }
 
     func setConfigure() {

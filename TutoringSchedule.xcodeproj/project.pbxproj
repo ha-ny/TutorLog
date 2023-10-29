@@ -59,7 +59,6 @@
 		3FEADDB32AE9AA6C00FB6254 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3FEADDB22AE9AA6C00FB6254 /* Settings.bundle */; };
 		3FEADDB62AEA2F8100FB6254 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3FEADDB52AEA2F8100FB6254 /* SnapKit */; };
 		3FEADDB92AEB98D900FB6254 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3FEADDBB2AEB98D900FB6254 /* InfoPlist.strings */; };
-		3FEADDBE2AEBD47F00FB6254 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEADDBD2AEBD47F00FB6254 /* File.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -113,7 +112,6 @@
 		3FEADDB22AE9AA6C00FB6254 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		3FEADDBA2AEB98D900FB6254 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3FEADDBC2AEB98DC00FB6254 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		3FEADDBD2AEBD47F00FB6254 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -184,7 +182,6 @@
 				3F4F17722AE2E4AE00F04DF1 /* EditClassViewModel.swift */,
 				3F4F175D2AD9749D00F04DF1 /* StudentListViewController.swift */,
 				3F1343312ACC2B4F001FE7EA /* DatePickHalfView.swift */,
-				3FEADDBD2AEBD47F00FB6254 /* File.swift */,
 			);
 			path = Edit;
 			sourceTree = "<group>";
@@ -450,7 +447,6 @@
 				3F1343672AD29A51001FE7EA /* EditStudentView.swift in Sources */,
 				3F1343612ACFA889001FE7EA /* ClassManagementView.swift in Sources */,
 				3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */,
-				3FEADDBE2AEBD47F00FB6254 /* File.swift in Sources */,
 				3FB8DB782AC76CD100BFCD46 /* EditClassViewController.swift in Sources */,
 				3F13435F2ACFA87D001FE7EA /* ClassManagementViewController.swift in Sources */,
 				3FB8DB6E2AC764B700BFCD46 /* StudentManagementViewController.swift in Sources */,
