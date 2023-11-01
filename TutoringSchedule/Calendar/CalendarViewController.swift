@@ -17,6 +17,7 @@ class CalendarViewController: UIViewController {
     var selectDate = Date()
     
     override func loadView() {
+        super.loadView()
         self.view = mainView
     }
     
@@ -24,7 +25,9 @@ class CalendarViewController: UIViewController {
         view.backgroundColor = .white
         mainView.todayButton.addTarget(self, action: #selector(todayButtonTapped), for: .touchUpInside)
         //mainView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
-                
+
+        mainView.tableView.register(CalendarTableViewCell.self, forCellReuseIdentifier: String(describing: CalendarTableViewCell.self))
+        
         mainView.calendar.delegate = self
         mainView.calendar.dataSource = self
         mainView.tableView.delegate = self
@@ -79,11 +82,17 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
 
         //errorHandling
         do {
-            guard let classData = try viewModel.cellSetting(data: data[indexPath.row], selectDate: selectDate) else { return UITableViewCell() }
+            guard let cellSetting = try viewModel.cellSetting(data: data[indexPath.row], selectDate: selectDate) else { return UITableViewCell() }
+            let classData = cellSetting.classData
             
-            let cell = UITableViewCell(style: .value1, reuseIdentifier: "cellIdentifier")
-            cell.textLabel?.text = classData.className
-            cell.detailTextLabel?.text = classData.time
+            guard let cell = mainView.tableView.dequeueReusableCell(withIdentifier: String(describing: CalendarTableViewCell.self)) as? CalendarTableViewCell else { return UITableViewCell() }
+            cell.setting()
+            cell.timeLabel.text = cellSetting.time
+            cell.classNameLabel.text = classData.className
+            cell.tutoringPlaceLabel.text = classData.tutoringPlace
+
+            classData.tutoringPlace.isEmpty ? cell.centerYClassNameLabel() : ()
+            
             return cell
         } catch let realmError as RealmErrorType {
             let errorDescription = realmError.description

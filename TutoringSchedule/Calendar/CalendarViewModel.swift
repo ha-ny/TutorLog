@@ -19,12 +19,12 @@ class CalendarViewModel {
     
     var state: Observable<EventType> = Observable(value: .idle)
 
-    func cellSetting(data calendarData: CalendarTable, selectDate: Date) throws -> (className: String, time: String)? {
+    func cellSetting(data calendarData: CalendarTable, selectDate: Date) throws -> (classData: ClassTable, time: String)? {
         let scheduleData = try realmRepository.read(ScheduleTable.self)
-        let classData = try realmRepository.read(ClassTable.self)
+        let readClassData = try realmRepository.read(ClassTable.self)
         
         let schedule = scheduleData.filter { $0._id == calendarData.schedulePK }
-        let className = classData.filter { $0._id == schedule[0].classPK }[0].className
+        let classData = readClassData.filter { $0._id == schedule[0].classPK }[0]
         
         for data in schedule {
             if Calendar.current.component(.weekday, from: selectDate) - 1 == data.day {
@@ -32,7 +32,7 @@ class CalendarViewModel {
                 let endTime = Date.convertToString(format: "HH:mm", date: data.endTime)
                 let time = startTime + "~" + endTime
                 
-                return (className, time)
+                return (classData, time)
             }
         }
         return nil
@@ -40,8 +40,9 @@ class CalendarViewModel {
     
     func calendarWillDisplay(date: Date) throws -> [CalendarTable]? {
         let data = try realmRepository.read(CalendarTable.self)
-        let betweenDate = Date.betweenDate(date: date)
-        return data.filter { ($0.date >= betweenDate.start && $0.date <= betweenDate.end) }
+        let start = Calendar.current.startOfDay(for: date)
+        let end = start.addingTimeInterval(24 * 60 * 60 - 1)
+        return data.filter { $0.date >= start && $0.date <= end }
     }
     
     func calendarPageChange(date: Date) {

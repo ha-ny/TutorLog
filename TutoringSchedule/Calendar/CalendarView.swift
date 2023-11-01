@@ -73,6 +73,7 @@ class CalendarView: BaseView {
     let tableView = {
         let view = UITableView()
         view.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        view.separatorStyle = .none
         return view
     }()
     
