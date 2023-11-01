@@ -13,12 +13,6 @@ extension Date {
         dateFormatter.dateFormat = format
         return dateFormatter.string(from: date)
     }
-    
-    static func betweenDate(date: Date) -> (start: Date, end: Date) {
-        let start = Calendar.current.startOfDay(for: date)
-        let end = start.addingTimeInterval(24 * 60 * 60 - 1) // 1초 = 60, 1시간 = 60 * 60, 하루 24시간, - 1분
-        return (start, end)
-    }
 }
 
     

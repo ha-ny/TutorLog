@@ -45,7 +45,7 @@
 
 // ButtonTitleLabel
 "studentTitleLabel" = "Student";
-"studentButton" = "Get List";
+"studentButton" = " Get List ";
 "addButtonTapped" = "Complete Selection";
 "okButtonTapped" = "Complete";
 "deleteButtonTapped" = "Delete";

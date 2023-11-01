@@ -43,8 +43,7 @@ class EditClassViewModel {
     func saveData(newData: ClassTable) throws {
         
         if case .update(let data) = editType {
-            let originId = data._id
-            newData._id = originId
+            newData._id = data._id
         }
 
         try realmRepository.create(data: newData)

@@ -15,6 +15,7 @@ class StudentManagementViewController: UIViewController {
     var data: [StudentTable]?
     
     override func loadView() {
+        super.loadView()
         self.view = mainView
     }
     

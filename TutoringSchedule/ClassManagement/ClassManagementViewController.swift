@@ -15,6 +15,7 @@ class ClassManagementViewController: UIViewController {
     var data: [ClassTable]?
     
     override func loadView() {
+        super.loadView()
         self.view = mainView
     }
     

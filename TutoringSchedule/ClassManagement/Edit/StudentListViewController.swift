@@ -22,6 +22,7 @@ class StudentListViewController: UIViewController {
     var studentData = [String]()
     
     override func loadView() {
+        super.loadView()
         self.view = mainView
         mainView.tableView.allowsMultipleSelection = true
     }
