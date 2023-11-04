@@ -124,7 +124,7 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
                     subview.removeFromSuperview()
                 }
            }
-
+        
         //errorHandling
         do {
             guard let data = try viewModel.calendarWillDisplay(date: date) else { return }

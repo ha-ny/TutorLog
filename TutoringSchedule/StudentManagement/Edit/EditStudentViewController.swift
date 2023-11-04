@@ -16,10 +16,10 @@ class EditStudentViewController: UIViewController {
     
     init(editType: EditType<StudentTable>, delegate: saveSucsessDelegate) {
         super.init(nibName: nil, bundle: nil)
-        
+
         viewModel.state.bind { [weak self] eventType in
             guard let self else { return }
-            
+
             if case .settingData(let data) = eventType {
                 dataSetting(data)
             } else if case .saveData = eventType {
@@ -37,7 +37,6 @@ class EditStudentViewController: UIViewController {
     }
     
     override func loadView() {
-        super.loadView()
         self.view = mainView
     }
     
