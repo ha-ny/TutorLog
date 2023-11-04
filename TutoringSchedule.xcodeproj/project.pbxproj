@@ -37,6 +37,7 @@
 		3F4F178B2AE59CF200F04DF1 /* RealmErrorType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F178A2AE59CF200F04DF1 /* RealmErrorType.swift */; };
 		3F4F178E2AE5B27300F04DF1 /* Extension+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F178D2AE5B27300F04DF1 /* Extension+UIViewController.swift */; };
 		3F4F17902AE5B40100F04DF1 /* AlertMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F178F2AE5B40100F04DF1 /* AlertMessageType.swift */; };
+		3F8577DF2AF60F01004B988E /* StudentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8577DE2AF60F01004B988E /* StudentTableViewCell.swift */; };
 		3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */; };
 		3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */; };
 		3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB402AC46D4700BFCD46 /* TabBarViewController.swift */; };
@@ -91,6 +92,7 @@
 		3F4F178A2AE59CF200F04DF1 /* RealmErrorType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RealmErrorType.swift; sourceTree = "<group>"; };
 		3F4F178D2AE5B27300F04DF1 /* Extension+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension+UIViewController.swift"; sourceTree = "<group>"; };
 		3F4F178F2AE5B40100F04DF1 /* AlertMessageType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertMessageType.swift; sourceTree = "<group>"; };
+		3F8577DE2AF60F01004B988E /* StudentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTableViewCell.swift; sourceTree = "<group>"; };
 		3FB8DB392AC46D4700BFCD46 /* TutoringSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutoringSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -316,6 +318,7 @@
 		3FB8DB712AC764C700BFCD46 /* StudentManagement */ = {
 			isa = PBXGroup;
 			children = (
+				3F8577DE2AF60F01004B988E /* StudentTableViewCell.swift */,
 				3FB8DB6F2AC764C100BFCD46 /* StudentManagementView.swift */,
 				3FB8DB6D2AC764B700BFCD46 /* StudentManagementViewController.swift */,
 				3F4F17652AE2AAAB00F04DF1 /* StudentManagementViewModel.swift */,
@@ -451,6 +454,7 @@
 				3F1343612ACFA889001FE7EA /* ClassManagementView.swift in Sources */,
 				3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */,
 				3FB8DB782AC76CD100BFCD46 /* EditClassViewController.swift in Sources */,
+				3F8577DF2AF60F01004B988E /* StudentTableViewCell.swift in Sources */,
 				3F13435F2ACFA87D001FE7EA /* ClassManagementViewController.swift in Sources */,
 				3FB8DB6E2AC764B700BFCD46 /* StudentManagementViewController.swift in Sources */,
 				3F4F177C2AE55C5300F04DF1 /* Extension+Date.swift in Sources */,

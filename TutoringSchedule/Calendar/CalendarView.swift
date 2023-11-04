@@ -57,9 +57,10 @@ class CalendarView: BaseView {
         return view
     }()
     
-    let lineView = {
-        let view = UILabel()
-        view.backgroundColor = .systemGray5
+    let lineImageView = {
+        let view = UIImageView()
+        view.image = UIImage(named: "grab")
+        view.contentMode = .scaleAspectFill
         return view
     }()
     
@@ -82,9 +83,22 @@ class CalendarView: BaseView {
         addSubview(yearMonthLabel)
         //addSubview(searchButton)
         addSubview(todayButton)
-        addSubview(lineView)
+        addSubview(lineImageView)
         addSubview(selectDateLabel)
         addSubview(tableView)
+    }
+    
+    func setCalendarHeight(height: CGFloat) {
+        calendar.snp.removeConstraints() // 기존 제약 조건 제거
+
+        calendar.snp.makeConstraints { make in
+            make.top.equalTo(yearMonthLabel.snp.bottom).inset(25)
+            make.centerX.equalTo(self)
+            make.width.equalTo(self.snp.width).multipliedBy(0.9)
+            make.height.equalTo(height)
+        }
+
+        self.layoutIfNeeded() // 레이아웃 업데이트
     }
     
     override func setConstraint() {
@@ -114,16 +128,17 @@ class CalendarView: BaseView {
             make.centerX.equalTo(self)
             make.width.equalTo(self.snp.width).multipliedBy(0.9)
             make.height.equalTo(calendar.snp.width)
+            
         }
         
-        lineView.snp.makeConstraints { make in
-            make.top.equalTo(calendar.snp.bottom).offset(4)
-            make.leading.trailing.equalTo(calendar)
+        lineImageView.snp.makeConstraints { make in
+            make.top.equalTo(calendar.snp.bottom).offset(8)
+            make.horizontalEdges.equalTo(self)
             make.height.equalTo(0.7)
         }
         
         selectDateLabel.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom).offset(18)
+            make.top.equalTo(lineImageView.snp.bottom).offset(18)
             make.leading.equalTo(calendar)
         }
         

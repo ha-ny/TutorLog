@@ -9,12 +9,13 @@ import UIKit
 import FSCalendar
 
 class CalendarViewController: UIViewController {
-   
+    
     private let viewModel = CalendarViewModel()
     let mainView = CalendarView()
     
     var data: [CalendarTable]?
     var selectDate = Date()
+    var isTodayButtonTap = false
     
     override func loadView() {
         super.loadView()
@@ -25,7 +26,7 @@ class CalendarViewController: UIViewController {
         view.backgroundColor = .white
         mainView.todayButton.addTarget(self, action: #selector(todayButtonTapped), for: .touchUpInside)
         //mainView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
-
+        
         mainView.tableView.register(CalendarTableViewCell.self, forCellReuseIdentifier: String(describing: CalendarTableViewCell.self))
         
         mainView.calendar.delegate = self
@@ -35,6 +36,14 @@ class CalendarViewController: UIViewController {
         
         bind()
         todayButtonTapped()
+        
+        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeView(_:)))
+        swipeUp.direction = .up
+        self.view.addGestureRecognizer(swipeUp)
+        
+        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeView(_:)))
+        swipeDown.direction = .down
+        self.view.addGestureRecognizer(swipeDown)
         
         NotificationCenter.default.addObserver(self, selector: #selector(calendarReload), name: .calendarReload, object: nil)
     }
@@ -52,26 +61,37 @@ class CalendarViewController: UIViewController {
         }
     }
     
+    @objc func didSwipeView(_ sender: UISwipeGestureRecognizer) {
+        if sender.direction == .up {
+            mainView.calendar.scope = .week
+        }
+        else if sender.direction == .down {
+            mainView.calendar.scope = .month
+        }
+    }
+    
     @objc func calendarReload() {
         mainView.calendar.reloadData()
         calendar(mainView.calendar, didSelect: selectDate, at: .current)
     }
-   
-//    @objc func searchButtonTapped() {
-//        let vc = CalendarSearchViewController()
-//        present(vc, animated: true)
-//    }
+    
+    //    @objc func searchButtonTapped() {
+    //        let vc = CalendarSearchViewController()
+    //        present(vc, animated: true)
+    //    }
     
     //오늘 날짜로 돌아오기
     @objc func todayButtonTapped() {
+        isTodayButtonTap = true
+        
         selectDate = Date()
         mainView.calendar.select(selectDate)
-        calendar(mainView.calendar, didSelect: selectDate, at: .current)
+        selectDateSetting()
     }
 }
 
 extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return data?.count ?? 0
     }
@@ -79,7 +99,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let selectDate = mainView.calendar.selectedDate else { return UITableViewCell() }
         guard let data else { return UITableViewCell() }
-
+        
         //errorHandling
         do {
             guard let cellSetting = try viewModel.cellSetting(data: data[indexPath.row], selectDate: selectDate) else { return UITableViewCell() }
@@ -90,7 +110,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
             cell.timeLabel.text = cellSetting.time
             cell.classNameLabel.text = classData.className
             cell.tutoringPlaceLabel.text = classData.tutoringPlace
-
+            
             classData.tutoringPlace.isEmpty ? cell.centerYClassNameLabel() : ()
             
             return cell
@@ -104,7 +124,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
 }
 
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
-
+    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         let day = Calendar.current.component(.weekday, from: date) - 1
         
@@ -121,9 +141,9 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
         
         for subview in cell.subviews {
             if subview is UILabel {
-                    subview.removeFromSuperview()
-                }
-           }
+                subview.removeFromSuperview()
+            }
+        }
         
         //errorHandling
         do {
@@ -148,16 +168,28 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     
     //캘린더 스크롤 감지
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        guard let date = Calendar.current.date(byAdding: .day, value: 1, to: calendar.currentPage) else { return }
-        viewModel.calendarPageChange(date: date)
+        if !isTodayButtonTap {
+            selectDate = calendar.currentPage
+            mainView.calendar.select(selectDate)
+            selectDateSetting()
+        } else { isTodayButtonTap.toggle() }
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         selectDate = date
+        selectDateSetting()
+    }
+    
+    func selectDateSetting() {
+        viewModel.calendarPageChange(date: selectDate)
         mainView.selectDateLabel.text =  "📝 \(Date.convertToString(format: "fullDateFormat".localized, date: selectDate)) "
         
         errorHandling {
-            try viewModel.calendarDidSelect(date: date)
+            try viewModel.calendarDidSelect(date: selectDate)
         }
+    }
+    
+    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
+        mainView.setCalendarHeight(height: bounds.height)
     }
 }
