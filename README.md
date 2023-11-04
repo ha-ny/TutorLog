@@ -7,14 +7,11 @@
 ### **소개**
 학생 정보와 수업 일정 입력시 기간 동안의 일정을 캘린더로 확인할 수 있습니다.
 <br>
-<br>
 
 ### **개발**
 기간: 2023.09.27 ~ 2023.10.25<br>
 최소 지원버전: iOS 15<br>
 다국어 대응 O<br>
-<br>
-<br>
 
 ### **기술**
 | Category | Stack |
@@ -26,8 +23,6 @@
 | Dependency Manager | `SwiftPackageManager` |
 | Firebase | `Crashlytics` `Analytics` |
 | Etc | `RxSwift` `Toast` `FSCalendar` `TextFieldEffects`    |
-
-<br>
 
 ### **트러블 슈팅**
 **- UI 중첩 해결** <br>
@@ -45,7 +40,6 @@
 해결: 메모리 누수의 가능성이 있어 [weak self] 를 통한 참조 타입을 캡처<br><br>
 <img width="709" alt="스크린샷 2023-11-04 오전 10 13 09" src="https://github.com/ha-ny/TutoringSchedule/assets/130643750/7ce1cb5f-4836-4507-a26d-1cce7d97ab4b">
 
-
 ### **회고**
 **- 목표 성과:**  
  출시 후 프로젝트 기획서를 살펴보니, 개발에 예상보다 많은 시간이 소요되었음을 알 수 있었습니다.<br>
@@ -57,8 +51,8 @@
 
 **- 앞으로의 도전:**  
  출시 후 RXSwift를 도입하기 위해 코드를 수정하고 있습니다.<br>
- 이를 통해 다음 업데이트에서는 더 발전된 코드와 기능을 준비할 수 있게 될 것입니다.
-
+ 이를 통해 다음 업데이트에서는 더 발전된 코드와 기능을 준비할 수 있게 될 것입니다.<br>
+<br>
 
 ### **작업일지**
 | 일자   | 작업 내용                                                                                   | 일자   | 작업 내용                                                               |
