@@ -1,18 +1,36 @@
 # **Tutoring Board - 과외 일정 관리**       
-<img width="709" alt="스크린샷 2023-11-04 오전 10 10 22" src="https://github.com/ha-ny/TutoringSchedule/assets/130643750/65510e88-8726-4dee-8251-ab3b635769d2">
-<img width="464" alt="스크린샷 2023-11-04 오전 10 10 48" src="https://github.com/ha-ny/TutoringSchedule/assets/130643750/f2219694-9365-419b-b402-bae2d7ded700">
+<img width="910" alt="스크린샷 2023-11-07 오후 9 23 31" src="https://github.com/ha-ny/TutoringSchedule/assets/130643750/c91e75c4-3a44-42b2-b38b-3ec5e7e09bf9">
 
-### **[다운로드](https://apps.apple.com/kr/app/%ED%8A%9C%ED%84%B0%EB%A7%81%EB%B3%B4%EB%93%9C-%EA%B3%BC%EC%99%B8%EC%9D%BC%EC%A0%95-%EA%B4%80%EB%A6%AC/id6470282118)**
-
+### **앱 스토어**
+[App Store에서 제공하는 튜터링보드 - 과외일정 관리 (apple.com)](https://apps.apple.com/kr/app/%ED%8A%9C%ED%84%B0%EB%A7%81%EB%B3%B4%EB%93%9C-%EA%B3%BC%EC%99%B8%EC%9D%BC%EC%A0%95-%EA%B4%80%EB%A6%AC/id6470282118)
+<br>
 ### **소개**
 학생 정보와 수업 일정 입력시 기간 동안의 일정을 캘린더로 확인할 수 있습니다.
 <br>
+
+### **앱 기능**
+1. 캘린더: Monthly / Weekly 원하는 타입으로 그날의 일정을 확인할 수 있습니다. 
+2. 수업 등록: 수업 정보(수업명, 수업 장소, 과외 기간, 수업 요일 및 시간, 학생)을 저장할 수 있습니다.
+3. 수업 관리: 저장된 수업 리스트와, 수업 추가 및 수정, 삭제가 가능합니다
+4. 학생 등록: 학생 정보(이름, 학생 연락처, 학부모 연락처, 주소, 메모)를 저장할 수 있습니다
+5. 학생 관리: 저장된 학생 리스트와 학생 추가 및 수정, 삭제가 가능합니다
 
 ### **개발**
 기간: 2023.09.27 ~ 2023.10.25<br>
 최소 지원버전: iOS 15<br>
 다국어 대응 O<br>
 
+### **기능 구현**
+- Firebase `Crashlytics` ,`Analytics`로 앱의 안정성을 모니터링하고, 런타임 중 발생하는 크래시를 실시간으로 추적합니다.
+- 객체지향적 방식인 `Realm` 을 데이터베이스로 활용하여 앱 내주의 데이터를 효율적으로 관리합니다.
+- 다양한 콘텐츠를 스크롤 할 수 있는 `TableView`, `scrollView`로 데이터를 시각적으로 렌더링 하였습니다.
+- `FSCalendar` : 다양한 스타일을 달력을 구성하여 사용자의 필요에 따라 달력을 변경할 수 있습니다
+- `TextFieldEffects` 라이브러리의 Hosi 스타일을 적용하여 디자인했습니다.
+- 필요한 정보를 `UIAlert` 및 `Toast`를 활용하여 시각적으로 전달합니다.
+- `filter` 메서드를 사용하여 원하는 조건에 맞춰 데이터를 추출하고 필터링합니다.
+- 인터페이스 구조를 명확하게 관리하고, 레이아웃을 유연하게 조절하기 위해 `SnapKit` 을 통한 `CodeBaseUI` 로 구현했습니다.
+- `MVVM Architecture` : 구조화로 코드의 가독성과 유지보수성을 향상시켰습니다.
+- 
 ### **기술**
 | Category | Stack |
 | --- | --- |
