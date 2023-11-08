@@ -24,8 +24,7 @@
 ### **기술**
 **Architecture :** `MVVM`   | **DB :** `Realm`<br>
 **UI :** `UIKit` `CodeBaseUI` `SnapKit` `UITableView` `UISwipeGestureRecognizer` `UITabGestureRecognizer`<br>
-**Etc** : `RxSwift` `FSCalendar` `TextFieldEffects` `Toast` `FireBase Crashlytics`, `FireBase Analytics`
-<br>
+**Etc** : `RxSwift` `FSCalendar` `TextFieldEffects` `Toast` `FireBase Crashlytics`, `FireBase Analytics`<br>
 
 ### **기능 구현**
 - `MVVM Architecture` : 구조화로 코드의 가독성과 유지보수성 향상
@@ -34,25 +33,20 @@
 - `FSCalendar` : 필요에 따라 달력의 스타일 변경
 - Firebase `Crashlytics` ,`Analytics`로 앱의 안정성 모니터링 및 크래시 추적
 - `SnapKit` 을 통한 `CodeBaseUI` 구현
-- `TableView`, `scrollView`로 데이터 시각적 렌더링
-<br>
+- `TableView`, `scrollView`로 데이터 시각적 렌더링<br>
 
 ### **트러블 슈팅**
-**- UI 중첩 해결** <br>
-<img width="164" alt="스크린샷 2023-11-04 오전 10 11 44" src="https://github.com/ha-ny/TutoringSchedule/assets/130643750/20068547-98ef-4116-b3fc-2effc5683b25"><br>
-문제: 테스트 중 캘린더의 Label이 중첩되고 있는 것을 발견.<br>
-해결: willDisplay 메서드 내에서 셀의 서브뷰 중, UILabel인 항목을 찾아 제거<br><br>
-<img width="709" alt="스크린샷 2023-11-04 오전 10 12 22" src="https://github.com/ha-ny/TutoringSchedule/assets/130643750/59f066af-b7ac-45a3-a7f6-d9b2305c97ec">
+**1. 데이터베이스 구조 변경에 대응한 마이그레이션 작업**
+- **문제 상황:** 네트워크 통신 중에 발생하는 오류 상황을 처리하기 위해 서버로부터의 응답이나 네트워크 연결 문제 등에 대비했습니다.<br>
+- **해결 방법:** validate를 사용하여 특정 상태 코드를 성공으로 처리합니다.<br>
 
-**- 코드 재활용**<br>
-문제: 각각의 Realm 테이블마다 별도의 RealmRepository 파일 생성 → 중복 코드 발생 및 코드의 유지보수, 확장의 어려움<br>
-해결: Generic 타입 사용으로 여러 객체에 대한 동일 코드 재사용<br><br>
-<img width="446" alt="스크린샷 2023-11-04 오전 10 12 55" src="https://github.com/ha-ny/TutoringSchedule/assets/130643750/f78b6f71-5fbe-4e5c-8e01-98ef23ebfaed">
+**2. 중첩된 레이블 문제 해결**
+- **문제 상황:** 테스트 중에 캘린더에서 Label이 중첩되어 나타나는 문제를 발견했습니다.<br>
+- **해결 방법:** willDisplay 메서드 내에서 셀의 서브뷰를 살펴보았습니다. 그 과정에서 중첩된 레이블 중에서도 UILabel 타입의 항목을 탐지하고 이를 제거하는 작업을 추가했습니다.<br>
 
-**- 강한 순환 참조**<br>
-해결: 메모리 누수의 가능성이 있어 [weak self] 를 통한 참조 타입을 캡처<br><br>
-<img width="709" alt="스크린샷 2023-11-04 오전 10 13 09" src="https://github.com/ha-ny/TutoringSchedule/assets/130643750/7ce1cb5f-4836-4507-a26d-1cce7d97ab4b">
-<br>
+**3. 데이터베이스 작업 시 에러 핸들링**
+- **문제 상황:** Realm을 활용한 데이터베이스 작업 중에 예상치 못한 에러 상황이 발생했습니다.<br>
+- **해결 방법:** do-catch 블록을 활용하여 에러를 처리했습니다. 에러는 미리 정의한 enum 형태의 error 타입으로 분류되며, 사용자에게 적절한 안내 메시지를 표시하도록 구현했습니다<br>
 
 ### **회고**
 이번 프로젝트를 진행하면서 기획부터 출시까지의 모든 단계를 경험할 수 있었습니다. 중간에는 화면 흐름, 디자인, DB Schema 등이 자주 변경되는 상황을 마주쳤습니다. 
