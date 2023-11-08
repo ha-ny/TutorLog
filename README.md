@@ -4,6 +4,7 @@
 ### **앱 스토어**
 [App Store에서 제공하는 튜터링보드 - 과외일정 관리 (apple.com)](https://apps.apple.com/kr/app/%ED%8A%9C%ED%84%B0%EB%A7%81%EB%B3%B4%EB%93%9C-%EA%B3%BC%EC%99%B8%EC%9D%BC%EC%A0%95-%EA%B4%80%EB%A6%AC/id6470282118)
 <br>
+
 ### **소개**
 학생 정보와 수업 일정 입력시 기간 동안의 일정을 캘린더로 확인할 수 있습니다.
 <br>
@@ -14,16 +15,18 @@
 3. 수업 관리: 저장된 수업 리스트와, 수업 추가 및 수정, 삭제가 가능합니다
 4. 학생 등록: 학생 정보(이름, 학생 연락처, 학부모 연락처, 주소, 메모)를 저장할 수 있습니다
 5. 학생 관리: 저장된 학생 리스트와 학생 추가 및 수정, 삭제가 가능합니다
+<br>
 
 ### **개발**
 기간: 2023.09.27 ~ 2023.10.25<br>
 최소 지원버전: iOS 15<br>
-다국어 대응 O<br>
+다국어 대응 O
+<br>
 
 ### **기술**
 **Architecture :** `MVVM`   | **DB :** `Realm`<br>
 **UI :** `UIKit` `CodeBaseUI` `SnapKit` `UITableView` `UISwipeGestureRecognizer` `UITabGestureRecognizer`<br>
-**Etc** : `RxSwift` `FSCalendar` `TextFieldEffects` `Toast` `FireBase Crashlytics`, `FireBase Analytics`<br>
+**Etc** : `RxSwift` `FSCalendar` `TextFieldEffects` `Toast` `FireBase Crashlytics`, `FireBase Analytics`
 <br>
 
 ### **기능 구현**
@@ -51,6 +54,7 @@
 **- 강한 순환 참조**<br>
 해결: 메모리 누수의 가능성이 있어 [weak self] 를 통한 참조 타입을 캡처<br><br>
 <img width="709" alt="스크린샷 2023-11-04 오전 10 13 09" src="https://github.com/ha-ny/TutoringSchedule/assets/130643750/7ce1cb5f-4836-4507-a26d-1cce7d97ab4b">
+<br>
 
 ### **회고**
 이번 프로젝트를 진행하면서 기획부터 출시까지의 모든 단계를 경험할 수 있었습니다. 중간에는 화면 흐름, 디자인, DB Schema 등이 자주 변경되는 상황을 마주쳤습니다. 
@@ -62,7 +66,8 @@
 가장 많은 시간을 할애한 만큼 코드 개선에 만족스러운 결과가 나왔다고 생각합니다.<br> 
 멘토님의 코드 리뷰를 통해 가독성과 유지보수성을 높이는 작업에 집중했고, 프로젝트의 확장성과 지속적인 유지보수의 중요성을 다시 한 번 깨닫게 되었습니다.<br>
 
-추후 RXSwift를 도입하여 데이터의 명확한 흐름과 비동기 작업을 추상화하는 작업을 계획하고 있습니다. 이를 통해 다음 업데이트에서는 더 나은 성과를 이룰 수 있을 것으로 기대합니다.<br>
+추후 RXSwift를 도입하여 데이터의 명확한 흐름과 비동기 작업을 추상화하는 작업을 계획하고 있습니다. 이를 통해 다음 업데이트에서는 더 나은 성과를 이룰 수 있을 것으로 기대합니다.
+<br>
 
 ### **작업일지**
 | 일자   | 작업 내용                                                                                   | 일자   | 작업 내용                                                               |
