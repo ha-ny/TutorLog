@@ -20,27 +20,21 @@
 최소 지원버전: iOS 15<br>
 다국어 대응 O<br>
 
-### **기능 구현**
-- Firebase `Crashlytics` ,`Analytics`로 앱의 안정성을 모니터링하고, 런타임 중 발생하는 크래시를 실시간으로 추적합니다.
-- 객체지향적 방식인 `Realm` 을 데이터베이스로 활용하여 앱 내주의 데이터를 효율적으로 관리합니다.
-- 다양한 콘텐츠를 스크롤 할 수 있는 `TableView`, `scrollView`로 데이터를 시각적으로 렌더링 하였습니다.
-- `FSCalendar` : 다양한 스타일을 달력을 구성하여 사용자의 필요에 따라 달력을 변경할 수 있습니다
-- `TextFieldEffects` 라이브러리의 Hosi 스타일을 적용하여 디자인했습니다.
-- 필요한 정보를 `UIAlert` 및 `Toast`를 활용하여 시각적으로 전달합니다.
-- `filter` 메서드를 사용하여 원하는 조건에 맞춰 데이터를 추출하고 필터링합니다.
-- 인터페이스 구조를 명확하게 관리하고, 레이아웃을 유연하게 조절하기 위해 `SnapKit` 을 통한 `CodeBaseUI` 로 구현했습니다.
-- `MVVM Architecture` : 구조화로 코드의 가독성과 유지보수성을 향상시켰습니다.
-- 
 ### **기술**
-| Category | Stack |
-| --- | --- |
-| Architecture | `MVVM` |
-| iOS | `UIKit`   |
-| UI | `CodeBaseUI` `SnapKit` |
-| Database | `Realm` |
-| Dependency Manager | `SwiftPackageManager` |
-| Firebase | `Crashlytics` `Analytics` |
-| Etc | `RxSwift` `Toast` `FSCalendar` `TextFieldEffects`    |
+**Architecture :** `MVVM`   | **DB :** `Realm`<br>
+**UI :** `UIKit` `CodeBaseUI` `SnapKit` `UITableView` `UISwipeGestureRecognizer` `UITabGestureRecognizer`<br>
+**Etc** : `RxSwift` `FSCalendar` `TextFieldEffects` `Toast` `FireBase Crashlytics`, `FireBase Analytics`<br>
+<br>
+
+### **기능 구현**
+- `MVVM Architecture` : 구조화로 코드의 가독성과 유지보수성 향상
+- `Realm` 을 통해 앱 내부의 데이터를 효율적으로 관리
+- `filter` 메서드로 조건에 맞춘 데이터 추출 및 필터링
+- `FSCalendar` : 필요에 따라 달력의 스타일 변경
+- Firebase `Crashlytics` ,`Analytics`로 앱의 안정성 모니터링 및 크래시 추적
+- `SnapKit` 을 통한 `CodeBaseUI` 구현
+- `TableView`, `scrollView`로 데이터 시각적 렌더링
+<br>
 
 ### **트러블 슈팅**
 **- UI 중첩 해결** <br>
