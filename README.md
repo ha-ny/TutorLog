@@ -24,7 +24,7 @@
 ### **기술**
 **Architecture :** `MVVM`   | **DB :** `Realm`<br>
 **UI :** `UIKit` `CodeBaseUI` `SnapKit` `UITableView` `UISwipeGestureRecognizer` `UITabGestureRecognizer`<br>
-**Etc** : `RxSwift` `FSCalendar` `TextFieldEffects` `Toast` `FireBase Crashlytics`, `FireBase Analytics`<br>
+**Etc** : `FSCalendar` `TextFieldEffects` `Toast` `FireBase Crashlytics`, `FireBase Analytics`<br>
 
 ### **기능 구현**
 - `MVVM Architecture` : 구조화로 코드의 가독성과 유지 보수성 향상
