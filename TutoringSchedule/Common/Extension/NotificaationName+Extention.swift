@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+extension Notification.Name {
+    static let calendarReload = Notification.Name(rawValue: "calendarReload")
+}

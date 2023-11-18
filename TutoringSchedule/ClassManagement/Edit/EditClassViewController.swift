@@ -146,6 +146,7 @@ class EditClassViewController: UIViewController {
         mainView.startDateTextField.text = startDate
         mainView.endDateTextField.text = endDate
 
+        studentArray = Array(data.studentPK)
         setStudent()
         
         errorHandling {
@@ -257,8 +258,13 @@ class EditClassViewController: UIViewController {
                     button.setTitle(name , for: .normal)
                     button.titleLabel?.font = .systemFont(ofSize: 15)
                     button.setTitleColor(UIColor.black, for: .normal)
+                    let configuration = UIImage.SymbolConfiguration(pointSize: 10)
+                    let image = UIImage(systemName: "xmark", withConfiguration: configuration)
+                    button.setImage(image, for: .normal)
+                    button.tintColor = .systemGray5
+                    button.semanticContentAttribute = .forceRightToLeft
                     button.sizeToFit()
-                    button.frame = CGRect(x: width, y: 0, width: Int(button.frame.width) + 8, height: 35)
+                    button.frame = CGRect(x: width, y: 0, width: Int(button.frame.width) + 15, height: 35)
                     button.addTarget(self, action: #selector(studentButtonTapped), for: .touchUpInside)
                     button.tag = i
 

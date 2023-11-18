@@ -112,7 +112,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
             cell.tutoringPlaceLabel.text = classData.tutoringPlace
             
             classData.tutoringPlace.isEmpty ? cell.centerYClassNameLabel() : ()
-            
+            cell.selectionStyle = .none
             return cell
         } catch let realmError as RealmErrorType {
             let errorDescription = realmError.description
