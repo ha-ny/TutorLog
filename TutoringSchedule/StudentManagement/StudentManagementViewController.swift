@@ -45,8 +45,6 @@ class StudentManagementViewController: UIViewController {
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
         
-        mainView.tableView.register( StudentTableViewCell.self, forCellReuseIdentifier: String(describing: StudentTableViewCell.self))
-        
         bind()
         
         errorHandling {
@@ -102,9 +100,8 @@ extension StudentManagementViewController: UITableViewDelegate, UITableViewDataS
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let data else { return UITableViewCell() }
-        guard let cell = mainView.tableView.dequeueReusableCell(withIdentifier: String(describing: CalendarTableViewCell.self)) as? CalendarTableViewCell else { return UITableViewCell() }
-        cell.setting()
-        cell.nameLabel.text = data[indexPath.row].name
+        let cell = UITableViewCell()
+        cell.textLabel?.text = data[indexPath.row].name
         cell.selectionStyle = .none
         return cell
     }
