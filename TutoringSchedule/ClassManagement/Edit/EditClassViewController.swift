@@ -183,14 +183,14 @@ class EditClassViewController: UIViewController {
             mainView.classNameTextField.becomeFirstResponder()
             
             let description = AlertMessageType.missingClassName.description
-            UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
+            view.makeToast(description.message, duration: 1.5, position: .top, style: CustomToast.setting())
             return
         }
         
         guard !days.isEmpty else {
             mainView.classNameTextField.becomeFirstResponder()
             let description = AlertMessageType.missingDaySelection.description
-            UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
+            view.makeToast(description.message, duration: 1.5, position: .top, style: CustomToast.setting())
             return
         }
         

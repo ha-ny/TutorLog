@@ -1,5 +1,5 @@
 //
-//  customToast.swift
+//  CustomToast.swift
 //  TutoringSchedule
 //
 //  Created by 김하은 on 11/19/23.

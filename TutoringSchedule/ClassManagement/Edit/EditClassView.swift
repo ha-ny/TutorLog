@@ -163,7 +163,7 @@ class EditClassView: BaseView {
         }
 
         classNameTextField.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom).offset(16)
+            make.top.equalTo(lineView.snp.bottom).offset(40)
             make.horizontalEdges.equalToSuperview().inset(24)
             make.height.equalTo(60)
         }
