@@ -1,5 +1,5 @@
 //
-//  Extension+UIColor.swift
+//  UIColor+Extension.swift
 //  TutoringSchedule
 //
 //  Created by 김하은 on 2023/10/24.

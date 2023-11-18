@@ -1,5 +1,5 @@
 //
-//  Extension+Date.swift
+//  Date+Extension.swift
 //  TutoringSchedule
 //
 //  Created by 김하은 on 2023/10/22.

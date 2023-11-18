@@ -8,7 +8,7 @@
 import Foundation
 
 // Extension+UIViewController -> errorHandling
-enum AlertMessageType {
+enum AlertMessageType: Error {
     case missingName
     case invalidNumberFormat
     case startTimeSaveFailure
@@ -21,7 +21,7 @@ enum AlertMessageType {
     case characterLimit
 }
 
-extension AlertMessageType {
+extension AlertMessageType: LocalizedError {
     var description: (title: String, message: String) {
         switch self {
         case .missingName:

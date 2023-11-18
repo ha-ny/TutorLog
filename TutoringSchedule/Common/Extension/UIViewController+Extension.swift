@@ -1,5 +1,5 @@
 //
-//  Extension+UIViewController.swift
+//  UIViewController+Extension.swift
 //  TutoringSchedule
 //
 //  Created by 김하은 on 2023/10/23.
