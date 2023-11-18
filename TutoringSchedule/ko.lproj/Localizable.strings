@@ -50,6 +50,10 @@
 "okButtonTapped" = "완료";
 "deleteButtonTapped" = "삭제";
 
+// AppVersionCheck
+"appVersionCheckTitle" = "업데이트";
+"appVersionCheckMessage" = "새로운 업데이트가 출시되었습니다!\n앱을 업데이트해 주세요.";
+
 //RealmErrorType description
 "connectionFailureTitle" = "연결 실패";
 "connectionFailureMessage" = "데이터를 연결하는 동안 문제가 발생했습니다.\n다시 시도해주세요.";
@@ -90,5 +94,6 @@
 
 "characterLimitTitle" = "글자 수 제한";
 "characterLimitMessage" = "최대 글자 수는 20자입니다.";
+
 
 

@@ -50,6 +50,10 @@
 "okButtonTapped" = "Complete";
 "deleteButtonTapped" = "Delete";
 
+// AppVersionCheck
+"appVersionCheckTitle" = "Update";
+"appVersionCheckMessage" = "A new update has been released!\nPlease update the app.";
+
 //RealmErrorType description
 "connectionFailureTitle" = "Connection Failure";
 "connectionFailureMessage" = "An error occurred while connecting to the data.\nPlease try again.";
