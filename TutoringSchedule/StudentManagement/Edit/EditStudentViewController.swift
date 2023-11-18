@@ -95,9 +95,9 @@ class EditStudentViewController: UIViewController {
         guard !name.isEmpty else {
             mainView.nameTextField.text = nil
             mainView.nameTextField.becomeFirstResponder()
-            
             let description = AlertMessageType.missingName.description
-            UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
+            view.makeToast(description.message, duration: 1.5, position: .top, style: CustomToast.setting())
+            
             return //필수체크
         }
                
@@ -110,7 +110,8 @@ class EditStudentViewController: UIViewController {
             guard isInt(text: studentPhoneNum) else {
                 mainView.studentPhoneNumTextField.becomeFirstResponder()
                 let description = AlertMessageType.invalidNumberFormat.description
-                UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
+                view.makeToast(description.message, duration: 1.5, position: .top)
+
                 return
             }
         }
@@ -119,7 +120,7 @@ class EditStudentViewController: UIViewController {
             guard isInt(text: parentPhoneNum) else {
                 mainView.parentPhoneNumTextField.becomeFirstResponder()
                 let description = AlertMessageType.invalidNumberFormat.description
-                UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
+                view.makeToast(description.message, duration: 1.5, position: .top)
                 return
             }
         }

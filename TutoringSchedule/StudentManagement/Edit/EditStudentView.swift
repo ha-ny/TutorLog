@@ -72,7 +72,7 @@ class EditStudentView: BaseView {
         }
         
         nameTextField.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide).offset(22)
+            make.top.equalTo(self.safeAreaLayoutGuide).offset(40)
             make.horizontalEdges.equalToSuperview().inset(45)
             make.height.equalTo(60)
         }
