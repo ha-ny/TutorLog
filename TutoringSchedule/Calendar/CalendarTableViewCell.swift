@@ -55,11 +55,12 @@ class CalendarTableViewCell: UITableViewCell {
     }
     
     func centerYClassNameLabel() {
-        classNameLabel.snp.makeConstraints { make in
+        classNameLabel.snp.remakeConstraints { make in
+            make.right.equalTo(backView).inset(12)
             make.centerY.equalTo(backView)
         }
     }
-    
+
     func setConstraint() {
         backView.snp.makeConstraints { make in
             make.top.equalTo(contentView).inset(12)
@@ -73,7 +74,7 @@ class CalendarTableViewCell: UITableViewCell {
             make.width.equalTo(100)
         }
         
-        classNameLabel.snp.makeConstraints { make in
+        classNameLabel.snp.remakeConstraints { make in
             make.top.equalTo(timeLabel.snp.top)
             make.right.equalTo(backView).inset(12)
             make.left.equalTo(timeLabel.snp.right).offset(12)
