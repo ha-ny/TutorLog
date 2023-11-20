@@ -46,6 +46,25 @@ class CalendarViewController: UIViewController {
         self.view.addGestureRecognizer(swipeDown)
         
         NotificationCenter.default.addObserver(self, selector: #selector(calendarReload), name: .calendarReload, object: nil)
+        
+        appVersionCheck()
+    }
+
+    private func appVersionCheck() {
+        AppVersionCheck.updateRequired { url in
+            DispatchQueue.main.async { [weak self] in
+                guard let self else { return }
+                if let url {
+                    UIAlertController.customMessageAlert(view: self, title: "appVersionCheckTitle".localized, message: "appVersionCheckMessage".localized) {
+                        if UIApplication.shared.canOpenURL(url) {
+                            UIApplication.shared.open(url, options: [:]) { _ in
+                                exit(0)
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func bind() {
@@ -110,7 +129,7 @@ extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
             cell.timeLabel.text = cellSetting.time
             cell.classNameLabel.text = classData.className
             cell.tutoringPlaceLabel.text = classData.tutoringPlace
-
+            
             if classData.tutoringPlace.isEmpty {
                 cell.centerYClassNameLabel()
             }
