@@ -21,8 +21,7 @@
 		3F4F17642AE1807F00F04DF1 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17632AE1807F00F04DF1 /* Observable.swift */; };
 		3F4F17662AE2AAAB00F04DF1 /* StudentManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17652AE2AAAB00F04DF1 /* StudentManagementViewModel.swift */; };
 		3F4F17692AE2DF8100F04DF1 /* StudentTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17682AE2DF8100F04DF1 /* StudentTable.swift */; };
-		3F4F176B2AE2DFCB00F04DF1 /* ClassTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F176A2AE2DFCB00F04DF1 /* ClassTable.swift */; };
-		3F4F176D2AE2DFEA00F04DF1 /* ScheduleTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F176C2AE2DFEA00F04DF1 /* ScheduleTable.swift */; };
+		3F4F176D2AE2DFEA00F04DF1 /* WeekTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F176C2AE2DFEA00F04DF1 /* WeekTable.swift */; };
 		3F4F176F2AE2DFF800F04DF1 /* CalendarTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F176E2AE2DFF800F04DF1 /* CalendarTable.swift */; };
 		3F4F17712AE2E0C800F04DF1 /* ClassManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17702AE2E0C800F04DF1 /* ClassManagementViewModel.swift */; };
 		3F4F17732AE2E4AE00F04DF1 /* EditClassViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17722AE2E4AE00F04DF1 /* EditClassViewModel.swift */; };
@@ -32,6 +31,8 @@
 		3F4F17902AE5B40100F04DF1 /* AlertMessageType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F178F2AE5B40100F04DF1 /* AlertMessageType.swift */; };
 		3F72437F2B5D68DD00781219 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3F72437E2B5D68DD00781219 /* InfoPlist.xcstrings */; };
 		3F7243822B5D68DD00781219 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 3F7243812B5D68DD00781219 /* Localizable.xcstrings */; };
+		3F7243852B5D78F500781219 /* UIImage+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7243842B5D78F500781219 /* UIImage+extension.swift */; };
+		3F7243882B5D7A1300781219 /* ImageButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F7243872B5D7A1300781219 /* ImageButton.swift */; };
 		3F8577DF2AF60F01004B988E /* StudentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8577DE2AF60F01004B988E /* StudentTableViewCell.swift */; };
 		3F8E48312B08E94D0083B49C /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8E482A2B08E94D0083B49C /* UIViewController+Extension.swift */; };
 		3F8E48322B08E94D0083B49C /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8E482B2B08E94D0083B49C /* UIAlertController+Extension.swift */; };
@@ -51,8 +52,6 @@
 		3FB8DB612AC47A6500BFCD46 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB602AC47A6500BFCD46 /* CalendarViewController.swift */; };
 		3FB8DB632AC47A8500BFCD46 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB622AC47A8500BFCD46 /* CalendarView.swift */; };
 		3FB8DB672AC47B0400BFCD46 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB8DB662AC47B0400BFCD46 /* FSCalendar */; };
-		3FB8DB692AC5F70D00BFCD46 /* CalendarSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB682AC5F70D00BFCD46 /* CalendarSearchViewController.swift */; };
-		3FB8DB6B2AC5F71E00BFCD46 /* CalendarSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB6A2AC5F71E00BFCD46 /* CalendarSearchView.swift */; };
 		3FB8DB6E2AC764B700BFCD46 /* StudentManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB6D2AC764B700BFCD46 /* StudentManagementViewController.swift */; };
 		3FB8DB702AC764C100BFCD46 /* StudentManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB6F2AC764C100BFCD46 /* StudentManagementView.swift */; };
 		3FB8DB782AC76CD100BFCD46 /* EditClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB772AC76CD100BFCD46 /* EditClassViewController.swift */; };
@@ -79,8 +78,7 @@
 		3F4F17632AE1807F00F04DF1 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
 		3F4F17652AE2AAAB00F04DF1 /* StudentManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentManagementViewModel.swift; sourceTree = "<group>"; };
 		3F4F17682AE2DF8100F04DF1 /* StudentTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTable.swift; sourceTree = "<group>"; };
-		3F4F176A2AE2DFCB00F04DF1 /* ClassTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassTable.swift; sourceTree = "<group>"; };
-		3F4F176C2AE2DFEA00F04DF1 /* ScheduleTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScheduleTable.swift; sourceTree = "<group>"; };
+		3F4F176C2AE2DFEA00F04DF1 /* WeekTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeekTable.swift; sourceTree = "<group>"; };
 		3F4F176E2AE2DFF800F04DF1 /* CalendarTable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTable.swift; sourceTree = "<group>"; };
 		3F4F17702AE2E0C800F04DF1 /* ClassManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ClassManagementViewModel.swift; sourceTree = "<group>"; };
 		3F4F17722AE2E4AE00F04DF1 /* EditClassViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClassViewModel.swift; sourceTree = "<group>"; };
@@ -91,6 +89,8 @@
 		3F72437E2B5D68DD00781219 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
 		3F7243802B5D68DD00781219 /* mul */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; name = mul; path = mul.lproj/LaunchScreen.xcstrings; sourceTree = "<group>"; };
 		3F7243812B5D68DD00781219 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		3F7243842B5D78F500781219 /* UIImage+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+extension.swift"; sourceTree = "<group>"; };
+		3F7243872B5D7A1300781219 /* ImageButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageButton.swift; sourceTree = "<group>"; };
 		3F8577DE2AF60F01004B988E /* StudentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentTableViewCell.swift; sourceTree = "<group>"; };
 		3F8E482A2B08E94D0083B49C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		3F8E482B2B08E94D0083B49C /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
@@ -111,8 +111,6 @@
 		3FB8DB5D2AC475B400BFCD46 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		3FB8DB602AC47A6500BFCD46 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		3FB8DB622AC47A8500BFCD46 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		3FB8DB682AC5F70D00BFCD46 /* CalendarSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSearchViewController.swift; sourceTree = "<group>"; };
-		3FB8DB6A2AC5F71E00BFCD46 /* CalendarSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSearchView.swift; sourceTree = "<group>"; };
 		3FB8DB6D2AC764B700BFCD46 /* StudentManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentManagementViewController.swift; sourceTree = "<group>"; };
 		3FB8DB6F2AC764C100BFCD46 /* StudentManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentManagementView.swift; sourceTree = "<group>"; };
 		3FB8DB772AC76CD100BFCD46 /* EditClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClassViewController.swift; sourceTree = "<group>"; };
@@ -209,8 +207,7 @@
 			isa = PBXGroup;
 			children = (
 				3F4F17682AE2DF8100F04DF1 /* StudentTable.swift */,
-				3F4F176A2AE2DFCB00F04DF1 /* ClassTable.swift */,
-				3F4F176C2AE2DFEA00F04DF1 /* ScheduleTable.swift */,
+				3F4F176C2AE2DFEA00F04DF1 /* WeekTable.swift */,
 				3F4F176E2AE2DFF800F04DF1 /* CalendarTable.swift */,
 			);
 			path = Table;
@@ -225,7 +222,9 @@
 				3FBF0A972B092D3C00C3D620 /* CustomToast.swift */,
 				3F1343622ACFD0AB001FE7EA /* Realm */,
 				3F4F17842AE5996B00F04DF1 /* Model */,
+				3F7243862B5D79DE00781219 /* Component */,
 				3F13436C2AD2A7F8001FE7EA /* Extension */,
+				3F7243842B5D78F500781219 /* UIImage+extension.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -239,14 +238,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		3F4F17892AE59A8600F04DF1 /* Temp */ = {
-			isa = PBXGroup;
-			children = (
-				3FB8DB6C2AC5F72500BFCD46 /* CalendarSearch */,
-			);
-			path = Temp;
-			sourceTree = "<group>";
-		};
 		3F4F178C2AE5A9C600F04DF1 /* Error */ = {
 			isa = PBXGroup;
 			children = (
@@ -254,6 +245,14 @@
 				3F4F178F2AE5B40100F04DF1 /* AlertMessageType.swift */,
 			);
 			path = Error;
+			sourceTree = "<group>";
+		};
+		3F7243862B5D79DE00781219 /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				3F7243872B5D7A1300781219 /* ImageButton.swift */,
+			);
+			path = Component;
 			sourceTree = "<group>";
 		};
 		3FB8DB302AC46D4700BFCD46 = {
@@ -282,7 +281,6 @@
 				3FB8DB712AC764C700BFCD46 /* StudentManagement */,
 				3F13435D2ACFA86C001FE7EA /* ClassManagement */,
 				3FB8DB5F2AC4793C00BFCD46 /* Delegate */,
-				3F4F17892AE59A8600F04DF1 /* Temp */,
 				3F7243812B5D68DD00781219 /* Localizable.xcstrings */,
 				3F72437E2B5D68DD00781219 /* InfoPlist.xcstrings */,
 				3F1343532ACCF7EF001FE7EA /* GoogleService-Info.plist */,
@@ -311,15 +309,6 @@
 				3F4F17752AE2EEA300F04DF1 /* CalendarViewModel.swift */,
 			);
 			path = Calendar;
-			sourceTree = "<group>";
-		};
-		3FB8DB6C2AC5F72500BFCD46 /* CalendarSearch */ = {
-			isa = PBXGroup;
-			children = (
-				3FB8DB6A2AC5F71E00BFCD46 /* CalendarSearchView.swift */,
-				3FB8DB682AC5F70D00BFCD46 /* CalendarSearchViewController.swift */,
-			);
-			path = CalendarSearch;
 			sourceTree = "<group>";
 		};
 		3FB8DB712AC764C700BFCD46 /* StudentManagement */ = {
@@ -457,7 +446,6 @@
 				3F99FE2F2B08FB4400955171 /* AppVersionCheck.swift in Sources */,
 				3F4F17862AE5998D00F04DF1 /* EditType.swift in Sources */,
 				3F8E48362B08E94D0083B49C /* Date+Extension.swift in Sources */,
-				3F4F176B2AE2DFCB00F04DF1 /* ClassTable.swift in Sources */,
 				3FB8DB632AC47A8500BFCD46 /* CalendarView.swift in Sources */,
 				3F1343672AD29A51001FE7EA /* EditStudentView.swift in Sources */,
 				3F1343612ACFA889001FE7EA /* ClassManagementView.swift in Sources */,
@@ -471,21 +459,21 @@
 				3F8E48312B08E94D0083B49C /* UIViewController+Extension.swift in Sources */,
 				3F13436A2AD29C2B001FE7EA /* EditClassView.swift in Sources */,
 				3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */,
+				3F7243852B5D78F500781219 /* UIImage+extension.swift in Sources */,
 				3F4F178B2AE59CF200F04DF1 /* RealmErrorType.swift in Sources */,
 				3F4F17642AE1807F00F04DF1 /* Observable.swift in Sources */,
 				3FEADDCF2AF2A36A00FB6254 /* CalendarTableViewCell.swift in Sources */,
-				3FB8DB692AC5F70D00BFCD46 /* CalendarSearchViewController.swift in Sources */,
 				3FB8DB5E2AC475B400BFCD46 /* BaseView.swift in Sources */,
 				3F8E48392B08EA290083B49C /* NotificaationName+Extention.swift in Sources */,
 				3FB8DB702AC764C100BFCD46 /* StudentManagementView.swift in Sources */,
-				3F4F176D2AE2DFEA00F04DF1 /* ScheduleTable.swift in Sources */,
+				3F4F176D2AE2DFEA00F04DF1 /* WeekTable.swift in Sources */,
 				3FB8DB822ACA452000BFCD46 /* RealmRepository.swift in Sources */,
+				3F7243882B5D7A1300781219 /* ImageButton.swift in Sources */,
 				3F8E48372B08E94D0083B49C /* UITextField+Extension.swift in Sources */,
 				3F8E48332B08E94D0083B49C /* String+Extension.swift in Sources */,
 				3F4F175E2AD9749D00F04DF1 /* StudentListViewController.swift in Sources */,
 				3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */,
 				3F1343772AD6C30C001FE7EA /* EditStudentViewController.swift in Sources */,
-				3FB8DB6B2AC5F71E00BFCD46 /* CalendarSearchView.swift in Sources */,
 				3F4F17732AE2E4AE00F04DF1 /* EditClassViewModel.swift in Sources */,
 				3F4F17762AE2EEA300F04DF1 /* CalendarViewModel.swift in Sources */,
 				3F1343322ACC2B4F001FE7EA /* DatePickHalfView.swift in Sources */,
@@ -648,7 +636,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -680,7 +668,7 @@
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UIUserInterfaceStyle = Light;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -46,7 +46,7 @@ class StudentListViewController: UIViewController {
         bind()
         
         errorHandling {
-            try viewModel.settingData()
+            //try viewModel.settingData()
         }
     }
 
@@ -78,7 +78,7 @@ extension StudentListViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         
         errorHandling {
-            try viewModel.searchData(keyWord: searchText)
+            //try viewModel.searchData(keyWord: searchText)
         }
     }
 }

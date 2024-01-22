@@ -13,17 +13,20 @@ class StudentTable: Object {
     @Persisted var name: String
     @Persisted var studentPhoneNum: String
     @Persisted var parentPhoneNum: String
-    @Persisted var address: String
-    @Persisted var memo: String
-    @Persisted var ishidden: Bool = false
+    @Persisted var signatureColor: String
+    
+    @Persisted var className: String
+    @Persisted var tutoringPlace: String
+    @Persisted var startDate: Date
 
-    convenience init(name: String, studentPhoneNum: String, parentPhoneNum: String, address: String, memo: String) {
+    convenience init(name: String, studentPhoneNum: String, parentPhoneNum: String, signatureColor: String, address: String, memo: String, className: String, tutoringPlace: String, startDate: Date) {
         self.init()
         self.name = name
         self.studentPhoneNum = studentPhoneNum
         self.parentPhoneNum = parentPhoneNum
-        self.address = address
-        self.memo = memo
-        self.ishidden = ishidden
+        self.signatureColor = signatureColor
+        self.className = className
+        self.tutoringPlace = tutoringPlace
+        self.startDate = startDate
     }
 }

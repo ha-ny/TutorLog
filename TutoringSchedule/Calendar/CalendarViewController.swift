@@ -14,8 +14,7 @@ class CalendarViewController: UIViewController {
     let mainView = CalendarView()
     
     var data: [CalendarTable]?
-    var selectDate = Date()
-    var isTodayButtonTap = false
+    var calendarMonth = Date()
     
     override func loadView() {
         super.loadView()
@@ -23,33 +22,16 @@ class CalendarViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
-        mainView.todayButton.addTarget(self, action: #selector(todayButtonTapped), for: .touchUpInside)
-        //mainView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
-        
-        mainView.tableView.register(CalendarTableViewCell.self, forCellReuseIdentifier: String(describing: CalendarTableViewCell.self))
-        
         mainView.calendar.delegate = self
         mainView.calendar.dataSource = self
-        mainView.tableView.delegate = self
-        mainView.tableView.dataSource = self
         
         bind()
-        todayButtonTapped()
-        
-        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeView(_:)))
-        swipeUp.direction = .up
-        self.view.addGestureRecognizer(swipeUp)
-        
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeView(_:)))
-        swipeDown.direction = .down
-        self.view.addGestureRecognizer(swipeDown)
         
         NotificationCenter.default.addObserver(self, selector: #selector(calendarReload), name: .calendarReload, object: nil)
         
         appVersionCheck()
     }
-
+    
     private func appVersionCheck() {
         AppVersionCheck.updateRequired { url in
             DispatchQueue.main.async { [weak self] in
@@ -58,7 +40,7 @@ class CalendarViewController: UIViewController {
                     UIAlertController.customMessageAlert(view: self, title: "appVersionCheckTitle".localized, message: "appVersionCheckMessage".localized) {
                         if UIApplication.shared.canOpenURL(url) {
                             UIApplication.shared.open(url, options: [:]) { _ in
-                                exit(0)
+                                //exit(0)
                             }
                         }
                     }
@@ -72,10 +54,10 @@ class CalendarViewController: UIViewController {
             guard let self else { return }
             
             if case .calendarPageChange(let text) = eventType {
-                mainView.yearMonthLabel.text = text
+                mainView.dateLabel.text = text
             } else if case .calendarDidSelect(let data) = eventType {
                 self.data = data
-                mainView.tableView.reloadData()
+                //mainView.tableView.reloadData()
             }
         }
     }
@@ -91,96 +73,75 @@ class CalendarViewController: UIViewController {
     
     @objc func calendarReload() {
         mainView.calendar.reloadData()
-        calendar(mainView.calendar, didSelect: selectDate, at: .current)
-    }
-    
-    //    @objc func searchButtonTapped() {
-    //        let vc = CalendarSearchViewController()
-    //        present(vc, animated: true)
-    //    }
-    
-    //오늘 날짜로 돌아오기
-    @objc func todayButtonTapped() {
-        isTodayButtonTap = true
-        
-        selectDate = Date()
-        mainView.calendar.select(selectDate)
-        selectDateSetting()
-    }
-}
-
-extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let selectDate = mainView.calendar.selectedDate else { return UITableViewCell() }
-        guard let data else { return UITableViewCell() }
-        
-        //errorHandling
-        do {
-            guard let cellSetting = try viewModel.cellSetting(data: data[indexPath.row], selectDate: selectDate) else { return UITableViewCell() }
-            let classData = cellSetting.classData
-            
-            guard let cell = mainView.tableView.dequeueReusableCell(withIdentifier: String(describing: CalendarTableViewCell.self)) as? CalendarTableViewCell else { return UITableViewCell() }
-            cell.setting()
-            cell.timeLabel.text = cellSetting.time
-            cell.classNameLabel.text = classData.className
-            cell.tutoringPlaceLabel.text = classData.tutoringPlace
-            
-            if classData.tutoringPlace.isEmpty {
-                cell.centerYClassNameLabel()
-            }
-            
-            cell.selectionStyle = .none
-            return cell
-        } catch let realmError as RealmErrorType {
-            let errorDescription = realmError.description
-            UIAlertController.customMessageAlert(view: self, title: errorDescription.title, message: errorDescription.message)
-        } catch { }
-        
-        return UITableViewCell()
+        calendar(mainView.calendar, didSelect: calendarMonth, at: .current)
     }
 }
 
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
-    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        let day = Calendar.current.component(.weekday, from: date) - 1
-        
-        if day == 0 {
-            return .systemRed
-        } else if day == 6 {
-            return .systemBlue
-        } else {
-            return .black
-        }
+        let weekday = Calendar.current.component(.weekday, from: date)
+        return weekday == 1 ? .red : (weekday == 7 ? .blue : .black)
     }
-    
+
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
-        
         for subview in cell.subviews {
-            if subview is UILabel {
+            if let _ = subview as? UILabel {
                 subview.removeFromSuperview()
             }
         }
         
+        cell.titleLabel.alpha = cell.isPlaceholder ? 0.2 : 1
+        
+        //숫자 위치 조정
+        let today = Date.convertToString(format: "fullDateFormat".localized, date: Date())
+        let calendardDay = Date.convertToString(format: "fullDateFormat".localized, date: date)
+        let dayText = "\(Calendar.current.component(.day, from: date))"
+        var attributedString = NSMutableAttributedString(string: dayText)
+
+        //cell.sele
+        
+        if today == calendardDay {
+            attributedString = NSMutableAttributedString(string: "오늘")
+//            cell.titleLabel.textColor = .systemOrange
+//            cell.titleLabel.font = .boldSystemFont(ofSize: 15)
+        }
+
+        attributedString.addAttribute(.baselineOffset, value: CGFloat(45), range: NSRange(location: 0, length: attributedString.length))
+        cell.titleLabel.attributedText = attributedString
+ 
+        //row line
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.frame.width, height: 1))
+        label.layer.backgroundColor = UIColor.systemGray6.cgColor
+        cell.addSubview(label)
+        
         //errorHandling
         do {
-            guard let data = try viewModel.calendarWillDisplay(date: date) else { return }
+            //guard let data = try viewModel.calendarWillDisplay(date: date) else { return }
             
-            if !data.isEmpty {
-                let label = UILabel(frame: CGRect(x: 28, y: 25, width: 14, height: 14))
-                label.layer.backgroundColor = UIColor.signatureColor.cgColor
-                label.layer.cornerRadius = 6
-                label.font = .boldSystemFont(ofSize: 9)
-                label.textAlignment = .center
-                label.textColor = .white
-                
-                label.text = "\(data.count)"
-                cell.addSubview(label)
+            if !cell.isPlaceholder {
+                let data = ["14:00", "15:00", "18:00", "20:00", "23:30"]
+                for (index, item) in data.enumerated() {
+                    guard index < 2 else {
+                        let label = UILabel(frame: CGRect(x: 0, y: 70, width: cell.bounds.width, height: 15))
+                        label.font = .systemFont(ofSize: 10)
+                        label.text = "+\(data.count - 2)"
+                        label.textAlignment = .center
+                        label.textColor = .black
+                        cell.addSubview(label)
+                        return
+                    }
+
+                    let y = [35, 52]
+                    let label = UILabel(frame: CGRect(x: 5, y: y[index], width: Int(cell.bounds.width) - 10, height: 15))
+                    label.font = .systemFont(ofSize: 10)
+                    label.text = item //String(Date.convertToString(format: "HH:mm", date: item.startTime ?? Date()))
+                    label.textAlignment = .center
+                    label.layer.cornerRadius = 2
+                    label.textColor = .black
+                    label.backgroundColor = .yellow
+                    label.clipsToBounds = true
+                    cell.addSubview(label)
+                }
             }
         } catch let realmError as RealmErrorType {
             let errorDescription = realmError.description
@@ -190,28 +151,50 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
     
     //캘린더 스크롤 감지
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        if !isTodayButtonTap {
-            selectDate = calendar.currentPage
-            mainView.calendar.select(selectDate)
-            selectDateSetting()
-        } else { isTodayButtonTap.toggle() }
+        let endOfMonth = Calendar.current.date(byAdding: DateComponents(month: 1), to: calendar.currentPage)!
+        calendarMonth = endOfMonth
+        selectDateSetting()
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
-        selectDate = date
         selectDateSetting()
     }
     
     func selectDateSetting() {
-        viewModel.calendarPageChange(date: selectDate)
-        mainView.selectDateLabel.text =  "📝 \(Date.convertToString(format: "fullDateFormat".localized, date: selectDate)) "
-        
-        errorHandling {
-            try viewModel.calendarDidSelect(date: selectDate)
-        }
-    }
-    
-    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        mainView.setCalendarHeight(height: bounds.height)
+//        viewModel.calendarPageChange(date: calendarMonth)
+//        
+//        errorHandling {
+//            try viewModel.calendarDidSelect(date: calendarMonth)
+//        }
     }
 }
+
+//    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+//        guard let selectDate = mainView.calendar.selectedDate else { return UITableViewCell() }
+//        guard let data else { return UITableViewCell() }
+//
+//        //errorHandling
+//        do {
+//            guard let cellSetting = try viewModel.cellSetting(data: data[indexPath.row], selectDate: selectDate) else { return UITableViewCell() }
+//            let classData = cellSetting.classData
+//
+//            guard let cell = mainView.tableView.dequeueReusableCell(withIdentifier: String(describing: CalendarTableViewCell.self)) as? CalendarTableViewCell else { return UITableViewCell() }
+//            cell.setting()
+//            cell.timeLabel.text = cellSetting.time
+//            cell.classNameLabel.text = classData.className
+//            cell.tutoringPlaceLabel.text = classData.tutoringPlace
+//
+//            if classData.tutoringPlace.isEmpty {
+//                cell.centerYClassNameLabel()
+//            }
+//
+//            cell.selectionStyle = .none
+//            return cell
+//        } catch let realmError as RealmErrorType {
+//            let errorDescription = realmError.description
+//            UIAlertController.customMessageAlert(view: self, title: errorDescription.title, message: errorDescription.message)
+//        } catch { }
+//
+//        return UITableViewCell()
+//    }
+//}

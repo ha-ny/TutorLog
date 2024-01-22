@@ -347,13 +347,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "MMMM dd, yyyy"
+            "value" : "MM dd, yyyy"
           }
         },
         "ko" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "yyyy년 MMMM dd일"
+            "value" : "yyyy년 MM월 dd일"
           }
         }
       }
@@ -908,13 +908,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "MMMM yyyy"
+            "value" : "MM.yyyy"
           }
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "translated",
-            "value" : "yyyy년 MMMM"
+            "state" : "needs_review",
+            "value" : "yyyy.MM"
           }
         }
       }

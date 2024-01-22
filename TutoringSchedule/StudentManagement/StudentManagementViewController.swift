@@ -48,7 +48,7 @@ class StudentManagementViewController: UIViewController {
         bind()
         
         errorHandling {
-            try viewModel.settingData()
+            //try viewModel.settingData()
         }
     }
     
@@ -79,7 +79,7 @@ class StudentManagementViewController: UIViewController {
 extension StudentManagementViewController: saveSucsessDelegate {
     func saveSucsess() {
         errorHandling {
-            try viewModel.settingData()
+            //try viewModel.settingData()
         }
     }
 }
@@ -87,7 +87,7 @@ extension StudentManagementViewController: saveSucsessDelegate {
 extension StudentManagementViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         errorHandling {
-            try viewModel.searchData(keyWord: searchText)
+            //try viewModel.searchData(keyWord: searchText)
         }
     }
 }
@@ -107,17 +107,17 @@ extension StudentManagementViewController: UITableViewDelegate, UITableViewDataS
     }
 
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        guard let data else { return }
-        let indexData = data[indexPath.row]
-        
-        let newData = StudentTable(name: indexData.name, studentPhoneNum: indexData.studentPhoneNum, parentPhoneNum: indexData.parentPhoneNum, address: indexData.address, memo: indexData.memo)
-        newData._id = indexData._id
-        newData.ishidden = true
-        
-        errorHandling {
-            try viewModel.rowDelete(data: newData)
-            try viewModel.settingData()
-        }
+//        guard let data else { return }
+//        let indexData = data[indexPath.row]
+//        
+//        let newData = StudentTable(name: indexData.name, studentPhoneNum: indexData.studentPhoneNum, parentPhoneNum: indexData.parentPhoneNum, address: indexData.address, memo: indexData.memo)
+//        newData._id = indexData._id
+//        newData.ishidden = true
+//        
+//        errorHandling {
+//            //try viewModel.rowDelete(data: newData)
+//            try viewModel.settingData()
+//        }
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

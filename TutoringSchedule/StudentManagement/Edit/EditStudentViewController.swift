@@ -76,8 +76,6 @@ class EditStudentViewController: UIViewController {
         mainView.nameTextField.text = data.name
         mainView.studentPhoneNumTextField.text = data.studentPhoneNum
         mainView.parentPhoneNumTextField.text = data.parentPhoneNum
-        mainView.addressTextField.text = data.address
-        mainView.memoTextField.text = data.memo
     }
 
     @objc private func backButtonTapped() {
@@ -125,10 +123,10 @@ class EditStudentViewController: UIViewController {
             }
         }
                 
-        let newData = StudentTable(name: name, studentPhoneNum: studentPhoneNum, parentPhoneNum: parentPhoneNum, address: address, memo: memo)
+        //let newData = StudentTable(name: name, studentPhoneNum: studentPhoneNum, parentPhoneNum: parentPhoneNum, address: address, memo: memo)
         
         errorHandling {
-            try viewModel.saveData(newData: newData)
+           // try viewModel.saveData(newData: newData)
         }
     }
 }
