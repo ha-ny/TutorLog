@@ -69,23 +69,6 @@
         }
       }
     },
-    "calendarTabTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Calendar"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "캘린더"
-          }
-        }
-      }
-    },
     "characterLimitMessage" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -732,23 +715,6 @@
         }
       }
     },
-    "scheduleTabTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Class Management"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "수업관리"
-          }
-        }
-      }
-    },
     "startDateAfterEndDateMessage" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -868,23 +834,6 @@
         }
       }
     },
-    "studentTabTitle" : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Student Management"
-          }
-        },
-        "ko" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "학생관리"
-          }
-        }
-      }
-    },
     "studentTitleLabel" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -913,7 +862,7 @@
         },
         "ko" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "yyyy.MM"
           }
         }

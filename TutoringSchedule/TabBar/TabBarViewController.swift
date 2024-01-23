@@ -12,26 +12,32 @@ class TabBarViewController: UIViewController {
     
     let tabBar = {
         let view = UITabBarController()
-        view.tabBar.tintColor = .black
+        view.tabBar.backgroundColor = .white
         view.viewControllers = {
             let calendar = CalendarViewController()
-            calendar.tabBarItem = UITabBarItem(title: "calendarTabTitle".localized, image: UIImage(systemName: "calendar"), tag: 0)
-    
+            calendar.tabBarItem = UITabBarItem(title: "", image: .calender.withRenderingMode(.alwaysOriginal), selectedImage: .tapCalender.withRenderingMode(.alwaysOriginal))
+
             let student = UINavigationController(rootViewController: StudentManagementViewController())
-            student.tabBarItem = UITabBarItem(title: "studentTabTitle".localized, image: UIImage(systemName: "person.fill"), tag: 0)
-                        
-            //let schedule = UINavigationController(rootViewController: ClassManagementViewController())
-//            schedule.tabBarItem = UITabBarItem(title: "scheduleTabTitle".localized, image: UIImage(systemName: "chart.bar.doc.horizontal"), tag: 0)
-            
+            student.tabBarItem = UITabBarItem(title: "", image: .list.withRenderingMode(.alwaysOriginal), selectedImage: .tapList.withRenderingMode(.alwaysOriginal))
+
              return [calendar, student]
         }()
-        
+
         return view
     }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
+        view.backgroundColor = .bgPrimary
+//
+//        let appearance = UITabBarAppearance()
+//        appearance.configureWithDefaultBackground()
+//        appearance.backgroundColor = .white
+//
+//        tabBar.tabBar.standardAppearance = appearance
+//        tabBar.tabBar.scrollEdgeAppearance = appearance
+//        
+//        
         setConfigure()
         setConstraint()
     }
@@ -42,7 +48,9 @@ class TabBarViewController: UIViewController {
     
     func setConstraint() {
         tabBar.view.snp.makeConstraints { make in
-            make.edges.equalTo(view.safeAreaLayoutGuide)
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview()
+            make.bottom.equalToSuperview()
         }
     }
 }

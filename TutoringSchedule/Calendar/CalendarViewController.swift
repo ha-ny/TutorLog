@@ -80,7 +80,7 @@ class CalendarViewController: UIViewController {
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         let weekday = Calendar.current.component(.weekday, from: date)
-        return weekday == 1 ? .red : (weekday == 7 ? .blue : .black)
+        return weekday == 1 ? .bdRed : (weekday == 7 ? .bdBlue : .bdBlack)
     }
 
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
@@ -90,28 +90,25 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
             }
         }
         
-        cell.titleLabel.alpha = cell.isPlaceholder ? 0.2 : 1
+        cell.titleLabel.alpha = cell.isPlaceholder ? 0.4 : 1
         
         //숫자 위치 조정
         let today = Date.convertToString(format: "fullDateFormat".localized, date: Date())
         let calendardDay = Date.convertToString(format: "fullDateFormat".localized, date: date)
-        let dayText = "\(Calendar.current.component(.day, from: date))"
-        var attributedString = NSMutableAttributedString(string: dayText)
-
-        //cell.sele
-        
         if today == calendardDay {
-            attributedString = NSMutableAttributedString(string: "오늘")
+            //attributedString = NSMutableAttributedString(string: "오늘")
 //            cell.titleLabel.textColor = .systemOrange
 //            cell.titleLabel.font = .boldSystemFont(ofSize: 15)
         }
-
-        attributedString.addAttribute(.baselineOffset, value: CGFloat(45), range: NSRange(location: 0, length: attributedString.length))
+        
+        let dayText = "\(Calendar.current.component(.day, from: date))"
+        let attributedString = NSMutableAttributedString(string: dayText)
+        attributedString.addAttribute(.baselineOffset, value: CGFloat(50), range: NSRange(location: 0, length: attributedString.length))
         cell.titleLabel.attributedText = attributedString
- 
+        
         //row line
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.frame.width, height: 1))
-        label.layer.backgroundColor = UIColor.systemGray6.cgColor
+        label.layer.backgroundColor = UIColor.bdLine.cgColor
         cell.addSubview(label)
         
         //errorHandling
@@ -121,24 +118,26 @@ extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCa
             if !cell.isPlaceholder {
                 let data = ["14:00", "15:00", "18:00", "20:00", "23:30"]
                 for (index, item) in data.enumerated() {
-                    guard index < 2 else {
-                        let label = UILabel(frame: CGRect(x: 0, y: 70, width: cell.bounds.width, height: 15))
+                    guard index < 3 else {
+                        guard cell.frame.height > 90 else { return }
+                        let label = UILabel(frame: CGRect(x: 0, y: 82, width: cell.bounds.width, height: 15))
                         label.font = .systemFont(ofSize: 10)
-                        label.text = "+\(data.count - 2)"
+                        label.text = "+\(data.count - 3)"
                         label.textAlignment = .center
-                        label.textColor = .black
+                        label.textColor = .bdBlack
                         cell.addSubview(label)
                         return
                     }
 
-                    let y = [35, 52]
+                    let y = [30, 48, 66] //사이 간격: 3
+                    let color: [UIColor] = [.pkRed, .pkBlue, .pkYellow]
                     let label = UILabel(frame: CGRect(x: 5, y: y[index], width: Int(cell.bounds.width) - 10, height: 15))
                     label.font = .systemFont(ofSize: 10)
                     label.text = item //String(Date.convertToString(format: "HH:mm", date: item.startTime ?? Date()))
                     label.textAlignment = .center
                     label.layer.cornerRadius = 2
-                    label.textColor = .black
-                    label.backgroundColor = .yellow
+                    label.textColor = .bdBlack
+                    label.backgroundColor = color.randomElement()
                     label.clipsToBounds = true
                     cell.addSubview(label)
                 }

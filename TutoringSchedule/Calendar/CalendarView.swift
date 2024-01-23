@@ -15,7 +15,7 @@ class CalendarView: BaseView {
     let dateLabel = {
         let view = UILabel()
         view.text = Date.convertToString(format: "yearMonthFormat".localized, date: Date())
-        view.textColor = .blue
+        view.textColor = .bdBlue
         view.font = .boldSystemFont(ofSize: 18)
         return view
     }()
@@ -35,7 +35,7 @@ class CalendarView: BaseView {
         
         //Weekday
         view.appearance.weekdayFont = .systemFont(ofSize: 14)
-        view.appearance.weekdayTextColor = .black //요일 글씨 색
+        view.appearance.weekdayTextColor = .bdBlack //요일 글씨 색
         
         for (index, item) in Calendar.current.shortWeekdaySymbols.enumerated() {
             view.calendarWeekdayView.weekdayLabels[index].text = item
@@ -45,10 +45,10 @@ class CalendarView: BaseView {
         view.calendarHeaderView.isHidden = true
         view.headerHeight = 0
         
-        view.appearance.titleSelectionColor = UIColor.black
-        view.appearance.selectionColor = UIColor.blue.withAlphaComponent(0.2)
-        view.appearance.todayColor = UIColor.orange.withAlphaComponent(0.2)
-        view.weekdayHeight = 40
+        view.appearance.titleSelectionColor = UIColor.orange
+        view.appearance.selectionColor = .clear
+        view.appearance.todayColor = .clear
+        view.weekdayHeight = 35
 
         return view
     }()

@@ -16,6 +16,7 @@
 		3F1343672AD29A51001FE7EA /* EditStudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343662AD29A51001FE7EA /* EditStudentView.swift */; };
 		3F13436A2AD29C2B001FE7EA /* EditClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343692AD29C2B001FE7EA /* EditClassView.swift */; };
 		3F1343772AD6C30C001FE7EA /* EditStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343762AD6C30C001FE7EA /* EditStudentViewController.swift */; };
+		3F21E51F2B5FA1B50060F8E8 /* UIColor+extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F21E51E2B5FA1B50060F8E8 /* UIColor+extension.swift */; };
 		3F4F175E2AD9749D00F04DF1 /* StudentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F175D2AD9749D00F04DF1 /* StudentListViewController.swift */; };
 		3F4F17622AE1792800F04DF1 /* EditStudentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17612AE1792800F04DF1 /* EditStudentViewModel.swift */; };
 		3F4F17642AE1807F00F04DF1 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17632AE1807F00F04DF1 /* Observable.swift */; };
@@ -73,6 +74,7 @@
 		3F1343662AD29A51001FE7EA /* EditStudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStudentView.swift; sourceTree = "<group>"; };
 		3F1343692AD29C2B001FE7EA /* EditClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClassView.swift; sourceTree = "<group>"; };
 		3F1343762AD6C30C001FE7EA /* EditStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStudentViewController.swift; sourceTree = "<group>"; };
+		3F21E51E2B5FA1B50060F8E8 /* UIColor+extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+extension.swift"; sourceTree = "<group>"; };
 		3F4F175D2AD9749D00F04DF1 /* StudentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentListViewController.swift; sourceTree = "<group>"; };
 		3F4F17612AE1792800F04DF1 /* EditStudentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStudentViewModel.swift; sourceTree = "<group>"; };
 		3F4F17632AE1807F00F04DF1 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -224,7 +226,6 @@
 				3F4F17842AE5996B00F04DF1 /* Model */,
 				3F7243862B5D79DE00781219 /* Component */,
 				3F13436C2AD2A7F8001FE7EA /* Extension */,
-				3F7243842B5D78F500781219 /* UIImage+extension.swift */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -251,6 +252,8 @@
 			isa = PBXGroup;
 			children = (
 				3F7243872B5D7A1300781219 /* ImageButton.swift */,
+				3F7243842B5D78F500781219 /* UIImage+extension.swift */,
+				3F21E51E2B5FA1B50060F8E8 /* UIColor+extension.swift */,
 			);
 			path = Component;
 			sourceTree = "<group>";
@@ -450,6 +453,7 @@
 				3F1343672AD29A51001FE7EA /* EditStudentView.swift in Sources */,
 				3F1343612ACFA889001FE7EA /* ClassManagementView.swift in Sources */,
 				3FBF0A982B092D3C00C3D620 /* CustomToast.swift in Sources */,
+				3F21E51F2B5FA1B50060F8E8 /* UIColor+extension.swift in Sources */,
 				3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */,
 				3FB8DB782AC76CD100BFCD46 /* EditClassViewController.swift in Sources */,
 				3F8577DF2AF60F01004B988E /* StudentTableViewCell.swift in Sources */,
