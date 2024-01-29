@@ -11,11 +11,10 @@ import UIKit
 extension UIButton {
     func days() -> UIButton {
         let view = UIButton()
-        view.setTitleColor(.black, for: .normal)
-        view.layer.borderWidth = 0.7
-        view.layer.borderColor = UIColor.gray.cgColor
-        view.layer.cornerRadius = 4
-        view.titleLabel?.font = .boldSystemFont(ofSize: 13)
+        view.setTitleColor(.bdBlack, for: .normal)
+        view.layer.backgroundColor = UIColor.bdLine.cgColor
+        view.layer.cornerRadius = 6
+        view.titleLabel?.font = .customFont(sytle: .bold, ofSize: 13)
         return view
     }
 }

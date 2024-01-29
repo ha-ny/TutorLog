@@ -14,13 +14,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
-        Analytics.logEvent(AnalyticsEventAppOpen, parameters: nil)
+        //Analytics.logEvent(AnalyticsEventAppOpen, parameters: nil)
         
         //new schema version
-        let config = Realm.Configuration(schemaVersion: 1) { Migration, oldSchemaVersion in
-//            if oldSchemaVersion < 1 {
-//                
-//            }
+        // 2 -> StudentTable Memo Column 삭제
+        
+        let config = Realm.Configuration(schemaVersion: 2) { Migration, oldSchemaVersion in
+            if oldSchemaVersion < 2 {
+                
+            }
         }
         
         Realm.Configuration.defaultConfiguration = config

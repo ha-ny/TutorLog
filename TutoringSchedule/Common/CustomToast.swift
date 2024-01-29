@@ -11,9 +11,9 @@ import Toast
 class CustomToast {
     static func setting() -> ToastStyle {
         var style = ToastStyle()
-        style.backgroundColor = .systemGray6
-        style.messageColor = .signatureColor
-        style.messageFont = .boldSystemFont(ofSize: 13)
+        style.backgroundColor = .bdLine
+        style.messageColor = .bdBlue
+        style.messageFont = .customFont(sytle: .bold, ofSize: 13)
         return style
     }
 }

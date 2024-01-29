@@ -19,17 +19,23 @@ class DatePickHalfView: UIViewController {
     
     var delegate: sendWeekStateDelegate?
     
+    let lineView = {
+       let view = UILabel()
+        view.backgroundColor = .bdLine
+        return view
+    }()
+
     let dayLabel = {
         let view = UILabel()
-        view.textColor = .black
-        view.font = .boldSystemFont(ofSize: 30)
+        view.textColor = .bdBlack
+        view.font = .customFont(sytle: .bold, ofSize: 20)
         return view
     }()
     
     let timeLabel = {
         let view = UILabel()
-        view.textColor = .black
-        view.font = .boldSystemFont(ofSize: 25)
+        view.textColor = .bdBlack
+        view.font = .customFont(sytle: .bold, ofSize: 25)
         return view
     }()
     
@@ -37,8 +43,8 @@ class DatePickHalfView: UIViewController {
         let view = UILabel()
         view.text = "startLabel".localized
         view.textAlignment = .center
-        view.textColor = .black
-        view.font = .boldSystemFont(ofSize: 13)
+        view.textColor = .bdBlack
+        view.font = .customFont(sytle: .bold, ofSize: 16)
         return view
     }()
     
@@ -46,8 +52,8 @@ class DatePickHalfView: UIViewController {
         let view = UILabel()
         view.text = "endLabel".localized
         view.textAlignment = .center
-        view.textColor = .black
-        view.font = .boldSystemFont(ofSize: 13)
+        view.textColor = .bdBlack
+        view.font = .customFont(sytle: .bold, ofSize: 16)
         return view
     }()
     
@@ -87,10 +93,10 @@ class DatePickHalfView: UIViewController {
         view.backgroundColor = .white
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(title: "okButtonTapped".localized, style: .plain, target: self, action: #selector(okButtonTapped))
-        navigationItem.rightBarButtonItem?.tintColor = .black
+        navigationItem.rightBarButtonItem?.tintColor = .bdBlack
         
         navigationItem.leftBarButtonItem = UIBarButtonItem(title: "deleteButtonTapped".localized, style: .plain, target: self, action: #selector(deleteButtonTapped))
-        navigationItem.leftBarButtonItem?.tintColor = .black
+        navigationItem.leftBarButtonItem?.tintColor = .bdBlack
 
         setConfigure()
         setConstraint()
@@ -104,6 +110,7 @@ class DatePickHalfView: UIViewController {
     }
 
     func setConfigure() {
+        view.addSubview(lineView)
         view.addSubview(dayLabel)
         view.addSubview(timeLabel)
         view.addSubview(startLabel)
@@ -112,9 +119,16 @@ class DatePickHalfView: UIViewController {
     }
     
     func setConstraint() {
+        lineView.snp.makeConstraints { make in
+            make.top.equalTo(view.safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview().inset(4)
+            make.height.equalTo(0.7)
+        }
+        
         dayLabel.snp.makeConstraints { make in
-            make.top.equalTo(view.safeAreaLayoutGuide).inset(4)
+            make.top.equalTo(lineView.snp.bottom).offset(16)
             make.left.equalTo(view.safeAreaLayoutGuide).inset(24)
+            make.height.equalTo(40)
         }
         
         timeLabel.snp.makeConstraints { make in
@@ -123,7 +137,7 @@ class DatePickHalfView: UIViewController {
         }
         
         startLabel.snp.makeConstraints { make in
-            make.top.equalTo(dayLabel.snp.bottom).offset(10)
+            make.top.equalTo(dayLabel.snp.bottom).offset(16)
             make.left.equalTo(view.safeAreaLayoutGuide)
             make.width.equalTo(view.snp.width).multipliedBy(0.5)
         }
@@ -135,23 +149,23 @@ class DatePickHalfView: UIViewController {
         }
         
         pickerView.snp.makeConstraints { make in
-            make.top.equalTo(startLabel.snp.bottom)
-            make.horizontalEdges.equalToSuperview().inset(6)
-            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(24)
+            make.top.equalTo(startLabel.snp.bottom).offset(18)
+            make.horizontalEdges.equalToSuperview().inset(13)
+            make.bottom.equalTo(view.safeAreaLayoutGuide).offset(-36)
         }
     }
     
     @objc func okButtonTapped() {
         
         var time = "\(startHour):\(startMinute)"
-        guard let startTime = stringToDate(format: "HH:mm", date: time) else {
+        guard let startTime = Date.stringToDate(format: "HH:mm", date: time) else {
             let description = AlertMessageType.startTimeSaveFailure.description
             UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
             return
         }
 
         time = "\(endHour):\(endMinute)"
-        guard let endTime = stringToDate(format: "HH:mm", date: time) else {
+        guard let endTime = Date.stringToDate(format: "HH:mm", date: time) else {
             let description = AlertMessageType.endTimeSaveFailure.description
             UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
             return
@@ -169,10 +183,10 @@ class DatePickHalfView: UIViewController {
     
     func timeSetting() {
         var time = "\(startHour):\(startMinute)"
-        guard let startTime = stringToDate(format: "HH:mm", date: time) else { return }
+        guard let startTime = Date.stringToDate(format: "HH:mm", date: time) else { return }
         
         time = "\(endHour):\(endMinute)"
-        guard let endTime = stringToDate(format: "HH:mm", date: time) else { return }
+        guard let endTime = Date.stringToDate(format: "HH:mm", date: time) else { return }
         
         timeLabel.text = Date.convertToString(format: "HH:mm", date: startTime) + "~" + Date.convertToString(format: "HH:mm", date: endTime)
     }
@@ -180,12 +194,6 @@ class DatePickHalfView: UIViewController {
     @objc func deleteButtonTapped() {
         delegate?.deleteData()
         dismiss(animated: true)
-    }
-    
-    func stringToDate(format: String, date: String) -> Date? {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = format
-        return date == "24:0" ? dateFormatter.date(from: "00:00") : dateFormatter.date(from: date)
     }
 }
 

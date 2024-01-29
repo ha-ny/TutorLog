@@ -18,20 +18,38 @@ class StudentManagementView: BaseView {
     
     let lineView = {
        let view = UILabel()
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = .bdLine
         return view
     }()
     
     let tableView = {
         let view = UITableView()
         view.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
+        view.backgroundColor = .clear
+        view.showsVerticalScrollIndicator = false
         return view
     }()
 
+    let addButton = {
+        let view = UIButton()
+        view.setImage(.addList, for: .normal)
+        view.setImage(.addList, for: .highlighted)
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
+    
+    let lineView2 = {
+       let view = UILabel()
+        view.backgroundColor = .bdLine
+        return view
+    }()
+    
     override func setConfigure() {
         addSubview(searchBar)
         addSubview(lineView)
         addSubview(tableView)
+        addSubview(addButton)
+        addSubview(lineView2)
     }
     
     override func setConstraint() {
@@ -50,7 +68,18 @@ class StudentManagementView: BaseView {
         tableView.snp.makeConstraints { make in
             make.top.equalTo(lineView.snp.bottom).offset(8)
             make.leading.trailing.equalTo(searchBar)
-            make.bottom.equalTo(self.safeAreaLayoutGuide).inset(24)
+            make.bottom.equalTo(self.safeAreaLayoutGuide)
+        }
+        
+        addButton.snp.makeConstraints {
+            $0.trailing.bottom.equalTo(self.safeAreaLayoutGuide).inset(16)
+            $0.size.equalTo(56)
+        }
+        
+        lineView2.snp.makeConstraints { make in
+            make.bottom.equalTo(safeAreaLayoutGuide)
+            make.horizontalEdges.equalToSuperview()
+            make.height.equalTo(0.7)
         }
     }
 }

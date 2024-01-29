@@ -13,27 +13,28 @@ class StudentTableViewCell: UITableViewCell {
     let backView = {
         let view = UIView()
         view.layer.cornerRadius = 10
-        view.layer.borderColor = UIColor.signatureColor.cgColor
+        view.layer.borderColor = UIColor.pkBlue.cgColor
         view.layer.borderWidth = 1
         return view
     }()
     
     let nameLabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 15)
-        view.textColor = .black
+        view.font = .customFont(ofSize: 15)
+        view.textColor = .bdBlack
         view.textAlignment = .left
         return view
     }()
     
-    let callButton = {
-        let view = UIButton()
-        view.setImage(UIImage(systemName: "phone.circle.fill"), for: .normal)
-        view.tintColor = .signatureColor
+    let editButton = {
+        let view = UIImageView()
+        view.image = .edit
+        view.contentMode = .scaleAspectFit
         return view
     }()
     
     func setting() {
+        backgroundColor = .clear
         setConfigure()
         setConstraint()
     }
@@ -41,7 +42,7 @@ class StudentTableViewCell: UITableViewCell {
     func setConfigure() {
         contentView.addSubview(backView)
         contentView.addSubview(nameLabel)
-        contentView.addSubview(callButton)
+        contentView.addSubview(editButton)
     }
     
     func setConstraint() {
@@ -54,12 +55,12 @@ class StudentTableViewCell: UITableViewCell {
         
         nameLabel.snp.makeConstraints { make in
             make.verticalEdges.left.equalTo(backView).inset(8)
-            make.right.equalTo(callButton.snp.left).offset(14)
+            make.right.equalTo(editButton.snp.left).offset(14)
         }
         
-        callButton.snp.makeConstraints { make in
+        editButton.snp.makeConstraints { make in
             make.verticalEdges.right.equalTo(backView).inset(8)
-            make.size.equalTo(35)
+            make.size.equalTo(25)
         }
     }
 }

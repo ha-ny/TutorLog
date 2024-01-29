@@ -16,6 +16,7 @@
 		3F1343672AD29A51001FE7EA /* EditStudentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343662AD29A51001FE7EA /* EditStudentView.swift */; };
 		3F13436A2AD29C2B001FE7EA /* EditClassView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343692AD29C2B001FE7EA /* EditClassView.swift */; };
 		3F1343772AD6C30C001FE7EA /* EditStudentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F1343762AD6C30C001FE7EA /* EditStudentViewController.swift */; };
+		3F21E5212B60F3000060F8E8 /* CalendarDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F21E5202B60F3000060F8E8 /* CalendarDetailViewController.swift */; };
 		3F4F175E2AD9749D00F04DF1 /* StudentListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F175D2AD9749D00F04DF1 /* StudentListViewController.swift */; };
 		3F4F17622AE1792800F04DF1 /* EditStudentViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17612AE1792800F04DF1 /* EditStudentViewModel.swift */; };
 		3F4F17642AE1807F00F04DF1 /* Observable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F4F17632AE1807F00F04DF1 /* Observable.swift */; };
@@ -34,11 +35,17 @@
 		3F8E48312B08E94D0083B49C /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8E482A2B08E94D0083B49C /* UIViewController+Extension.swift */; };
 		3F8E48322B08E94D0083B49C /* UIAlertController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8E482B2B08E94D0083B49C /* UIAlertController+Extension.swift */; };
 		3F8E48332B08E94D0083B49C /* String+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8E482C2B08E94D0083B49C /* String+Extension.swift */; };
-		3F8E48342B08E94D0083B49C /* UIColor+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8E482D2B08E94D0083B49C /* UIColor+Extension.swift */; };
+		3F8E48342B08E94D0083B49C /* Component.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8E482D2B08E94D0083B49C /* Component.swift */; };
 		3F8E48352B08E94D0083B49C /* UIButton+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8E482E2B08E94D0083B49C /* UIButton+Extension.swift */; };
 		3F8E48362B08E94D0083B49C /* Date+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8E482F2B08E94D0083B49C /* Date+Extension.swift */; };
 		3F8E48372B08E94D0083B49C /* UITextField+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8E48302B08E94D0083B49C /* UITextField+Extension.swift */; };
 		3F8E48392B08EA290083B49C /* NotificaationName+Extention.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F8E48382B08EA290083B49C /* NotificaationName+Extention.swift */; };
+		3F9928E62B616A0E00F3DF59 /* CalendarDetailVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9928E52B616A0E00F3DF59 /* CalendarDetailVIew.swift */; };
+		3F9928E82B616B5000F3DF59 /* CalendarDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9928E72B616B5000F3DF59 /* CalendarDetailViewModel.swift */; };
+		3F9928EC2B6172C800F3DF59 /* Pretendard-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F9928EA2B6172C800F3DF59 /* Pretendard-Medium.ttf */; };
+		3F9928ED2B6172C800F3DF59 /* Pretendard-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3F9928EB2B6172C800F3DF59 /* Pretendard-Bold.ttf */; };
+		3F9928EF2B61795100F3DF59 /* TextFieldView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9928EE2B61795100F3DF59 /* TextFieldView.swift */; };
+		3F9928F12B617C9100F3DF59 /* TextButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9928F02B617C9100F3DF59 /* TextButtonView.swift */; };
 		3F99FE2F2B08FB4400955171 /* AppVersionCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F99FE2E2B08FB4400955171 /* AppVersionCheck.swift */; };
 		3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */; };
 		3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB3E2AC46D4700BFCD46 /* SceneDelegate.swift */; };
@@ -50,8 +57,6 @@
 		3FB8DB612AC47A6500BFCD46 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB602AC47A6500BFCD46 /* CalendarViewController.swift */; };
 		3FB8DB632AC47A8500BFCD46 /* CalendarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB622AC47A8500BFCD46 /* CalendarView.swift */; };
 		3FB8DB672AC47B0400BFCD46 /* FSCalendar in Frameworks */ = {isa = PBXBuildFile; productRef = 3FB8DB662AC47B0400BFCD46 /* FSCalendar */; };
-		3FB8DB692AC5F70D00BFCD46 /* CalendarSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB682AC5F70D00BFCD46 /* CalendarSearchViewController.swift */; };
-		3FB8DB6B2AC5F71E00BFCD46 /* CalendarSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB6A2AC5F71E00BFCD46 /* CalendarSearchView.swift */; };
 		3FB8DB6E2AC764B700BFCD46 /* StudentManagementViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB6D2AC764B700BFCD46 /* StudentManagementViewController.swift */; };
 		3FB8DB702AC764C100BFCD46 /* StudentManagementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB6F2AC764C100BFCD46 /* StudentManagementView.swift */; };
 		3FB8DB782AC76CD100BFCD46 /* EditClassViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FB8DB772AC76CD100BFCD46 /* EditClassViewController.swift */; };
@@ -64,6 +69,7 @@
 		3FEADDB92AEB98D900FB6254 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3FEADDBB2AEB98D900FB6254 /* InfoPlist.strings */; };
 		3FEADDC12AEECA9A00FB6254 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 3FEADDC02AEECA9A00FB6254 /* SnapKit */; };
 		3FEADDCF2AF2A36A00FB6254 /* CalendarTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3FEADDCD2AF2A36A00FB6254 /* CalendarTableViewCell.swift */; };
+		3FED64302B67E07600998089 /* Pretendard-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FED642F2B67E07600998089 /* Pretendard-SemiBold.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -74,6 +80,7 @@
 		3F1343662AD29A51001FE7EA /* EditStudentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStudentView.swift; sourceTree = "<group>"; };
 		3F1343692AD29C2B001FE7EA /* EditClassView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClassView.swift; sourceTree = "<group>"; };
 		3F1343762AD6C30C001FE7EA /* EditStudentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStudentViewController.swift; sourceTree = "<group>"; };
+		3F21E5202B60F3000060F8E8 /* CalendarDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailViewController.swift; sourceTree = "<group>"; };
 		3F4F175D2AD9749D00F04DF1 /* StudentListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentListViewController.swift; sourceTree = "<group>"; };
 		3F4F17612AE1792800F04DF1 /* EditStudentViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditStudentViewModel.swift; sourceTree = "<group>"; };
 		3F4F17632AE1807F00F04DF1 /* Observable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Observable.swift; sourceTree = "<group>"; };
@@ -92,11 +99,17 @@
 		3F8E482A2B08E94D0083B49C /* UIViewController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		3F8E482B2B08E94D0083B49C /* UIAlertController+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIAlertController+Extension.swift"; sourceTree = "<group>"; };
 		3F8E482C2B08E94D0083B49C /* String+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Extension.swift"; sourceTree = "<group>"; };
-		3F8E482D2B08E94D0083B49C /* UIColor+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+Extension.swift"; sourceTree = "<group>"; };
+		3F8E482D2B08E94D0083B49C /* Component.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Component.swift; sourceTree = "<group>"; };
 		3F8E482E2B08E94D0083B49C /* UIButton+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIButton+Extension.swift"; sourceTree = "<group>"; };
 		3F8E482F2B08E94D0083B49C /* Date+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Date+Extension.swift"; sourceTree = "<group>"; };
 		3F8E48302B08E94D0083B49C /* UITextField+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Extension.swift"; sourceTree = "<group>"; };
 		3F8E48382B08EA290083B49C /* NotificaationName+Extention.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificaationName+Extention.swift"; sourceTree = "<group>"; };
+		3F9928E52B616A0E00F3DF59 /* CalendarDetailVIew.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailVIew.swift; sourceTree = "<group>"; };
+		3F9928E72B616B5000F3DF59 /* CalendarDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarDetailViewModel.swift; sourceTree = "<group>"; };
+		3F9928EA2B6172C800F3DF59 /* Pretendard-Medium.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Medium.ttf"; sourceTree = "<group>"; };
+		3F9928EB2B6172C800F3DF59 /* Pretendard-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-Bold.ttf"; sourceTree = "<group>"; };
+		3F9928EE2B61795100F3DF59 /* TextFieldView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldView.swift; sourceTree = "<group>"; };
+		3F9928F02B617C9100F3DF59 /* TextButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextButtonView.swift; sourceTree = "<group>"; };
 		3F99FE2E2B08FB4400955171 /* AppVersionCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppVersionCheck.swift; sourceTree = "<group>"; };
 		3FB8DB392AC46D4700BFCD46 /* TutoringSchedule.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TutoringSchedule.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3FB8DB3C2AC46D4700BFCD46 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -110,8 +123,6 @@
 		3FB8DB5D2AC475B400BFCD46 /* BaseView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseView.swift; sourceTree = "<group>"; };
 		3FB8DB602AC47A6500BFCD46 /* CalendarViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
 		3FB8DB622AC47A8500BFCD46 /* CalendarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarView.swift; sourceTree = "<group>"; };
-		3FB8DB682AC5F70D00BFCD46 /* CalendarSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSearchViewController.swift; sourceTree = "<group>"; };
-		3FB8DB6A2AC5F71E00BFCD46 /* CalendarSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarSearchView.swift; sourceTree = "<group>"; };
 		3FB8DB6D2AC764B700BFCD46 /* StudentManagementViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentManagementViewController.swift; sourceTree = "<group>"; };
 		3FB8DB6F2AC764C100BFCD46 /* StudentManagementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StudentManagementView.swift; sourceTree = "<group>"; };
 		3FB8DB772AC76CD100BFCD46 /* EditClassViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditClassViewController.swift; sourceTree = "<group>"; };
@@ -121,6 +132,7 @@
 		3FEADDBA2AEB98D900FB6254 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3FEADDBC2AEB98DC00FB6254 /* ko */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ko; path = ko.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3FEADDCD2AF2A36A00FB6254 /* CalendarTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalendarTableViewCell.swift; sourceTree = "<group>"; };
+		3FED642F2B67E07600998089 /* Pretendard-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Pretendard-SemiBold.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,7 +188,6 @@
 				3F8E482C2B08E94D0083B49C /* String+Extension.swift */,
 				3F8E482B2B08E94D0083B49C /* UIAlertController+Extension.swift */,
 				3F8E482E2B08E94D0083B49C /* UIButton+Extension.swift */,
-				3F8E482D2B08E94D0083B49C /* UIColor+Extension.swift */,
 				3F8E48302B08E94D0083B49C /* UITextField+Extension.swift */,
 				3F8E482A2B08E94D0083B49C /* UIViewController+Extension.swift */,
 				3F8E48382B08EA290083B49C /* NotificaationName+Extention.swift */,
@@ -224,6 +235,7 @@
 				3F4F17632AE1807F00F04DF1 /* Observable.swift */,
 				3F99FE2E2B08FB4400955171 /* AppVersionCheck.swift */,
 				3FBF0A972B092D3C00C3D620 /* CustomToast.swift */,
+				3F9928F32B617CC500F3DF59 /* Design */,
 				3F1343622ACFD0AB001FE7EA /* Realm */,
 				3F4F17842AE5996B00F04DF1 /* Model */,
 				3F13436C2AD2A7F8001FE7EA /* Extension */,
@@ -240,14 +252,6 @@
 			path = Model;
 			sourceTree = "<group>";
 		};
-		3F4F17892AE59A8600F04DF1 /* Temp */ = {
-			isa = PBXGroup;
-			children = (
-				3FB8DB6C2AC5F72500BFCD46 /* CalendarSearch */,
-			);
-			path = Temp;
-			sourceTree = "<group>";
-		};
 		3F4F178C2AE5A9C600F04DF1 /* Error */ = {
 			isa = PBXGroup;
 			children = (
@@ -255,6 +259,37 @@
 				3F4F178F2AE5B40100F04DF1 /* AlertMessageType.swift */,
 			);
 			path = Error;
+			sourceTree = "<group>";
+		};
+		3F9928E42B6169F100F3DF59 /* Detail */ = {
+			isa = PBXGroup;
+			children = (
+				3F9928E52B616A0E00F3DF59 /* CalendarDetailVIew.swift */,
+				3FEADDCD2AF2A36A00FB6254 /* CalendarTableViewCell.swift */,
+				3F21E5202B60F3000060F8E8 /* CalendarDetailViewController.swift */,
+				3F9928E72B616B5000F3DF59 /* CalendarDetailViewModel.swift */,
+			);
+			path = Detail;
+			sourceTree = "<group>";
+		};
+		3F9928E92B6172B600F3DF59 /* Font */ = {
+			isa = PBXGroup;
+			children = (
+				3F9928EA2B6172C800F3DF59 /* Pretendard-Medium.ttf */,
+				3FED642F2B67E07600998089 /* Pretendard-SemiBold.ttf */,
+				3F9928EB2B6172C800F3DF59 /* Pretendard-Bold.ttf */,
+			);
+			path = Font;
+			sourceTree = "<group>";
+		};
+		3F9928F32B617CC500F3DF59 /* Design */ = {
+			isa = PBXGroup;
+			children = (
+				3F8E482D2B08E94D0083B49C /* Component.swift */,
+				3F9928EE2B61795100F3DF59 /* TextFieldView.swift */,
+				3F9928F02B617C9100F3DF59 /* TextButtonView.swift */,
+			);
+			path = Design;
 			sourceTree = "<group>";
 		};
 		3FB8DB302AC46D4700BFCD46 = {
@@ -283,10 +318,10 @@
 				3FB8DB712AC764C700BFCD46 /* StudentManagement */,
 				3F13435D2ACFA86C001FE7EA /* ClassManagement */,
 				3FB8DB5F2AC4793C00BFCD46 /* Delegate */,
-				3F4F17892AE59A8600F04DF1 /* Temp */,
 				3FB8DB542AC4712900BFCD46 /* Localizable.strings */,
 				3FEADDBB2AEB98D900FB6254 /* InfoPlist.strings */,
 				3F1343532ACCF7EF001FE7EA /* GoogleService-Info.plist */,
+				3F9928E92B6172B600F3DF59 /* Font */,
 				3FB8DB4A2AC46D4800BFCD46 /* Info.plist */,
 				3FB8DB452AC46D4800BFCD46 /* Assets.xcassets */,
 				3FB8DB472AC46D4800BFCD46 /* LaunchScreen.storyboard */,
@@ -306,21 +341,12 @@
 		3FB8DB642AC47A8F00BFCD46 /* Calendar */ = {
 			isa = PBXGroup;
 			children = (
-				3FEADDCD2AF2A36A00FB6254 /* CalendarTableViewCell.swift */,
 				3FB8DB622AC47A8500BFCD46 /* CalendarView.swift */,
 				3FB8DB602AC47A6500BFCD46 /* CalendarViewController.swift */,
 				3F4F17752AE2EEA300F04DF1 /* CalendarViewModel.swift */,
+				3F9928E42B6169F100F3DF59 /* Detail */,
 			);
 			path = Calendar;
-			sourceTree = "<group>";
-		};
-		3FB8DB6C2AC5F72500BFCD46 /* CalendarSearch */ = {
-			isa = PBXGroup;
-			children = (
-				3FB8DB6A2AC5F71E00BFCD46 /* CalendarSearchView.swift */,
-				3FB8DB682AC5F70D00BFCD46 /* CalendarSearchViewController.swift */,
-			);
-			path = CalendarSearch;
 			sourceTree = "<group>";
 		};
 		3FB8DB712AC764C700BFCD46 /* StudentManagement */ = {
@@ -412,11 +438,14 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3FED64302B67E07600998089 /* Pretendard-SemiBold.ttf in Resources */,
 				3FB8DB492AC46D4800BFCD46 /* LaunchScreen.storyboard in Resources */,
 				3FEADDB92AEB98D900FB6254 /* InfoPlist.strings in Resources */,
 				3F1343542ACCF7EF001FE7EA /* GoogleService-Info.plist in Resources */,
 				3FEADDB32AE9AA6C00FB6254 /* Settings.bundle in Resources */,
 				3FB8DB522AC4712900BFCD46 /* Localizable.strings in Resources */,
+				3F9928EC2B6172C800F3DF59 /* Pretendard-Medium.ttf in Resources */,
+				3F9928ED2B6172C800F3DF59 /* Pretendard-Bold.ttf in Resources */,
 				3FB8DB462AC46D4800BFCD46 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -456,26 +485,29 @@
 				3FB8DB612AC47A6500BFCD46 /* CalendarViewController.swift in Sources */,
 				3F8E48322B08E94D0083B49C /* UIAlertController+Extension.swift in Sources */,
 				3F99FE2F2B08FB4400955171 /* AppVersionCheck.swift in Sources */,
+				3F9928EF2B61795100F3DF59 /* TextFieldView.swift in Sources */,
 				3F4F17862AE5998D00F04DF1 /* EditType.swift in Sources */,
 				3F8E48362B08E94D0083B49C /* Date+Extension.swift in Sources */,
 				3F4F176B2AE2DFCB00F04DF1 /* ClassTable.swift in Sources */,
 				3FB8DB632AC47A8500BFCD46 /* CalendarView.swift in Sources */,
 				3F1343672AD29A51001FE7EA /* EditStudentView.swift in Sources */,
 				3F1343612ACFA889001FE7EA /* ClassManagementView.swift in Sources */,
+				3F9928E82B616B5000F3DF59 /* CalendarDetailViewModel.swift in Sources */,
 				3FBF0A982B092D3C00C3D620 /* CustomToast.swift in Sources */,
 				3FB8DB412AC46D4700BFCD46 /* TabBarViewController.swift in Sources */,
 				3FB8DB782AC76CD100BFCD46 /* EditClassViewController.swift in Sources */,
 				3F8577DF2AF60F01004B988E /* StudentTableViewCell.swift in Sources */,
 				3F13435F2ACFA87D001FE7EA /* ClassManagementViewController.swift in Sources */,
 				3FB8DB6E2AC764B700BFCD46 /* StudentManagementViewController.swift in Sources */,
-				3F8E48342B08E94D0083B49C /* UIColor+Extension.swift in Sources */,
+				3F9928E62B616A0E00F3DF59 /* CalendarDetailVIew.swift in Sources */,
+				3F8E48342B08E94D0083B49C /* Component.swift in Sources */,
 				3F8E48312B08E94D0083B49C /* UIViewController+Extension.swift in Sources */,
 				3F13436A2AD29C2B001FE7EA /* EditClassView.swift in Sources */,
 				3FB8DB3D2AC46D4700BFCD46 /* AppDelegate.swift in Sources */,
+				3F9928F12B617C9100F3DF59 /* TextButtonView.swift in Sources */,
 				3F4F178B2AE59CF200F04DF1 /* RealmErrorType.swift in Sources */,
 				3F4F17642AE1807F00F04DF1 /* Observable.swift in Sources */,
 				3FEADDCF2AF2A36A00FB6254 /* CalendarTableViewCell.swift in Sources */,
-				3FB8DB692AC5F70D00BFCD46 /* CalendarSearchViewController.swift in Sources */,
 				3FB8DB5E2AC475B400BFCD46 /* BaseView.swift in Sources */,
 				3F8E48392B08EA290083B49C /* NotificaationName+Extention.swift in Sources */,
 				3FB8DB702AC764C100BFCD46 /* StudentManagementView.swift in Sources */,
@@ -486,13 +518,13 @@
 				3F4F175E2AD9749D00F04DF1 /* StudentListViewController.swift in Sources */,
 				3FB8DB3F2AC46D4700BFCD46 /* SceneDelegate.swift in Sources */,
 				3F1343772AD6C30C001FE7EA /* EditStudentViewController.swift in Sources */,
-				3FB8DB6B2AC5F71E00BFCD46 /* CalendarSearchView.swift in Sources */,
 				3F4F17732AE2E4AE00F04DF1 /* EditClassViewModel.swift in Sources */,
 				3F4F17762AE2EEA300F04DF1 /* CalendarViewModel.swift in Sources */,
 				3F1343322ACC2B4F001FE7EA /* DatePickHalfView.swift in Sources */,
 				3F4F17692AE2DF8100F04DF1 /* StudentTable.swift in Sources */,
 				3F4F17902AE5B40100F04DF1 /* AlertMessageType.swift in Sources */,
 				3F8E48352B08E94D0083B49C /* UIButton+Extension.swift in Sources */,
+				3F21E5212B60F3000060F8E8 /* CalendarDetailViewController.swift in Sources */,
 				3F4F17622AE1792800F04DF1 /* EditStudentViewModel.swift in Sources */,
 				3F4F17712AE2E0C800F04DF1 /* ClassManagementViewModel.swift in Sources */,
 				3F4F17662AE2AAAB00F04DF1 /* StudentManagementViewModel.swift in Sources */,
@@ -653,6 +685,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -672,6 +705,7 @@
 				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HaEun.TutoringSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -686,6 +720,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = NFCS5T44FS;
@@ -704,6 +739,7 @@
 				MARKETING_VERSION = 1.1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.HaEun.TutoringSchedule;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = NO;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -723,7 +759,7 @@
 				3FB8DB4C2AC46D4800BFCD46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		3FB8DB4D2AC46D4800BFCD46 /* Build configuration list for PBXNativeTarget "TutoringSchedule" */ = {
 			isa = XCConfigurationList;
@@ -732,7 +768,7 @@
 				3FB8DB4F2AC46D4800BFCD46 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

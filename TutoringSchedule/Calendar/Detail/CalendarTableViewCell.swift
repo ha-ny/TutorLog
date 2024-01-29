@@ -13,78 +13,86 @@ class CalendarTableViewCell: UITableViewCell {
     let backView = {
        let view = UIView()
         view.layer.cornerRadius = 10
-        view.layer.borderColor = UIColor.signatureColor.cgColor
+        view.layer.borderColor = UIColor.pkBlue.cgColor
         view.layer.borderWidth = 1
         return view
     }()
     
     let timeLabel = {
        let view = UILabel()
-        view.font = .systemFont(ofSize: 15)
-        view.textColor = .black
+        view.font = .customFont(sytle: .bold, ofSize: 17)
+        view.textColor = .bdBlack
         view.textAlignment = .left
         return view
     }()
     
     let classNameLabel = {
        let view = UILabel()
-        view.font = .boldSystemFont(ofSize: 16)
-        view.textColor = .black
+        view.font = .customFont(sytle: .bold, ofSize: 15)
+        view.textColor = .bdBlack
         view.textAlignment = .right
         return view
     }()
     
     let tutoringPlaceLabel = {
        let view = UILabel()
-        view.font = .systemFont(ofSize: 12)
+        view.font = .customFont(ofSize: 14)
         view.textColor = .darkGray
         view.textAlignment = .right
         return view
     }()
 
-    func setting() {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        backgroundColor = .clear
+
         setConfigure()
         setConstraint()
     }
     
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     func setConfigure() {
         contentView.addSubview(backView)
-        contentView.addSubview(timeLabel)
-        contentView.addSubview(classNameLabel)
-        contentView.addSubview(tutoringPlaceLabel)
+        backView.addSubview(timeLabel)
+        backView.addSubview(classNameLabel)
+        backView.addSubview(tutoringPlaceLabel)
     }
     
     func centerYClassNameLabel() {
         classNameLabel.snp.remakeConstraints { make in
-            make.right.equalTo(backView).inset(12)
-            make.centerY.equalTo(backView)
+            make.right.equalToSuperview().inset(16)
+            make.centerY.equalToSuperview()
         }
     }
 
     func setConstraint() {
         backView.snp.makeConstraints { make in
-            make.top.equalTo(contentView).inset(12)
-            make.horizontalEdges.equalTo(contentView).inset(4)
-            make.bottom.equalTo(contentView).inset(1)
-            make.height.equalTo(55)
+            make.top.equalToSuperview().inset(12)
+            make.horizontalEdges.equalToSuperview().inset(4)
+            make.bottom.equalToSuperview().inset(1)
+            make.height.equalTo(62)
         }
         
         timeLabel.snp.makeConstraints { make in
-            make.top.left.bottom.equalTo(backView).inset(12)
-            make.width.equalTo(100)
+            make.leading.equalToSuperview().inset(16)
+            make.centerY.equalToSuperview()
+            make.width.equalTo(120)
         }
         
         classNameLabel.snp.remakeConstraints { make in
             make.top.equalTo(timeLabel.snp.top)
-            make.right.equalTo(backView).inset(12)
+            make.right.equalToSuperview().inset(16)
             make.left.equalTo(timeLabel.snp.right).offset(12)
         }
         
         tutoringPlaceLabel.snp.makeConstraints { make in
             make.top.equalTo(classNameLabel.snp.bottom).offset(4)
             make.trailing.equalTo(classNameLabel)
-            make.bottom.equalTo(backView).inset(8)
-            make.left.equalTo(timeLabel.snp.right).offset(12)
+            make.bottom.equalToSuperview().inset(8)
+            make.left.equalTo(timeLabel.snp.right).offset(16)
         }
     }
 }

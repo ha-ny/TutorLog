@@ -29,7 +29,6 @@ class StudentListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
 
         let addItem = UIBarButtonItem(title: "addButtonTapped".localized, style: .plain, target: self, action: #selector(addButtonTapped))
         addItem.tintColor = .darkGray
@@ -42,6 +41,7 @@ class StudentListViewController: UIViewController {
         mainView.searchBar.delegate = self
         mainView.tableView.delegate = self
         mainView.tableView.dataSource = self
+        mainView.addButton.isHidden = true
         
         bind()
         
@@ -93,6 +93,7 @@ extension StudentListViewController: UITableViewDelegate, UITableViewDataSource 
         guard let data else { return UITableViewCell() }
         
         let cell = UITableViewCell()
+        cell.backgroundColor = .clear
         cell.textLabel?.text = data[indexPath.row].name
         
         if let _ = isStudentPK(data: data[indexPath.row]) {

@@ -42,30 +42,35 @@ class EditStudentViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         navigationItem.title = "studentEditViewTitle".localized
 
-        let saveItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(saveButtonTapped))
-        saveItem.width = 100
-        saveItem.tintColor = .signatureColor
-        navigationItem.rightBarButtonItem = saveItem
-
+        mainView.saveButton.button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+        
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView))
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
         
-        mainView.memoTextField.addTarget(self, action: #selector(didTapView), for: .editingDidEndOnExit)
+        mainView.addressTextField.textField.addTarget(self, action: #selector(didTapView), for: .editingDidEndOnExit)
 
-        mainView.nameTextField.delegate = self
-        mainView.studentPhoneNumTextField.delegate = self
-        mainView.parentPhoneNumTextField.delegate = self
-        mainView.addressTextField.delegate = self
-        mainView.memoTextField.delegate = self
+        mainView.nameTextField.textField.delegate = self
+        mainView.studentPhoneNumTextField.textField.delegate = self
+        mainView.parentPhoneNumTextField.textField.delegate = self
+        mainView.addressTextField.textField.delegate = self
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        mainView.nameTextField.becomeFirstResponder()
+        mainView.nameTextField.textField.becomeFirstResponder()
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
     }
 
     @objc private func didTapView() {
@@ -73,11 +78,10 @@ class EditStudentViewController: UIViewController {
     }
     
     private func dataSetting(_ data: StudentTable) {
-        mainView.nameTextField.text = data.name
-        mainView.studentPhoneNumTextField.text = data.studentPhoneNum
-        mainView.parentPhoneNumTextField.text = data.parentPhoneNum
-        mainView.addressTextField.text = data.address
-        mainView.memoTextField.text = data.memo
+        mainView.nameTextField.textField.text = data.name
+        mainView.studentPhoneNumTextField.textField.text = data.studentPhoneNum
+        mainView.parentPhoneNumTextField.textField.text = data.parentPhoneNum
+        mainView.addressTextField.textField.text = data.address
     }
 
     @objc private func backButtonTapped() {
@@ -85,15 +89,13 @@ class EditStudentViewController: UIViewController {
     }
     
     @objc private func saveButtonTapped() {
-        let name = (mainView.nameTextField.text ?? "").trimmingCharacters(in: .whitespaces)
-        let studentPhoneNum = (mainView.studentPhoneNumTextField.text ?? "").trimmingCharacters(in: .whitespaces)
-        let parentPhoneNum = (mainView.parentPhoneNumTextField.text ?? "").trimmingCharacters(in: .whitespaces)
-        let address = (mainView.addressTextField.text ?? "").trimmingCharacters(in: .whitespaces)
-        let memo = (mainView.memoTextField.text ?? "").trimmingCharacters(in: .whitespaces)
-        
-        
+        let name = (mainView.nameTextField.textField.text ?? "").trimmingCharacters(in: .whitespaces)
+        let studentPhoneNum = (mainView.studentPhoneNumTextField.textField.text ?? "").trimmingCharacters(in: .whitespaces)
+        let parentPhoneNum = (mainView.parentPhoneNumTextField.textField.text ?? "").trimmingCharacters(in: .whitespaces)
+        let address = (mainView.addressTextField.textField.text ?? "").trimmingCharacters(in: .whitespaces)
+
         guard !name.isEmpty else {
-            mainView.nameTextField.text = nil
+            mainView.nameTextField.textField.text = nil
             mainView.nameTextField.becomeFirstResponder()
             let description = AlertMessageType.missingName.description
             view.makeToast(description.message, duration: 1.5, position: .top, style: CustomToast.setting())
@@ -125,7 +127,7 @@ class EditStudentViewController: UIViewController {
             }
         }
                 
-        let newData = StudentTable(name: name, studentPhoneNum: studentPhoneNum, parentPhoneNum: parentPhoneNum, address: address, memo: memo)
+        let newData = StudentTable(name: name, studentPhoneNum: studentPhoneNum, parentPhoneNum: parentPhoneNum, address: address)
         
         errorHandling {
             try viewModel.saveData(newData: newData)

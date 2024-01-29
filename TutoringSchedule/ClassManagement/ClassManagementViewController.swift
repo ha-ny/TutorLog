@@ -21,17 +21,14 @@ class ClassManagementViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         navigationItem.title = "scheduleTabTitle".localized
         
-        let backItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: nil)
-        backItem.tintColor = .signatureColor
-        navigationItem.backBarButtonItem = backItem
+        let backButtonImage = UIImage.left.withRenderingMode(.alwaysOriginal)
+        navigationController?.navigationBar.backIndicatorImage = backButtonImage
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButtonImage
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         
-        let addItem = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(addButtonTapped))
-        addItem.width = 100
-        addItem.tintColor = .signatureColor
-        navigationItem.rightBarButtonItem = addItem
+        mainView.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
                 
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView))
         tapGestureRecognizer.cancelsTouchesInView = false
@@ -101,7 +98,10 @@ extension ClassManagementViewController: UITableViewDelegate, UITableViewDataSou
         guard let data else { return UITableViewCell() }
         
         let cell = UITableViewCell()
+        cell.backgroundColor = .clear
         cell.textLabel?.text = data[indexPath.row].className
+        cell.textLabel?.font = .systemFont(ofSize: 16)
+        cell.textLabel?.textColor = .bdBlack
         cell.selectionStyle = .none
         cell.accessoryType = .disclosureIndicator
         return cell

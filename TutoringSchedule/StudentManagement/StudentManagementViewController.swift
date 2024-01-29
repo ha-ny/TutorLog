@@ -21,21 +21,18 @@ class StudentManagementViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         navigationItem.title = "studentTabTitle".localized
         
         let imageView = UIImageView()
         imageView.image = UIImage(named: "addButton")
         imageView.contentMode = .scaleAspectFit
         
-        let backItem = UIBarButtonItem(title: nil, style: .plain, target: self, action: nil)
-        backItem.tintColor = .signatureColor
-        navigationItem.backBarButtonItem = backItem
-        
-        let addItem = UIBarButtonItem(image: UIImage(systemName: "square.and.pencil"), style: .plain, target: self, action: #selector(addButtonTapped))
-        addItem.width = 100
-        addItem.tintColor = .signatureColor
-        navigationItem.rightBarButtonItem = addItem
+        let backButtonImage = UIImage.left.withRenderingMode(.alwaysOriginal)
+        navigationController?.navigationBar.backIndicatorImage = backButtonImage
+        navigationController?.navigationBar.backIndicatorTransitionMaskImage = backButtonImage
+        navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
+
+        mainView.addButton.addTarget(self, action: #selector(addButtonTapped), for: .touchUpInside)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView))
         tapGestureRecognizer.cancelsTouchesInView = false
@@ -101,8 +98,12 @@ extension StudentManagementViewController: UITableViewDelegate, UITableViewDataS
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let data else { return UITableViewCell() }
         let cell = UITableViewCell()
+        cell.backgroundColor = .clear
         cell.textLabel?.text = data[indexPath.row].name
+        cell.textLabel?.font = .systemFont(ofSize: 16)
+        cell.textLabel?.textColor = .bdBlack
         cell.selectionStyle = .none
+        cell.accessoryType = .disclosureIndicator
         return cell
     }
 
@@ -110,7 +111,7 @@ extension StudentManagementViewController: UITableViewDelegate, UITableViewDataS
         guard let data else { return }
         let indexData = data[indexPath.row]
         
-        let newData = StudentTable(name: indexData.name, studentPhoneNum: indexData.studentPhoneNum, parentPhoneNum: indexData.parentPhoneNum, address: indexData.address, memo: indexData.memo)
+        let newData = StudentTable(name: indexData.name, studentPhoneNum: indexData.studentPhoneNum, parentPhoneNum: indexData.parentPhoneNum, address: indexData.address)
         newData._id = indexData._id
         newData.ishidden = true
         

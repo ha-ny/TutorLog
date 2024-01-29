@@ -57,16 +57,17 @@ class EditClassViewController: UIViewController {
         self.view = mainView
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.tabBar.isHidden = true
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = .white
         navigationItem.title = "scheduleEditViewTitle".localized
         
-        let addItem = UIBarButtonItem(image: UIImage(systemName: "checkmark"), style: .plain, target: self, action: #selector(saveButtonTapped))
-        addItem.width = 100
-        addItem.tintColor = .signatureColor
-        navigationItem.rightBarButtonItem = addItem
-        
+        mainView.saveButton.button.addTarget(self, action: #selector(saveButtonTapped), for: .touchUpInside)
+
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(didTapView))
         tapGestureRecognizer.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGestureRecognizer)
@@ -76,24 +77,29 @@ class EditClassViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        mainView.classNameTextField.becomeFirstResponder()
+        mainView.classNameTextField.textField.becomeFirstResponder()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        tabBarController?.tabBar.isHidden = false
     }
     
     private func setConfigure() {
-        mainView.tutoringPlaceTextField.addTarget(self, action: #selector(didTapView), for: .editingDidEndOnExit)
+        mainView.tutoringPlaceTextField.textField.addTarget(self, action: #selector(didTapView), for: .editingDidEndOnExit)
         mainView.studentButton.addTarget(self, action: #selector(studentDataButton), for: .touchUpInside)
-        mainView.startDatePicker.addTarget(self, action: #selector(startDateChange), for: .valueChanged)
-        mainView.endDatePicker.addTarget(self, action: #selector(endDateChange), for: .valueChanged)
+        mainView.startDateButton.addTarget(self, action: #selector(startDateButtonTap), for: .touchUpInside)
+        mainView.endDateButton.addTarget(self, action: #selector(endDateButtonTap), for: .touchUpInside)
         
         [mainView.sunButton, mainView.monButton, mainView.tueButton, mainView.wedButton, mainView.thuButton, mainView.friButton, mainView.satButton] .forEach {
             $0.addTarget(self, action: #selector(dayButtonTapped), for: .touchUpInside)
         }
         
-        [mainView.classNameTextField, mainView.tutoringPlaceTextField, mainView.startDateTextField, mainView.endDateTextField] .forEach {
+        [mainView.classNameTextField.textField, mainView.tutoringPlaceTextField.textField] .forEach {
             $0.delegate = self
         }
     }
-    
+
     @objc private func studentDataButton() {
         let vc = StudentListViewController()
         vc.delegate = self
@@ -102,7 +108,6 @@ class EditClassViewController: UIViewController {
         let nav = UINavigationController(rootViewController: vc)
         if let sheet = nav.sheetPresentationController {
             sheet.detents = [.medium(), .large()]
-            sheet.prefersGrabberVisible = true
         }
         
         present(nav, animated: true)
@@ -136,15 +141,13 @@ class EditClassViewController: UIViewController {
     }
     
     private func dataSetting(_ data: ClassTable) {
-        mainView.classNameTextField.text = data.className
-        mainView.tutoringPlaceTextField.text = data.tutoringPlace
-        mainView.startDatePicker.date = data.startDate
-        mainView.endDatePicker.date = data.endDate
-        
+        mainView.classNameTextField.textField.text = data.className
+        mainView.tutoringPlaceTextField.textField.text = data.tutoringPlace
+
         let startDate = Date.convertToString(format: "fullDateFormat".localized, date: data.startDate)
         let endDate = Date.convertToString(format: "fullDateFormat".localized, date: data.endDate)
-        mainView.startDateTextField.text = startDate
-        mainView.endDateTextField.text = endDate
+        mainView.startDateButton.setTitle(startDate, for: .normal)
+        mainView.endDateButton.setTitle(endDate, for: .normal)
 
         studentArray = Array(data.studentPK)
         setStudent()
@@ -154,32 +157,66 @@ class EditClassViewController: UIViewController {
         }
     }
     
-    @objc private func startDateChange(_ sender: UIDatePicker) {
-        mainView.startDateTextField.text = Date.convertToString(format: "fullDateFormat".localized, date: sender.date)
-        mainView.endDatePicker.date = sender.date
-        mainView.endDateTextField.text = mainView.startDateTextField.text
-        view.endEditing(true)
+    func showDatePickerAlert(setDate: Date, completion: @escaping (Date) -> ()) {
+        let alert = UIAlertController(title: "\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n", message: nil, preferredStyle: .actionSheet)
+        
+        let datePicker: UIDatePicker = UIDatePicker()
+        datePicker.datePickerMode = .date
+        datePicker.preferredDatePickerStyle = .inline
+        datePicker.locale = Locale.current
+        datePicker.setDate(setDate, animated: true)
+        alert.view.addSubview(datePicker)
+
+        datePicker.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            datePicker.topAnchor.constraint(equalTo: alert.view.topAnchor, constant: 8),
+            datePicker.leadingAnchor.constraint(equalTo: alert.view.leadingAnchor, constant: 8),
+            datePicker.trailingAnchor.constraint(equalTo: alert.view.trailingAnchor, constant: -8),
+            datePicker.heightAnchor.constraint(equalToConstant: datePicker.fs_width)
+        ])
+        
+        let okAction = UIAlertAction(title: "alertOKButtonTitle".localized, style: .cancel) { _ in
+            completion(datePicker.date)
+        }
+
+        alert.addAction(okAction)
+        present(alert, animated: true, completion: nil)
     }
     
-    @objc private func endDateChange(_ sender: UIDatePicker) {
+    @objc private func startDateButtonTap(sender: UIButton) {
+        let startDate = Date.stringToDate(format: "fullDateFormat".localized, date: sender.titleLabel?.text ?? "") ?? Date()
         
-        guard Int(sender.date.timeIntervalSince(mainView.startDatePicker.date)) >= 0 else {
-            
-            let description = AlertMessageType.startDateAfterEndDate.description
-            UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
-            return
+        showDatePickerAlert(setDate: startDate) { [weak self] date in
+            guard let self else { return }
+            let title = Date.convertToString(format: "fullDateFormat".localized, date: date)
+            self.mainView.startDateButton.setTitle(title, for: .normal)
+            self.mainView.endDateButton.setTitle(title, for: .normal)
         }
+    }
+    
+    @objc private func endDateButtonTap(sender: UIButton) {
+        let endDate = Date.stringToDate(format: "fullDateFormat".localized, date: sender.titleLabel?.text ?? "") ?? Date()
         
-        mainView.endDateTextField.text = Date.convertToString(format: "fullDateFormat".localized, date: sender.date)
-        view.endEditing(true)
+        showDatePickerAlert(setDate: endDate) { [weak self] date in
+            guard let self else { return }
+            
+            let startDate = Date.stringToDate(format: "fullDateFormat".localized, date: mainView.startDateButton.titleLabel?.text ?? "") ?? Date()
+            if Int(date.timeIntervalSince(startDate)) >= 0 {
+                let title = Date.convertToString(format: "fullDateFormat".localized, date: date)
+                self.mainView.endDateButton.setTitle(title, for: .normal)
+            } else {
+                let description = AlertMessageType.startDateAfterEndDate.description
+                UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
+            }
+        }
     }
     
     @objc private func saveButtonTapped() {
-        let className = (mainView.classNameTextField.text ?? "").trimmingCharacters(in: .whitespaces)
-        let tutoringPlace = (mainView.tutoringPlaceTextField.text ?? "").trimmingCharacters(in: .whitespaces)
+        let className = (mainView.classNameTextField.textField.text ?? "").trimmingCharacters(in: .whitespaces)
+        let tutoringPlace = (mainView.tutoringPlaceTextField.textField.text ?? "").trimmingCharacters(in: .whitespaces)
         
         guard !className.isEmpty else {
-            mainView.classNameTextField.text = nil
+            mainView.classNameTextField.textField.text = nil
             mainView.classNameTextField.becomeFirstResponder()
             
             let description = AlertMessageType.missingClassName.description
@@ -194,7 +231,10 @@ class EditClassViewController: UIViewController {
             return
         }
         
-        let newData = ClassTable(className: className, tutoringPlace: tutoringPlace, startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, studentPK: studentArray)
+        let startDate = Date.stringToDate(format: "fullDateFormat".localized, date: mainView.startDateButton.titleLabel?.text ?? "") ?? Date()
+        let endDate = Date.stringToDate(format: "fullDateFormat".localized, date: mainView.endDateButton.titleLabel?.text ?? "") ?? Date()
+        
+        let newData = ClassTable(className: className, tutoringPlace: tutoringPlace, startDate: startDate, endDate: endDate, studentPK: studentArray)
 
         //errorHandling
         do {
@@ -203,7 +243,7 @@ class EditClassViewController: UIViewController {
             
             for day in days {
                 
-                guard let betweenDates = getBetweenDates(startDate: mainView.startDatePicker.date, endDate: mainView.endDatePicker.date, day: day.week) else {
+                guard let betweenDates = getBetweenDates(startDate: startDate, endDate: endDate, day: day.week) else {
                     let description = AlertMessageType.dateCreationError.description
                     UIAlertController.customMessageAlert(view: self, title: description.title, message: description.message)
                     return
@@ -253,15 +293,15 @@ class EditClassViewController: UIViewController {
                 if let name = try viewModel.setStudentButton(studentID: studentArray[i]) {
                     let button = UIButton()
                     button.layer.cornerRadius = 8
-                    button.layer.borderColor = UIColor.signatureColor.cgColor
+                    button.layer.borderColor = UIColor.bdLine.cgColor
                     button.layer.borderWidth = 1
                     button.setTitle(name , for: .normal)
-                    button.titleLabel?.font = .systemFont(ofSize: 15)
-                    button.setTitleColor(UIColor.black, for: .normal)
+                    button.titleLabel?.font = .customFont(ofSize: 15)
+                    button.setTitleColor(UIColor.bdBlack, for: .normal)
                     let configuration = UIImage.SymbolConfiguration(pointSize: 10)
                     let image = UIImage(systemName: "xmark", withConfiguration: configuration)
                     button.setImage(image, for: .normal)
-                    button.tintColor = .systemGray5
+                    button.tintColor = .bdLine
                     button.semanticContentAttribute = .forceRightToLeft
                     button.sizeToFit()
                     button.frame = CGRect(x: width, y: 0, width: Int(button.frame.width) + 15, height: 35)
@@ -292,7 +332,7 @@ extension EditClassViewController: sendWeekStateDelegate{
         }
         
         days.append(weekTime(week: tapButton.tag, startTime: startTime, endTime: endTime))
-        tapButton.backgroundColor = .signatureColor
+        tapButton.backgroundColor = .bdBlue
         tapButton.setTitleColor(.white, for: .normal)
     }
     
@@ -303,8 +343,8 @@ extension EditClassViewController: sendWeekStateDelegate{
             days.remove(at: index)
         }
         
-        tapButton.backgroundColor = .white
-        tapButton.setTitleColor(.black, for: .normal)
+        tapButton.backgroundColor = .bdLine
+        tapButton.setTitleColor(.bdBlack, for: .normal)
     }
 }
 
@@ -339,7 +379,6 @@ extension EditClassViewController: UITextFieldDelegate {
     }
 
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        guard textField.tag < 1000 else { return false }// Date textField 입력 불가
         guard !string.isEmpty, var text = textField.text else { return true }
         text = text + string
         

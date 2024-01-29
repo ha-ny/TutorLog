@@ -14,16 +14,14 @@ class StudentTable: Object {
     @Persisted var studentPhoneNum: String
     @Persisted var parentPhoneNum: String
     @Persisted var address: String
-    @Persisted var memo: String
     @Persisted var ishidden: Bool = false
 
-    convenience init(name: String, studentPhoneNum: String, parentPhoneNum: String, address: String, memo: String) {
+    convenience init(name: String, studentPhoneNum: String, parentPhoneNum: String, address: String) {
         self.init()
         self.name = name
         self.studentPhoneNum = studentPhoneNum
         self.parentPhoneNum = parentPhoneNum
         self.address = address
-        self.memo = memo
         self.ishidden = ishidden
     }
 }

@@ -11,65 +11,85 @@ class EditClassView: BaseView {
 
     let lineView = {
        let view = UILabel()
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = .bdLine
         return view
     }()
 
     let classNameTextField = {
-        let view = UITextField().hoshi(title: "* \("placeOfClassName".localized)")
-        view.tag = 0
-        view.returnKeyType = .continue
+        let view = TextFieldView(title: "* \("placeOfClassName".localized)", placeholder: "placeOfClassName".localized)
+        view.textField.tag = 0
+        view.textField.returnKeyType = .next
+        
+        let labelText = "\("placeOfClassName".localized) *"
+        let attributedString = NSMutableAttributedString(string: labelText)
+
+        if let range = labelText.range(of: "*") {
+            let nsRange = NSRange(range, in: labelText)
+            attributedString.addAttribute(.foregroundColor, value: UIColor.bdRed, range: nsRange)
+        }
+        view.label.attributedText = attributedString
         return view
     }()
     
     let tutoringPlaceTextField = {
-        let view = UITextField().hoshi(title: "placeOfTutoringPlace".localized)
-        view.tag = 1
-        view.returnKeyType = .done
+        let view = TextFieldView(title: "placeOfTutoringPlace".localized, placeholder: "placeOfTutoringPlace".localized)
+        view.textField.tag = 1
+        view.textField.returnKeyType = .done
+        return view
+    }()
+
+    private let startDateLabel = {
+        let view = UILabel()
+        view.text = "placeOfStartDate".localized
+        view.font = .customFont(sytle: .bold, ofSize: 14)
+        view.textColor = .bdBlack
         return view
     }()
     
-    let startDatePicker = {
-       let view = UIDatePicker()
-        view.datePickerMode = .date
-        view.preferredDatePickerStyle = .inline
-        view.backgroundColor = .white
-        view.locale = Locale.current
+    lazy var startDateButton = {
+        let view = UIButton()
+        view.titleLabel?.font = .customFont(ofSize: 14)
+        view.layer.cornerRadius = 8
+        view.setTitle(Date.convertToString(format: "fullDateFormat".localized, date: Date()), for: .normal)
+        view.setTitleColor(.bdBlack, for: .normal)
+        view.layer.borderWidth = 0.7
+        view.layer.borderColor = UIColor.bdLine.cgColor
         return view
     }()
     
-    let endDatePicker = {
-       let view = UIDatePicker()
-        view.datePickerMode = .date
-        view.preferredDatePickerStyle = .inline
-        view.backgroundColor = .white
-        view.locale = Locale.current
+    private let endDateLabel = {
+        let view = UILabel()
+        view.text = "placeOfEndDate".localized
+        view.font = .customFont(sytle: .bold, ofSize: 14)
+        view.textColor = .bdBlack
         return view
     }()
     
-    lazy var startDateTextField = {
-        let view = UITextField().hoshi(title: "placeOfStartDate".localized)
-        view.text = Date.convertToString(format: "fullDateFormat".localized, date: Date())
-        view.tag = 1001
-        view.tintColor = .clear
-        view.inputView = startDatePicker
+    lazy var endDateButton = {
+        let view = UIButton()
+        view.titleLabel?.font = .customFont(ofSize: 14)
+        view.layer.cornerRadius = 8
+        view.setTitle(Date.convertToString(format: "fullDateFormat".localized, date: Date()), for: .normal)
+        view.setTitleColor(.bdBlack, for: .normal)
+        view.layer.borderWidth = 0.7
+        view.layer.borderColor = UIColor.bdLine.cgColor
         return view
     }()
-    
-    lazy var endDateTextField = {
-        let view = UITextField().hoshi(title: "placeOfEndDate".localized)
-        view.text = Date.convertToString(format: "fullDateFormat".localized, date: Date())
-        view.tag = 1002
-        view.tintColor = .clear
-        view.inputView = endDatePicker
-        return view
-    }()
-    
+
     let dayTitleLabel = {
         let view = UILabel()
-        view.text = "* \("placeOfDay".localized)"
-        view.textColor = .darkGray
-        view.font = .boldSystemFont(ofSize: 20)
+        view.textColor = .bdBlack
+        view.font = .customFont(sytle: .bold, ofSize: 15)
+        
+        let labelText = "\("placeOfDay".localized) *"
+        let attributedString = NSMutableAttributedString(string: labelText)
+
+        if let range = labelText.range(of: "*") {
+            let nsRange = NSRange(range, in: labelText)
+            attributedString.addAttribute(.foregroundColor, value: UIColor.bdRed, range: nsRange)
+        }
+        view.attributedText = attributedString
+        
         return view
     }()
     
@@ -127,19 +147,40 @@ class EditClassView: BaseView {
     let studentTitleLabel = {
         let view = UILabel()
         view.text = "studentTitleLabel".localized
-        view.textColor = .darkGray
-        view.font = .boldSystemFont(ofSize: 20)
+        view.textColor = .bdBlack
+        view.font = .customFont(sytle: .bold, ofSize: 15)
         return view
     }()
     
     let studentButton = {
-        let view = UIButton().days()
-        view.setTitle("studentButton".localized, for: .normal)
+        let view = UIButton()
+        view.setImage(.edit, for: .normal)
+        view.setImage(.edit, for: .highlighted)
+        view.contentMode = .scaleAspectFit
         return view
     }()
 
     let scrollView = UIScrollView()
+    let saveButton = TextButtonView(title: "저장")
     
+    let lineView1 = {
+       let view = UILabel()
+        view.backgroundColor = .bdLine
+        return view
+    }()
+    
+    let lineView2 = {
+       let view = UILabel()
+        view.backgroundColor = .bdLine
+        return view
+    }()
+    
+    let lineView3 = {
+       let view = UILabel()
+        view.backgroundColor = .bdLine
+        return view
+    }()
+
     override func setConfigure() {
 
         let dateFormatter = DateFormatter()
@@ -147,9 +188,12 @@ class EditClassView: BaseView {
         
         for (index, item) in [sunButton, monButton, tueButton, wedButton, thuButton, friButton, satButton].enumerated() {
             item.setTitle(dateFormatter.shortWeekdaySymbols[index], for: .normal)
+            item.snp.makeConstraints {
+                $0.height.equalTo(item.snp.width)
+            }
         }
         
-        [lineView, classNameTextField, tutoringPlaceTextField, startDateTextField, endDateTextField, stackView, dayTitleLabel, studentTitleLabel, studentButton, scrollView].forEach {
+        [lineView, classNameTextField, tutoringPlaceTextField, startDateLabel, startDateButton, endDateLabel, endDateButton, stackView, dayTitleLabel, studentTitleLabel, studentButton, scrollView, saveButton, lineView1, lineView2, lineView3].forEach {
             addSubview($0)
         }
     }
@@ -163,43 +207,71 @@ class EditClassView: BaseView {
         }
 
         classNameTextField.snp.makeConstraints { make in
-            make.top.equalTo(lineView.snp.bottom).offset(40)
+            make.top.equalTo(lineView.snp.bottom).offset(28)
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(60)
         }
         
         tutoringPlaceTextField.snp.makeConstraints { make in
-            make.top.equalTo(classNameTextField.snp.bottom).offset(8)
+            make.top.equalTo(classNameTextField.snp.bottom).offset(20)
             make.horizontalEdges.equalToSuperview().inset(24)
-            make.height.equalTo(60)
         }
-            
-        startDateTextField.snp.makeConstraints { make in
-            make.top.equalTo(tutoringPlaceTextField.snp.bottom).offset(16)
-            make.width.equalTo(self.snp.width).multipliedBy(0.4)
-            make.height.equalTo(60)
-            make.left.equalTo(self).inset(24)
+
+        lineView1.snp.makeConstraints {
+            $0.top.equalTo(tutoringPlaceTextField.snp.bottom).offset(18)
+            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.height.equalTo(1)
         }
         
-        endDateTextField.snp.makeConstraints { make in
-            make.top.equalTo(tutoringPlaceTextField.snp.bottom).offset(16)
-            make.width.equalTo(self.snp.width).multipliedBy(0.4)
-            make.height.equalTo(60)
-            make.right.equalTo(self).inset(24)
+        startDateLabel.snp.makeConstraints {
+            $0.top.equalTo(lineView1.snp.bottom).offset(12)
+            $0.width.equalTo(self.snp.width).multipliedBy(0.4)
+            $0.left.equalTo(self).inset(24)
+        }
+        
+        startDateButton.snp.makeConstraints {
+            $0.top.equalTo(startDateLabel.snp.bottom).offset(4)
+            $0.width.equalTo(self.snp.width).multipliedBy(0.4)
+            $0.leading.equalTo(self).inset(24)
+            $0.height.equalTo(44)
+        }
+        
+        endDateLabel.snp.makeConstraints {
+            $0.top.equalTo(startDateLabel.snp.top)
+            $0.width.equalTo(self.snp.width).multipliedBy(0.4)
+            $0.right.equalTo(self).inset(24)
+        }
+        
+        endDateButton.snp.makeConstraints {
+            $0.top.equalTo(endDateLabel.snp.bottom).offset(4)
+            $0.width.equalTo(self.snp.width).multipliedBy(0.4)
+            $0.trailing.equalTo(self).inset(24)
+            $0.height.equalTo(44)
+        }
+        
+        lineView2.snp.makeConstraints {
+            $0.top.equalTo(endDateButton.snp.bottom).offset(12)
+            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.height.equalTo(1)
         }
         
         dayTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(endDateTextField.snp.bottom).offset(24)
+            make.top.equalTo(lineView2.snp.bottom).offset(12)
             make.horizontalEdges.equalTo(self).inset(24)
         }
-        
+
         stackView.snp.makeConstraints { make in
             make.top.equalTo(dayTitleLabel.snp.bottom).offset(8)
             make.horizontalEdges.equalTo(self).inset(24)
         }
         
+        lineView3.snp.makeConstraints {
+            $0.top.equalTo(stackView.snp.bottom).offset(12)
+            $0.horizontalEdges.equalToSuperview().inset(24)
+            $0.height.equalTo(1)
+        }
+        
         studentTitleLabel.snp.makeConstraints { make in
-            make.top.equalTo(stackView.snp.bottom).offset(24)
+            make.top.equalTo(lineView3.snp.bottom).offset(12)
             make.left.equalTo(self).offset(24)
         }
         
@@ -212,6 +284,11 @@ class EditClassView: BaseView {
             make.top.equalTo(studentTitleLabel.snp.bottom).offset(16)
             make.height.equalTo(50)
             make.horizontalEdges.equalTo(self).offset(24)
+        }
+        
+        saveButton.snp.makeConstraints {
+            $0.bottom.equalTo(keyboardLayoutGuide.snp.top)
+            $0.horizontalEdges.equalToSuperview().inset(8)
         }
     }
 }

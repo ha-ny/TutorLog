@@ -15,44 +15,48 @@ class EditStudentView: BaseView {
     
     let lineView = {
        let view = UILabel()
-        view.backgroundColor = .systemGray5
+        view.backgroundColor = .bdLine
         return view
     }()
     
     lazy var nameTextField = {
-        let view = UITextField().hoshi(title: "* \("placeOfName".localized)")
-        view.tag = 0
-        view.returnKeyType = .continue
+        let view = TextFieldView(title: "\("placeOfName".localized) *", placeholder: "placeOfName".localized)
+        view.textField.tag = 0
+        view.textField.returnKeyType = .next
+        
+        let labelText = "\("placeOfName".localized) *"
+        let attributedString = NSMutableAttributedString(string: labelText)
+
+        if let range = labelText.range(of: "*") {
+            let nsRange = NSRange(range, in: labelText)
+            attributedString.addAttribute(.foregroundColor, value: UIColor.bdRed, range: nsRange)
+        }
+        view.label.attributedText = attributedString
         return view
     }()
     
     lazy var studentPhoneNumTextField = {
-        let view = UITextField().hoshi(title: "placeOfStudentPhoneNum".localized)
-        view.tag = 1
-        view.keyboardType = .numberPad
+        let view = TextFieldView(title: "placeOfStudentPhoneNum".localized, placeholder: "placeOfStudentPhoneNum".localized)
+        view.textField.tag = 1
+        view.textField.keyboardType = .numberPad
         return view
     }()
  
     lazy var parentPhoneNumTextField = {
-        let view = UITextField().hoshi(title: "placeOfParentPhoneNum".localized)
-        view.tag = 2
-        view.keyboardType = .numberPad
+        let view = TextFieldView(title: "placeOfParentPhoneNum".localized, placeholder: "placeOfParentPhoneNum".localized)
+        view.textField.tag = 2
+        view.textField.keyboardType = .numberPad
         return view
     }()
     
     lazy var addressTextField = {
-        let view = UITextField().hoshi(title: "placeOfAddress".localized)
-        view.tag = 3
-        view.returnKeyType = .continue
+        let view = TextFieldView(title: "placeOfAddress".localized, placeholder: "placeOfAddress".localized)
+        view.textField.tag = 3
+        view.textField.returnKeyType = .done
         return view
     }()
     
-    lazy var memoTextField = {
-        let view = UITextField().hoshi(title: "placeOfMemo".localized)
-        view.returnKeyType = .done
-        view.tag = 4
-        return view
-    }()
+    lazy var saveButton = TextButtonView(title: "저장")
 
     override func setConfigure() {
         addSubview(lineView)
@@ -60,7 +64,7 @@ class EditStudentView: BaseView {
         addSubview(studentPhoneNumTextField)
         addSubview(parentPhoneNumTextField)
         addSubview(addressTextField)
-        addSubview(memoTextField)
+        addSubview(saveButton)
     }
     
     override func setConstraint() {
@@ -72,33 +76,28 @@ class EditStudentView: BaseView {
         }
         
         nameTextField.snp.makeConstraints { make in
-            make.top.equalTo(self.safeAreaLayoutGuide).offset(40)
-            make.horizontalEdges.equalToSuperview().inset(45)
-            make.height.equalTo(60)
+            make.top.equalTo(self.safeAreaLayoutGuide).offset(28)
+            make.horizontalEdges.equalToSuperview().inset(24)
         }
         
         studentPhoneNumTextField.snp.makeConstraints { make in
-            make.top.equalTo(nameTextField.snp.bottom).offset(6)
-            make.horizontalEdges.equalToSuperview().inset(45)
-            make.height.equalTo(60)
+            make.top.equalTo(nameTextField.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview().inset(24)
         }
 
         parentPhoneNumTextField.snp.makeConstraints { make in
-            make.top.equalTo(studentPhoneNumTextField.snp.bottom).offset(6)
-            make.horizontalEdges.equalToSuperview().inset(45)
-            make.height.equalTo(60)
+            make.top.equalTo(studentPhoneNumTextField.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview().inset(24)
         }
         
         addressTextField.snp.makeConstraints { make in
-            make.top.equalTo(parentPhoneNumTextField.snp.bottom).offset(6)
-            make.horizontalEdges.equalToSuperview().inset(45)
-            make.height.equalTo(60)
+            make.top.equalTo(parentPhoneNumTextField.snp.bottom).offset(20)
+            make.horizontalEdges.equalToSuperview().inset(24)
         }
         
-        memoTextField.snp.makeConstraints { make in
-            make.top.equalTo(addressTextField.snp.bottom).offset(6)
-            make.horizontalEdges.equalToSuperview().inset(45)
-            make.height.equalTo(60)
+        saveButton.snp.makeConstraints {
+            $0.bottom.equalTo(keyboardLayoutGuide.snp.top)
+            $0.horizontalEdges.equalToSuperview().inset(8)
         }
     }
 }

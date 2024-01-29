@@ -9,21 +9,14 @@ import UIKit
 import FSCalendar
 
 class CalendarView: BaseView {
-        
     let yearMonthLabel = {
         let view = UILabel()
         view.text = Date.convertToString(format: "yearMonthFormat".localized, date: Date())
-        view.font = .boldSystemFont(ofSize: 20)
+        view.textColor = .bdBlue
+        view.font = .customFont(sytle: .bold, ofSize: 18)
         return view
     }()
-    
-//    let searchButton = {
-//        let view = UIButton()
-//        view.setImage(UIImage(systemName: "magnifyingglass"), for: .normal)
-//        view.tintColor = .black
-//        return view
-//    }()
-    
+
     let todayButton = {
         let view = UIButton()
         view.setImage(UIImage(systemName: "arrow.uturn.backward"), for: .normal)
@@ -34,117 +27,48 @@ class CalendarView: BaseView {
     let calendar = {
        let view = FSCalendar()
         view.locale = Locale.current
-        
+
         // 상단 요일
-        view.appearance.weekdayFont = .systemFont(ofSize: 14)
-        view.appearance.weekdayTextColor = .black
+        view.appearance.weekdayFont = .customFont(ofSize: 16)
+        view.appearance.weekdayTextColor = .bdBlack
         
-        for (index, item) in Calendar.current.shortWeekdaySymbols.enumerated() {
-            view.calendarWeekdayView.weekdayLabels[index].text = item
-        }
-
         // 숫자 폰트 사이즈
-        view.appearance.titleFont = .systemFont(ofSize: 16)
-
-        view.calendarHeaderView.isHidden = true //Header
-        view.appearance.borderRadius = 1 // 선택시: 네모(0)
-        view.appearance.headerMinimumDissolvedAlpha = 0.0 //전후 년, 월 지우기
-        view.placeholderType = .none // 이번 달 날짜만 나오도록
+        view.appearance.titleFont = .customFont(ofSize: 14)
         
-        view.appearance.selectionColor = .gray
-        view.appearance.todayColor = .systemGray4
+        view.calendarHeaderView.isHidden = true
+        view.headerHeight = 0
+        view.appearance.titleSelectionColor = UIColor.black
+        view.appearance.borderRadius = 0.4
+        view.appearance.selectionColor = .darkGray.withAlphaComponent(0.1)
+        view.appearance.todayColor = .bdLine
+        view.weekdayHeight = 35
         
-        return view
-    }()
-    
-    let lineImageView = {
-        let view = UIImageView()
-        view.image = UIImage(named: "grab")
-        view.contentMode = .scaleAspectFill
-        return view
-    }()
-    
-    var selectDateLabel = {
-        let view = UILabel()
-        view.font = .boldSystemFont(ofSize: 13)
-        view.textColor = .signatureColor
-        return view
-    }()
-    
-    let tableView = {
-        let view = UITableView()
-        view.separatorInset = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
-        view.separatorStyle = .none
         return view
     }()
     
     override func setConfigure() {
         addSubview(calendar)
         addSubview(yearMonthLabel)
-        //addSubview(searchButton)
+        addSubview(yearMonthLabel)
         addSubview(todayButton)
-        addSubview(lineImageView)
-        addSubview(selectDateLabel)
-        addSubview(tableView)
     }
-    
-    func setCalendarHeight(height: CGFloat) {
-        calendar.snp.removeConstraints() // 기존 제약 조건 제거
 
-        calendar.snp.makeConstraints { make in
-            make.top.equalTo(yearMonthLabel.snp.bottom).inset(25)
-            make.centerX.equalTo(self)
-            make.width.equalTo(self.snp.width).multipliedBy(0.9)
-            make.height.equalTo(height)
-        }
-
-        self.layoutIfNeeded() // 레이아웃 업데이트
-    }
-    
     override func setConstraint() {
-        yearMonthLabel.snp.makeConstraints { make in
-            make.top.left.equalTo(self.safeAreaLayoutGuide).inset(20)
+        yearMonthLabel.snp.makeConstraints {
+            $0.top.equalTo(safeAreaLayoutGuide).inset(10)
+            $0.leading.equalToSuperview().inset(26)
         }
-        
-        todayButton.snp.makeConstraints { make in
-            make.right.equalTo(self).inset(20)
-            make.top.equalTo(self).inset(20)
-            make.size.equalTo(30)
+
+        todayButton.snp.makeConstraints {
+            $0.trailing.equalToSuperview().inset(26)
+            $0.top.equalTo(safeAreaLayoutGuide).inset(10)
+            $0.size.equalTo(30)
         }
-        
-//        todayButton.snp.makeConstraints { make in
-//            make.right.equalTo(searchButton.snp.left)
-//            make.top.bottom.equalTo(searchButton)
-//            make.size.equalTo(30)
-//        }
-        
-//        searchButton.snp.makeConstraints { make in
-//            make.size.equalTo(30)
-//            make.top.right.equalTo(self.safeAreaLayoutGuide).inset(20)
-//        }
-        
-        calendar.snp.makeConstraints { make in
-            make.top.equalTo(yearMonthLabel.snp.bottom).inset(25)
-            make.centerX.equalTo(self)
-            make.width.equalTo(self.snp.width).multipliedBy(0.9)
-            make.height.equalTo(calendar.snp.width)
-            
-        }
-        
-        lineImageView.snp.makeConstraints { make in
-            make.top.equalTo(calendar.snp.bottom).offset(8)
-            make.horizontalEdges.equalTo(self)
-            make.height.equalTo(0.7)
-        }
-        
-        selectDateLabel.snp.makeConstraints { make in
-            make.top.equalTo(lineImageView.snp.bottom).offset(18)
-            make.leading.equalTo(calendar)
-        }
-        
-        tableView.snp.makeConstraints { make in
-            make.top.equalTo(selectDateLabel.snp.bottom)
-            make.bottom.horizontalEdges.equalTo(self.safeAreaLayoutGuide).inset(16)
+
+        calendar.snp.makeConstraints {
+            $0.top.equalTo(yearMonthLabel.snp.bottom).offset(10)
+            $0.bottom.equalTo(safeAreaLayoutGuide).offset(-10)
+            $0.horizontalEdges.equalToSuperview().inset(16)
         }
     }
 }

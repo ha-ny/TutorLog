@@ -7,19 +7,17 @@
 */
 
 //TabBarName
-"calendarTabTitle" = "캘린더";
+"studentTabTitle" = "학생";
+"studentEditViewTitle" = "정보";
 
-"studentTabTitle" = "학생관리";
-"studentEditViewTitle" = "학생정보";
-
-"scheduleTabTitle" = "수업관리";
-"scheduleEditViewTitle" = "수업정보";
+"scheduleTabTitle" = "수업";
+"scheduleEditViewTitle" = "정보";
 
 //customMessageAlert
 "alertOKButtonTitle" = "확인";
 
 //DateFormat
-"yearMonthFormat" = "yyyy년 MMMM"; //"yyyy년 MM월";
+"yearMonthFormat" = "yyyy.MM"; //"yyyy년 MM월";
 "fullDateFormat" = "yyyy년 MMMM dd일"; //"yyyy년 MM월 dd일"
 
 //searchBar - placeholder
@@ -36,7 +34,7 @@
 "placeOfTutoringPlace" = "수업 장소";
 "placeOfStartDate" = "시작일";
 "placeOfEndDate" = "종료일";
-"placeOfDay" = "수업 요일 선택";
+"placeOfDay" = "요일 선택";
 
 //DatePickHalfView - Label Text
 "startLabel" = "시작 시간";

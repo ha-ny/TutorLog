@@ -15,7 +15,6 @@ class CalendarViewController: UIViewController {
     
     var data: [CalendarTable]?
     var selectDate = Date()
-    var isTodayButtonTap = false
     
     override func loadView() {
         super.loadView()
@@ -23,30 +22,16 @@ class CalendarViewController: UIViewController {
     }
     
     override func viewDidLoad() {
-        view.backgroundColor = .white
-        mainView.todayButton.addTarget(self, action: #selector(todayButtonTapped), for: .touchUpInside)
-        //mainView.searchButton.addTarget(self, action: #selector(searchButtonTapped), for: .touchUpInside)
-        
-        mainView.tableView.register(CalendarTableViewCell.self, forCellReuseIdentifier: String(describing: CalendarTableViewCell.self))
-        
+        super.viewDidLoad()
+        view.backgroundColor = .bgPrimary
         mainView.calendar.delegate = self
         mainView.calendar.dataSource = self
-        mainView.tableView.delegate = self
-        mainView.tableView.dataSource = self
+
+        NotificationCenter.default.addObserver(self, selector: #selector(calendarReload), name: .calendarReload, object: nil)
+        mainView.todayButton.addTarget(self, action: #selector(todayButtonTapped), for: .touchUpInside)
         
         bind()
         todayButtonTapped()
-        
-        let swipeUp = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeView(_:)))
-        swipeUp.direction = .up
-        self.view.addGestureRecognizer(swipeUp)
-        
-        let swipeDown = UISwipeGestureRecognizer(target: self, action: #selector(didSwipeView(_:)))
-        swipeDown.direction = .down
-        self.view.addGestureRecognizer(swipeDown)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(calendarReload), name: .calendarReload, object: nil)
-        
         appVersionCheck()
     }
 
@@ -75,143 +60,111 @@ class CalendarViewController: UIViewController {
                 mainView.yearMonthLabel.text = text
             } else if case .calendarDidSelect(let data) = eventType {
                 self.data = data
-                mainView.tableView.reloadData()
             }
         }
     }
-    
-    @objc func didSwipeView(_ sender: UISwipeGestureRecognizer) {
-        if sender.direction == .up {
-            mainView.calendar.scope = .week
-        }
-        else if sender.direction == .down {
-            mainView.calendar.scope = .month
-        }
-    }
-    
+
     @objc func calendarReload() {
         mainView.calendar.reloadData()
-        calendar(mainView.calendar, didSelect: selectDate, at: .current)
     }
-    
-    //    @objc func searchButtonTapped() {
-    //        let vc = CalendarSearchViewController()
-    //        present(vc, animated: true)
-    //    }
-    
+
     //오늘 날짜로 돌아오기
     @objc func todayButtonTapped() {
-        isTodayButtonTap = true
-        
         selectDate = Date()
         mainView.calendar.select(selectDate)
         selectDateSetting()
     }
 }
 
-extension CalendarViewController: UITableViewDelegate, UITableViewDataSource {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return data?.count ?? 0
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let selectDate = mainView.calendar.selectedDate else { return UITableViewCell() }
-        guard let data else { return UITableViewCell() }
-        
-        //errorHandling
-        do {
-            guard let cellSetting = try viewModel.cellSetting(data: data[indexPath.row], selectDate: selectDate) else { return UITableViewCell() }
-            let classData = cellSetting.classData
-            
-            guard let cell = mainView.tableView.dequeueReusableCell(withIdentifier: String(describing: CalendarTableViewCell.self)) as? CalendarTableViewCell else { return UITableViewCell() }
-            cell.setting()
-            cell.timeLabel.text = cellSetting.time
-            cell.classNameLabel.text = classData.className
-            cell.tutoringPlaceLabel.text = classData.tutoringPlace
-            
-            if classData.tutoringPlace.isEmpty {
-                cell.centerYClassNameLabel()
-            }
-            
-            cell.selectionStyle = .none
-            return cell
-        } catch let realmError as RealmErrorType {
-            let errorDescription = realmError.description
-            UIAlertController.customMessageAlert(view: self, title: errorDescription.title, message: errorDescription.message)
-        } catch { }
-        
-        return UITableViewCell()
-    }
-}
-
 extension CalendarViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
-    
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        let day = Calendar.current.component(.weekday, from: date) - 1
-        
-        if day == 0 {
-            return .systemRed
-        } else if day == 6 {
-            return .systemBlue
-        } else {
-            return .black
-        }
+        let weekday = Calendar.current.component(.weekday, from: date)
+        return weekday == 1 ? .bdRed : (weekday == 7 ? .bdBlue : .bdBlack)
     }
     
     func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at monthPosition: FSCalendarMonthPosition) {
         
         for subview in cell.subviews {
-            if subview is UILabel {
+            if let _ = subview as? UILabel {
                 subview.removeFromSuperview()
             }
         }
         
-        //errorHandling
-        do {
-            guard let data = try viewModel.calendarWillDisplay(date: date) else { return }
-            
-            if !data.isEmpty {
-                let label = UILabel(frame: CGRect(x: 28, y: 25, width: 14, height: 14))
-                label.layer.backgroundColor = UIColor.signatureColor.cgColor
-                label.layer.cornerRadius = 6
-                label.font = .boldSystemFont(ofSize: 9)
-                label.textAlignment = .center
-                label.textColor = .white
-                
-                label.text = "\(data.count)"
-                cell.addSubview(label)
-            }
-        } catch let realmError as RealmErrorType {
-            let errorDescription = realmError.description
-            UIAlertController.customMessageAlert(view: self, title: errorDescription.title, message: errorDescription.message)
-        } catch { }
+        cell.titleLabel.alpha = cell.isPlaceholder ? 0.4 : 1
+
+        let dayText = "\(Calendar.current.component(.day, from: date))"
+        let attributedString = NSMutableAttributedString(string: dayText)
+        attributedString.addAttribute(.baselineOffset, value: CGFloat(50), range: NSRange(location: 0, length: attributedString.length))
+        cell.titleLabel.attributedText = attributedString
+        
+        //row line
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: cell.frame.width, height: 1))
+        label.layer.backgroundColor = UIColor.bdLine.cgColor
+        cell.addSubview(label)
+        
+        if !cell.isPlaceholder {
+            //errorHandling
+            do {
+                let data = try viewModel.calendarWillDisplay(date: date)
+
+                if !data.isEmpty {
+                    for (index, item) in data.enumerated() {
+                        guard index < 3 else {
+                            guard cell.frame.height > 90 else { return }
+                            
+                            let label = UILabel(frame: CGRect(x: 0, y: 82, width: cell.bounds.width, height: 15))
+                            label.font = .customFont(ofSize: 10)
+                            label.text = "+\(data.count - 3)"
+                            label.textAlignment = .center
+                            label.textColor = .bdBlack
+                            cell.addSubview(label)
+                            return
+                        }
+                        
+                        let y = [30, 48, 66] // 사이 간격: 3
+                        let color: [UIColor] = [.pkBlue, .pkBlue2, .pkBlue3]
+                        let label = UILabel(frame: CGRect(x: 5, y: y[index], width: Int(cell.bounds.width) - 10, height: 15))
+                        label.font = .customFont(ofSize: 10)
+                        label.text =  Date.convertToString(format: "HH:mm", date: item.startTime)
+                        label.textAlignment = .center
+                        label.layer.cornerRadius = 2
+                        label.textColor = .bdBlack
+                        label.backgroundColor = color[index]
+                        label.clipsToBounds = true
+                        cell.addSubview(label)
+                    }
+                }
+            } catch let realmError as RealmErrorType {
+                let errorDescription = realmError.description
+                UIAlertController.customMessageAlert(view: self, title: errorDescription.title, message: errorDescription.message)
+            } catch { }
+        }
     }
     
     //캘린더 스크롤 감지
     func calendarCurrentPageDidChange(_ calendar: FSCalendar) {
-        if !isTodayButtonTap {
-            selectDate = calendar.currentPage
-            mainView.calendar.select(selectDate)
-            selectDateSetting()
-        } else { isTodayButtonTap.toggle() }
+        selectDate = calendar.currentPage
+        //mainView.calendar.select(selectDate)
+        selectDateSetting()
     }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         selectDate = date
         selectDateSetting()
+
+        let vc = CalendarDetailViewController(date: date)
+        if let sheet = vc.sheetPresentationController {
+            sheet.detents = [.medium(), .large()]
+        }
+        
+        present(vc, animated: true)
     }
     
     func selectDateSetting() {
         viewModel.calendarPageChange(date: selectDate)
-        mainView.selectDateLabel.text =  "📝 \(Date.convertToString(format: "fullDateFormat".localized, date: selectDate)) "
         
         errorHandling {
             try viewModel.calendarDidSelect(date: selectDate)
         }
-    }
-    
-    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
-        mainView.setCalendarHeight(height: bounds.height)
     }
 }

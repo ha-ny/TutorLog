@@ -7,19 +7,17 @@
 */
 
 // TabBarName
-"calendarTabTitle" = "Calendar";
+"studentTabTitle" = "Student";
+"studentEditViewTitle" = "Information";
 
-"studentTabTitle" = "Student Management";
-"studentEditViewTitle" = "Student Information";
-
-"scheduleTabTitle" = "Class Management";
-"scheduleEditViewTitle" = "Class Information";
+"scheduleTabTitle" = "Class";
+"scheduleEditViewTitle" = "Information";
 
 // customMessageAlert
 "alertOKButtonTitle" = "OK";
 
 //DateFormat
-"yearMonthFormat" = "MMMM yyyy";
+"yearMonthFormat" = "MM. yyyy";
 "fullDateFormat" = "MMMM dd, yyyy";
 
 // searchBar - placeholder
@@ -36,7 +34,7 @@
 "placeOfTutoringPlace" = "Class Location";
 "placeOfStartDate" = "Start Date";
 "placeOfEndDate" = "End Date";
-"placeOfDay" = "Select Class Day";
+"placeOfDay" = "Select Day";
 
 // DatePickHalfView - Label Text
 "startLabel" = "Start Time";
