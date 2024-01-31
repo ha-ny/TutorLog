@@ -43,7 +43,6 @@ class CalendarViewController: UIViewController {
                     UIAlertController.customMessageAlert(view: self, title: "appVersionCheckTitle".localized, message: "appVersionCheckMessage".localized) {
                         if UIApplication.shared.canOpenURL(url) {
                             UIApplication.shared.open(url, options: [:]) { _ in
-                                exit(0)
                             }
                         }
                     }
