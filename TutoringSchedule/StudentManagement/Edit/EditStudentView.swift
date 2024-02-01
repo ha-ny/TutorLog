@@ -56,7 +56,7 @@ class EditStudentView: BaseView {
         return view
     }()
     
-    lazy var saveButton = TextButtonView(title: "저장")
+    lazy var saveButton = TextButtonView(title: "saveButtonTitle".localized)
 
     override func setConfigure() {
         addSubview(lineView)

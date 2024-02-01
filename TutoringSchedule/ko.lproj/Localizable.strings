@@ -47,6 +47,7 @@
 "addButtonTapped" = "선택완료";
 "okButtonTapped" = "완료";
 "deleteButtonTapped" = "삭제";
+"saveButtonTitle" = "저장";
 
 // AppVersionCheck
 "appVersionCheckTitle" = "업데이트";

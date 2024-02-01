@@ -161,7 +161,7 @@ class EditClassView: BaseView {
     }()
 
     let scrollView = UIScrollView()
-    let saveButton = TextButtonView(title: "저장")
+    let saveButton = TextButtonView(title: "saveButtonTitle".localized)
     
     let lineView1 = {
        let view = UILabel()

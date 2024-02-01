@@ -47,6 +47,7 @@
 "addButtonTapped" = "Complete Selection";
 "okButtonTapped" = "Complete";
 "deleteButtonTapped" = "Delete";
+"saveButtonTitle" = "Save";
 
 // AppVersionCheck
 "appVersionCheckTitle" = "Update";

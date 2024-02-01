@@ -16,13 +16,14 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="LaunchScreen" translatesAutoresizingMaskIntoConstraints="NO" id="W1P-gV-d0N">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Splash.png" translatesAutoresizingMaskIntoConstraints="NO" id="W1P-gV-d0N">
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </imageView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" red="0.79588896040000001" green="0.8206391931" blue="0.96266549830000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="W1P-gV-d0N" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="92o-B1-Ck3"/>
                             <constraint firstItem="W1P-gV-d0N" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" id="Mnq-RU-dLf"/>
@@ -39,6 +40,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="LaunchScreen" width="1046" height="2265"/>
+        <image name="Splash.png" width="1046" height="2265"/>
     </resources>
 </document>
